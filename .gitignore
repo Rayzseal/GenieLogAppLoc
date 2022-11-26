@@ -8,9 +8,9 @@ target/
 
 ### Eclipse ###
 .apt_generated
-.classpath
+App/.classpath
 .factorypath
-.project
-App/.settings
+App/.project
+App/.settings/*
 .springBeans
 .sts4-cache
