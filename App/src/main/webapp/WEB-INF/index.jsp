@@ -4,9 +4,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css" type="text/css"/>
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<p> Du joli contenu ! </p>
+		<header class="header">
+		  	<a href="" class="logo">LOGO</a>
+		  	<ul class="menu">
+		    	<li><a href="#">Accueil</a></li>
+		    	<li><a href="#">A propos</a></li>
+		    	<li><a href="#">Matériels</a></li>
+		    	<li><a href="#">Se connecter</a></li>
+		  	</ul>
+		</header>
+		<main>
+			<p> Du joli contenu ! </p>
+		</main>
 	</body>
 </html>
