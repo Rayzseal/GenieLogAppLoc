@@ -1,16 +1,2 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/App/src/main/**/target/
-!**/App/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea/
-
-### Eclipse ###
-.apt_generated
-App/.classpath
-.factorypath
-App/.project
-App/.settings/*
-.springBeans
-.sts4-cache
+node_modules/*
+.idea
