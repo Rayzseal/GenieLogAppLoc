@@ -11,8 +11,14 @@ app.get("/", function (req, res) {
 	});
 });
 
+app.get("/menu", function (req, res) {
+	res.render('menu.ejs', {
+		name: "menu"
+	});
+});
 
 
 app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur ${PORT}`);
+
 });
