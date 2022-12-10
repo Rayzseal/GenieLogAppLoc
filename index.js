@@ -1,5 +1,13 @@
+"use strict"
+
 const express = require("express");
-const app     = express();
+const app = express();
+const database = require("./lib/database");
+
+const db = database.Database.load();
+
+db.company.addEmploye(new database.Employe("Intel", "letnI", "zemodepasse"));
+db.save();
 
 const PORT = 3000;
 

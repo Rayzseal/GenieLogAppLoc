@@ -43,22 +43,22 @@ export class Location {
 }
 
 export class Company {
-  #employes: Array<Employe>;
-  #materiels: Array<Materiel>;
-  #locations: Array<Location>;
+  private employes: Array<Employe>;
+  private materiels: Array<Materiel>;
+  private locations: Array<Location>;
 
   constructor() {
-    this.#employes = [];
-    this.#materiels = [];
-    this.#locations = [];
+    this.employes = [];
+    this.materiels = [];
+    this.locations = [];
   }
 
   getEmployes(): ReadonlyArray<Employe> {
-    return this.#employes;
+    return this.employes;
   }
 
   addEmploye(employe: Employe) {
-    this.#employes.push(employe);
+    this.employes.push(employe);
   }
 
   #removeEmployeCascade(employe: Employe) {
@@ -68,55 +68,55 @@ export class Company {
   removeEmploye(employe: Employe, cascade: boolean = false) {
     if (cascade) {
       this.#removeEmployeCascade(employe);
-    } else if (this.#locations.find((location) => location.employe == employe)) {
+    } else if (this.locations.find((location) => location.employe == employe)) {
       // Can't remove employee with a dangling reference whithin locations.
       throw "Can't delete the employe while a location is active";
     }
 
-    this.#employes = this.#employes.filter(e => e != employe);
+    this.employes = this.employes.filter(e => e != employe);
   }
 
   getMateriels(): ReadonlyArray<Materiel> {
-    return this.#materiels;
+    return this.materiels;
   }
 
   addMateriels(materiel: Materiel) {
-    this.#materiels.push(materiel);
+    this.materiels.push(materiel);
   }
 
   #removeMaterielCascade(materiel: Materiel) {
-    this.#locations = this.#locations.filter(location => location.materiel == materiel);
+    this.locations = this.locations.filter(location => location.materiel == materiel);
   }
 
   removeMateriel(materiel: Materiel, cascade: boolean = false) {
     if (cascade) {
       this.#removeMaterielCascade(materiel);
-    } else if (this.#locations.find((location) => location.materiel == materiel)) {
+    } else if (this.locations.find((location) => location.materiel == materiel)) {
       // Can't remove employee with a dangling reference whithin locations.
       throw "Can't delete the materiel while a location is active";
     }
 
-    this.#materiels = this.#materiels.filter(m => m != materiel);
+    this.materiels = this.materiels.filter(m => m != materiel);
   }
 
   getLocations(): ReadonlyArray<Location> {
-    return this.#locations;
+    return this.locations;
   }
 
   addLocation(location: Location) {
-    if (!this.#employes.find(e => location.employe == e)) {
+    if (!this.employes.find(e => location.employe == e)) {
       throw "Employee doesn't exist in database";
     }
 
-    if (!this.#materiels.find(m => location.materiel == m)) {
+    if (!this.materiels.find(m => location.materiel == m)) {
       throw "Materiel doesn't exist in database";
     }
 
-    this.#locations.push(location);
+    this.locations.push(location);
   }
 
   removeLocation(location: Location) {
-    this.#locations = this.#locations.filter(l => l == location);
+    this.locations = this.locations.filter(l => l == location);
   }
 }
 
@@ -138,7 +138,7 @@ export class Database {
     }
   }
 
-  static save(path: string = "db.json") {
+  save(path: string = "db.json") {
     let json = JSON.stringify(this);
     writeFileSync(path, json);
   }
