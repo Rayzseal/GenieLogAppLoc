@@ -19,9 +19,18 @@ app.get("/", function (req, res) {
 	});
 });
 
-app.get("/menu", function (req, res) {
-	res.render('menu.ejs', {
-		name: "menu"
+app.get("/newUser", function (req, res) {
+	res.render('newUser.ejs', {
+		
+	});
+});
+
+app.get("/modifyUser", function (req, res) {
+	res.render('modifyUser.ejs', {
+		name : "Jean",
+		surname : "Lasalle",
+		email : "exemple@mail.com",
+		mat : "1234ABC"
 	});
 });
 
