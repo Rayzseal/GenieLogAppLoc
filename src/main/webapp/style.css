@@ -25,6 +25,8 @@ header {
 }
 
 header ul {
+  display: flex;
+  flex-direction: row;
   margin: 0;
   padding: 0;
   padding: 10px;
@@ -34,7 +36,6 @@ header ul {
 }
 
 header li a {
-  display: block;
   padding: 20px 20px;
   text-decoration: none;
   color : var(--title);
@@ -59,7 +60,6 @@ header .logo {
 
 header .menu {
   clear: both;
-  max-height: 0;
   transition: max-height .2s ease-out;
 }
 
