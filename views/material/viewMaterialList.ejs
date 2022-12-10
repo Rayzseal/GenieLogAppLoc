@@ -1,0 +1,44 @@
+<html lang="fr">
+	<head>
+		<%- include('../included/common.ejs') %>
+		<title>Liste des matériels</title>
+		<link rel="stylesheet" href="/public/styles/material/viewMaterialList.css"/>
+	</head>
+
+	<body>
+		<%- include('../included/menu.ejs') %>
+
+		<h1>Liste de matériels</h1>
+		<menu>
+			<li>
+				<label>
+					Filter
+					<input type="text" placeholder="Dell">
+				</label>
+			</li>
+			<li>
+				<button>Nouveau</button>
+			</li>
+		</menu>
+
+		<ul>
+			<li>
+				<img src="" alt="Image de l'appareil" />
+				<div>
+					<p>Nom</p>
+					<p>Version</p>
+					<button>Réserver</button>
+				</div>
+			</li>
+
+			<li>
+				<img src="" alt="Image de l'appareil" />
+				<div>
+					<p>Nom</p>
+					<p>Version</p>
+					<button>Réserver</button>
+				</div>
+			</li>
+		</ul>
+	</body>
+</html>
