@@ -123,23 +123,25 @@ export class Company {
 export class Database {
   readonly company: Company;
 
-  constructor() {
-    this.company = new Company();
+  constructor(company: Company) {
+    this.company = company;
   }
 
-  static load(path: string = "db.json"): Database {
+  static load(path: string = "db.json") {
     try {
       let content = readFileSync(path);
-      return JSON.parse(content.toString());
+      let company: Company = JSON.parse(content.toString());
+
+      return new Database(Object.assign(new Company(), company));
     } catch (error) {
       console.log(`Can't load database: ${error}, use an empty database instead.`);
-      
-      return new Database();
+
+      return new Database(new Company());
     }
   }
 
   save(path: string = "db.json") {
-    let json = JSON.stringify(this);
+    let json = JSON.stringify(this.company);
     writeFileSync(path, json);
   }
 }
