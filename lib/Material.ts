@@ -32,7 +32,7 @@ export class Material {
 	 * Getter on Id.
 	 * @returns automaticly generated id of material.
 	 */
-	public getId(): string  {
+	public getId(): string {
 		return this.id;
 	}
 
@@ -40,7 +40,7 @@ export class Material {
 	 * Getter on title.
 	 * @returns title of material.
 	 */
-	public getTitle(): string  {
+	public getTitle(): string {
 		return this.title;
 	}
 
@@ -48,7 +48,7 @@ export class Material {
 	 * Getter on version.
 	 * @returns version of material.
 	 */
-	public getVersion(): string  {
+	public getVersion(): string {
 		return this.version;
 	}
 
@@ -56,7 +56,7 @@ export class Material {
 	 * Getter on reference.
 	 * @returns reference of material.
 	 */
-	public getReference(): string  {
+	public getReference(): string {
 		return this.reference;
 	}
 
@@ -64,7 +64,7 @@ export class Material {
 	 * Getter on picture.
 	 * @returns picture of material.
 	 */
-	public getPicture(): string  {
+	public getPicture(): string {
 		return this.picture;
 	}
 
@@ -72,7 +72,7 @@ export class Material {
 	 * Getter on phone number.
 	 * @returns phone number of material.
 	 */
-	public getPhoneNumber(): string  {
+	public getPhoneNumber(): string {
 		return this.phoneNumber;
 	}
 
@@ -80,10 +80,8 @@ export class Material {
 	 * Setter on title.
 	 * @param title new title.
 	 */
-	public setTitle(title : string) {
-		var regexp = new RegExp('^[a-zA-Z0-9 ._-]{1,30}$');
-		var test = regexp.test(title);
-		if (test)
+	public setTitle(title: string) {
+		if (/^[a-zA-Z0-9 ._-]{1,30}$/.test(title))
 			this.title = title;
 		else
 			throw new Error("Title is not alphanumeric");
@@ -93,10 +91,8 @@ export class Material {
 	 * Setter on version.
 	 * @param version new version.
 	 */
-	public setVersion (version : string) {
-		var regexp = new RegExp('^([a-zA-Z0-9 ._-]){3,15}$');
-		var test = regexp.test(version);
-		if (test)
+	public setVersion(version: string) {
+		if (/^[a-zA-Z0-9 ._-]{1,30}$/.test(version))
 			this.version = version;
 		else
 			throw new Error("Version is not alphanumeric");
@@ -106,24 +102,22 @@ export class Material {
 	 * Setter on reference.
 	 * @param reference setter on reference.
 	 */
-	public setReference(reference : string) {
-		var regexp = new RegExp('^(AN|AP|XX){1}(\d){3}$');
-		var test = regexp.test(reference);
-		if (test)
+	public setReference(reference: string) {
+		if (/^(AN|AP|XX){1}(\d){3}$/.test(reference))
 			this.reference = reference;
 		else
 			throw new Error("Reference should start by either AN for android or AP for apple or XX for other and end with 3 numbers");
 
-	} 
+	}
 
 	/**
 	 * Setter on picture.
 	 * @param picture new picture.
 	 */
-	public setPicture(picture : string) {
+	public setPicture(picture: string) {
 		var regexp = new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$');
-		var test = regexp.test(picture);
-		if (test)
+
+		if (regexp.test(picture))
 			this.picture = picture;
 		else
 			throw new Error("A link should begin with either http:// or https:// and finish .jpg or .png");
@@ -133,10 +127,8 @@ export class Material {
 	 * Setter on phone number.
 	 * @param phoneNumber new phone number.
 	 */
-	public setPhoneNumber(phoneNumber : string) {
-		var regexp = new RegExp('^[0-9]{10}$');
-		var test = regexp.test(phoneNumber);
-		if (test)
+	public setPhoneNumber(phoneNumber: string) {
+		if (/^[0-9]{10}$/.test(phoneNumber))
 			this.phoneNumber = phoneNumber;
 		else
 			throw new Error("PhoneNumber should contains 10 numbers");

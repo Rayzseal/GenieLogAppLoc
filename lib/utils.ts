@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 function genUniqueId(): string {
     const dateStr = Date
       .now()
@@ -7,7 +9,7 @@ function genUniqueId(): string {
       .random()
       .toString(36)
       .substring(2, 8); // start at index 2 to skip decimal point
-  
+
     return `${dateStr}-${randomStr}`;
 }
 

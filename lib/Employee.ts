@@ -7,10 +7,10 @@ export class Employee {
 	private id: string;
 	private name: string;
 	private surname: string;
-	private email : string;
+	private email: string;
 	private password: string;
-	private role : boolean;
-	private idNumber : string;
+	private role: boolean;
+	private idNumber: string;
 
 	/**
 	 * Constructor with parameters of an employee. 
@@ -20,7 +20,7 @@ export class Employee {
 	 * @param email Email of an employee. 
 	 * @param idNumber Employee number. 
 	 */
-	constructor(name: string, surname: string, password: string, email : string, idNumber : string) {
+	public constructor(name: string, surname: string, password: string, email: string, idNumber: string) {
 		this.id = genUniqueId();
 		this.role = false;
 		this.setName(name);
@@ -82,23 +82,19 @@ export class Employee {
 	 * Setter on name.
 	 * @param name new name.
 	 */
-	public setName(name : string) {
-		var regexp = new RegExp('^[A-Za-z0-9 -]{1,30}$');
-		var test = regexp.test(name);
-		if (test)
+	public setName(name: string) {
+		if (/^[A-Za-z0-9 -]{1,30}$/.test(name))
 			this.name = name;
 		else
-			throw new Error("Name is not alphanumeric");		
+			throw new Error("Name is not alphanumeric");
 	}
 
 	/**
 	 * Setter on surname.
 	 * @param surname new surname.
 	 */
-	public setSurname(surname : string) {
-		var regexp = new RegExp('^[A-Za-z0-9 -]{1,30}$');
-		var test = regexp.test(surname);
-		if (test)
+	public setSurname(surname: string) {
+		if (/^[A-Za-z0-9 -]{1,30}$/.test(surname))
 			this.surname = surname;
 		else
 			throw new Error("Surname is not alphanumeric");
@@ -108,24 +104,20 @@ export class Employee {
 	 * Setter on password.
 	 * @param password new password.
 	 */
-	public setPassword(password : string) {
-		var regexp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$');
-		var test = regexp.test(password);
-		if (test)
+	public setPassword(password: string) {
+		if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password))
 			this.password = password;
 		else
 			throw new Error("Password should contains at least 8 characters with one uppercase letter, one lowercase letter and one number.");
-		
+
 	}
 
 	/**
 	 * Setter on email.
 	 * @param email new email.
 	 */
-	public setEmail(email : string) {
-		var regexp = new RegExp('^[^@\s]+@[^@\s]+\.[^@\s]+$');
-		var test = regexp.test(email);
-		if (test)
+	public setEmail(email: string) {
+		if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
 			this.email = email;
 		else
 			throw new Error("Email is incorrect");
@@ -135,7 +127,7 @@ export class Employee {
 	 * Setter on role.
 	 * @param role new role.
 	 */
-	public setRole(role : boolean) {
+	public setRole(role: boolean) {
 		this.role = role;
 	}
 
@@ -144,9 +136,7 @@ export class Employee {
 	 * @param idNumber new idNumber.
 	 */
 	public setIdNumber(idNumber: string) {
-		var regexp = new RegExp('^[a-zA-Z0-9]{7}$');
-		var test = regexp.test(idNumber);
-		if (test)
+		if (/^[a-zA-Z0-9]{7}$/.test(idNumber))
 			this.idNumber = idNumber;
 		else
 			throw new Error("IdNumber is not alphanumeric");
