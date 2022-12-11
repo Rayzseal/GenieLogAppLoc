@@ -131,12 +131,14 @@ app.get("/material/:id/", function (req, res) {
 app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur http://localhost:${PORT}`);
 
+	database.company.getEmployes().forEach(e => console.log(e.getIdNumber()));
+
 	// Database test additon
 	database.company.addEmployee(new Employee({
-		idNumber: "jsp",
+		idNumber: "123abcd",
 		surname: "Intel", 
 		name: "letnI",
-		password: "zemodepasse",
+		password: "Zemodepasse123",
 		email: "truc@truc.fr",
 	}));
 	database.save();

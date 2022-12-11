@@ -12,8 +12,11 @@ export class Database {
 		try {
 			let content = readFileSync(path);
 			let company: Company = JSON.parse(content.toString());
+			company = Object.assign(new Company(), company);
 
-			return new Database(Object.assign(new Company(), company));
+			company.remapClasses();
+
+			return new Database(company);
 		} catch (error) {
 			console.log(`Can't load database: ${error}, use an empty database instead.`);
 
