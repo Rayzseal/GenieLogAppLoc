@@ -86,7 +86,7 @@ export class Company {
 
     // Fix each rental.employee/material references.
     this.rentals = this.rentals.map((r: any) => {
-      r.employee = this.employees.find(e => e.getIdNumber() == r.employee.idNumber);
+      r.employee = this.employees.find(e => e.getPersonnalNumber() == r.employee.personnalNumber);
       r.material = this.materials.find(m => m.getId() == r.material.id);
 
       return new Rental(r);

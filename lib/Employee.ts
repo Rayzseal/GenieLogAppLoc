@@ -10,7 +10,7 @@ export class Employee {
 	private email: string;
 	private password: string;
 	private role: boolean;
-	private idNumber: string;
+	private personnalNumber: string;
 
 	/**
 	 * Constructor with parameters of an employee. 
@@ -18,7 +18,7 @@ export class Employee {
 	 * @param surname Surname of an employee. 
 	 * @param password Password of an employee. 
 	 * @param email Email of an employee. 
-	 * @param idNumber Employee number. 
+	 * @param personnalNumber Employee number. 
 	 */
 	public constructor(obj: {
 		id?: string,
@@ -27,7 +27,7 @@ export class Employee {
 		email: string,
 		role?: boolean,
 		password: string,
-		idNumber: string
+		personnalNumber: string
 	}) {
 		this.id = obj.id ?? genUniqueId();
 		this.role = obj.role ?? false;
@@ -35,7 +35,7 @@ export class Employee {
 		this.setSurname(obj.surname);
 		this.setPassword(obj.password);
 		this.setEmail(obj.email);
-		this.setIdNumber(obj.idNumber);
+		this.setPersonnalNumber(obj.personnalNumber);
 	}
 
 	/**
@@ -79,11 +79,11 @@ export class Employee {
 	}
 
 	/**
-	 * Getter on idNumer.
-	 * @returns idNumber of user.
+	 * Getter on personnalNumber.
+	 * @returns personnal number of user.
 	 */
-	public getIdNumber() {
-		return this.idNumber;
+	public getPersonnalNumber() {
+		return this.personnalNumber;
 	}
 
 	/**
@@ -128,7 +128,7 @@ export class Employee {
 		if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
 			this.email = email;
 		else
-			throw new Error("Email is incorrect");
+			throw new Error("Email is incorrect.");
 	}
 
 	/**
@@ -140,13 +140,13 @@ export class Employee {
 	}
 
 	/**
-	 * Setter on idNumber.
-	 * @param idNumber new idNumber.
+	 * Setter on personnalNumber.
+	 * @param idNumber new personnalNumber.
 	 */
-	public setIdNumber(idNumber: string) {
-		if (/^[a-zA-Z0-9]{7}$/.test(idNumber))
-			this.idNumber = idNumber;
+	public setPersonnalNumber(personnalNumber: string) {
+		if (/^[a-zA-Z0-9]{7}$/.test(personnalNumber))
+			this.personnalNumber = personnalNumber;
 		else
-			throw new Error("IdNumber is not alphanumeric");
+			throw new Error("Personnal number is not alphanumeric or 7 characters long.");
 	}
 }
