@@ -22,13 +22,13 @@ export class Company {
   }
 
   private removeEmployeeCascade(employee: Employee) {
-    this.rentals = this.rentals.filter(rental => rental.employee == employee);
+    this.rentals = this.rentals.filter(rental => rental.getEmployee() == employee);
   }
 
   removeEmployee(employee: Employee, cascade: boolean = false) {
     if (cascade) {
       this.removeEmployeeCascade(employee);
-    } else if (this.rentals.find((rental) => rental.employee == employee)) {
+    } else if (this.rentals.find((rental) => rental.getEmployee() == employee)) {
       // Can't remove employee with a dangling reference whithin locations.
       throw "Can't delete the employe while a location is active";
     }
@@ -45,13 +45,13 @@ export class Company {
   }
 
   private removeMaterialCascade(materiel: Material) {
-    this.rentals = this.rentals.filter(rental => rental.material == materiel);
+    this.rentals = this.rentals.filter(rental => rental.getMaterial() == materiel);
   }
 
   removeMaterial(material: Material, cascade: boolean = false) {
     if (cascade) {
       this.removeMaterialCascade(material);
-    } else if (this.rentals.find((rental) => rental.material == material)) {
+    } else if (this.rentals.find((rental) => rental.getMaterial() == material)) {
       // Can't remove employee with a dangling reference whithin locations.
       throw "Can't delete the materiel while a location is active";
     }
@@ -64,7 +64,7 @@ export class Company {
   }
 
   addRental(rental: Rental) {
-    if (!this.employees.find(e => rental.employee == e)) {
+    if (!this.employees.find(e => rental.getEmployee() == e)) {
       throw "Employee doesn't exist in database";
     }
 
@@ -81,6 +81,7 @@ export class Company {
 
   remapClasses() {
     // This method basically remaps each Object into its corresponding class instance.
+    //TOOD verify here !! loop error
     this.employees = this.employees.map((e: any) => new Employee(e));
     this.materials = this.materials.map((m: any) => new Material(m));
 

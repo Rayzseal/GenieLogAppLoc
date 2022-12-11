@@ -131,11 +131,11 @@ app.get("/material/:id/", function (req, res) {
 app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur http://localhost:${PORT}`);
 
-	database.company.getEmployes().forEach(e => console.log(e.getIdNumber()));
+	database.company.getEmployes().forEach(e => console.log(e.getPersonnalNumber()));
 
 	// Database test additon
 	database.company.addEmployee(new Employee({
-		idNumber: "123abcd",
+		idNumber: "123ABCD",
 		surname: "Intel", 
 		name: "letnI",
 		password: "Zemodepasse123",

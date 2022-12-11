@@ -147,6 +147,6 @@ export class Employee {
 		if (/^[a-zA-Z0-9]{7}$/.test(personnalNumber))
 			this.personnalNumber = personnalNumber;
 		else
-			throw new Error("Personnal number is not alphanumeric or 7 characters long.");
+			throw new Error("Personnal number is not alphanumeric or 7 characters long. : "+personnalNumber);
 	}
 }
