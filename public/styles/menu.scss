@@ -2,7 +2,6 @@ header {
 	background-color: var(--overlays-background);
 	box-shadow: var(--box-shadow);
 	width: 100%;
-	z-index: 3;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -15,15 +14,12 @@ header {
 			border-radius: 5px;
 			padding: 0.3em 0.5em;
 			cursor: pointer;
-
-			& > a {
-				color: var(--text);
-			}
+			transition: background-color 0.5s, color 0.5s;
 
 			&:hover {
-				background-color: var(--main-color);
+				background-color: var(--accent-color2);
 				& > a {
-					color: var(--text-inverted);
+					color: var(--white-text);
 				}
 			}
 		}

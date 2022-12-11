@@ -10,37 +10,37 @@
 
         <main>
             <h1>Liste des matériels</h1>
-            <menu>
-                <li>
-                    <label>
-                        Filter
-                        <input type="text" placeholder="Dell">
-                    </label>
-                </li>
-                <li>
-                    <button>Nouveau</button>
-                </li>
-            </menu>
 
-            <ul>
-                <li>
-                    <img src="" alt="Image de l'appareil"/>
-                    <div>
-                        <p>Nom</p>
-                        <p>Version</p>
-                        <button>Réserver</button>
-                    </div>
-                </li>
+            <section>
 
-                <li>
-                    <img src="" alt="Image de l'appareil"/>
-                    <div>
-                        <p>Nom</p>
-                        <p>Version</p>
-                        <button>Réserver</button>
-                    </div>
-                </li>
-            </ul>
+                <menu>
+                    <li>
+                        <label>
+                            Filtrer
+                            <input type="text" placeholder="Dell">
+                        </label>
+                    </li>
+                    <li>
+                        <button>Nouveau</button>
+                    </li>
+                </menu>
+
+                <ul>
+                    <% let i = 0;
+                            while (i++ < 50) { %>
+                        <li>
+                            <div>
+                                <img src="/public/icons/material.png" alt="Image de l'appareil"/>
+                            </div>
+                            <div>
+                                <p>IPhone 12</p>
+                                <p>258Go bleue IOS 13</p>
+                                <button onclick="window.location.href=`/material/<%= i ;%>/`">Réserver</button>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </section>
         </main>
     </body>
 </html>

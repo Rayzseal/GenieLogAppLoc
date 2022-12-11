@@ -1,12 +1,14 @@
 :root {
   --subtitle: lightgrey;
-  --text: #6c4343;
-  --text-inverted: white;
+  --black-text: #6c4343;
+  --white-text: #f2f3f4;
   --accent-color: #e09664;
-  --main-color: #6c4343;
+  --accent-color2: #6c4343;
   --page-background: #364968;
   --overlays-background: #fddf97;
+  --white-background: #f2f3f4;
   --box-shadow: rgba(255, 255, 255, 0.2) 0 7px 29px 0;
+  --box-radius: 5px;
 }
 
 body {
@@ -17,20 +19,21 @@ body {
 
 form {
   margin: 0;
-  border-radius: 15px;
+  border-radius: var(--box-radius);
   box-shadow: var(--box-shadow);
   padding: 1em;
   background-color: var(--overlays-background);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text-inverted);
+  color: var(--white-text);
   text-transform: uppercase;
 }
 
 menu, ul {
   list-style-type: none;
   margin: 0;
+  padding: 0;
 }
 
 p {
@@ -50,8 +53,13 @@ button {
   border-radius: 5px;
   cursor: pointer;
   background-color: white;
+  color: var(--black-text);
 }
 
 * {
-  color: var(--text-inverted);
+  color: var(--black-text);
+}
+
+main {
+  padding: 1em;
 }
