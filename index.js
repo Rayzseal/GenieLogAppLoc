@@ -132,6 +132,12 @@ app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur http://localhost:${PORT}`);
 
 	// Database test additon
-	database.company.addEmployee(new Employee("Intel", "letnI", "zemodepasse"));
+	database.company.addEmployee(new Employee({
+		idNumber: "jsp",
+		surname: "Intel", 
+		name: "letnI",
+		password: "zemodepasse",
+		email: "truc@truc.fr",
+	}));
 	database.save();
 });

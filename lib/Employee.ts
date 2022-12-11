@@ -20,14 +20,22 @@ export class Employee {
 	 * @param email Email of an employee. 
 	 * @param idNumber Employee number. 
 	 */
-	public constructor(name: string, surname: string, password: string, email: string, idNumber: string) {
-		this.id = genUniqueId();
-		this.role = false;
-		this.setName(name);
-		this.setSurname(surname);
-		this.setPassword(password);
-		this.setEmail(email);
-		this.setIdNumber(idNumber);
+	public constructor(obj: {
+		id?: string,
+		name: string,
+		surname: string,
+		email: string,
+		role?: boolean,
+		password: string,
+		idNumber: string
+	}) {
+		this.id = obj.id ?? genUniqueId();
+		this.role = obj.role ?? false;
+		this.setName(obj.name);
+		this.setSurname(obj.surname);
+		this.setPassword(obj.password);
+		this.setEmail(obj.email);
+		this.setIdNumber(obj.idNumber);
 	}
 
 	/**

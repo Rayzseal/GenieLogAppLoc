@@ -81,22 +81,15 @@ export class Company {
 
   remapClasses() {
     // This method basically remaps each Object into its corresponding class instance.
-    this.employees = this.employees.map((e: any) => e instanceof Employee ? e
-      : new Employee(
-        e.name, e.surname, e.password, e.email, e.idNumber
-      ));
+    this.employees = this.employees.map((e: any) => new Employee(e));
+    this.materials = this.materials.map((m: any) => new Material(m));
 
-    this.materials = this.materials.map((m: any) => m instanceof Material ? m
-      : new Material(
-        m.title, m.version, m.reference, m.picture, m.phoneNumber
-      ));
+    // Fix each rental.employee/material references.
+    this.rentals = this.rentals.map((r: any) => {
+      r.employee = this.employees.find(e => e.getIdNumber() == r.employee.idNumber);
+      r.material = this.materials.find(m => m.getId() == r.material.id);
 
-    this.rentals = this.rentals.map((r: any) => r instanceof Rental ? r
-      : new Rental(
-        this.employees.find(employee => employee.getId() == r.employee.idNumber) as Employee,
-        this.materials.find(material => material.getId() == r.material.idNumber) as Material,
-        new Date(r.dateDebut),
-        (r.dateFin != null) ? new Date(r.dateFin) : null
-      ));
+      return new Rental(r);
+    });
   }
 }

@@ -19,13 +19,20 @@ export class Material {
 	 * @param picture Picture of a material.
 	 * @param phoneNumber Phone number of a material.
 	 */
-	constructor(title: string, version: string, reference: string, picture: string, phoneNumber: string) {
-		this.id = genUniqueId();
-		this.setTitle(title);
-		this.setVersion(version);
-		this.setReference(reference);
-		this.setPicture(picture);
-		this.setPhoneNumber(phoneNumber);
+	constructor(obj: {
+		id?: string;
+		title: string;
+		version: string;
+		reference: string;
+		picture: string;
+		phoneNumber: string;
+	}) {
+		this.id = obj.id ?? genUniqueId();
+		this.setTitle(obj.title);
+		this.setVersion(obj.version);
+		this.setReference(obj.reference);
+		this.setPicture(obj.picture);
+		this.setPhoneNumber(obj.phoneNumber);
 	}
 
 	/**
