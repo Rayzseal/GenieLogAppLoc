@@ -1,1 +1,31 @@
-<p>Page de login</p>
+<html lang="fr">
+    <head>
+        <%- include('included/common.ejs') %>
+        <title>Page de connexion</title>
+        <link rel="stylesheet" href="/public/styles/login.css"/>
+    </head>
+
+    <body>
+        <main>
+            <section>
+                <h1>Connexion</h1>
+
+                <form>
+                    <img src="/public/icons/logo.png" alt="Logo de l'entreprise">
+                    <label>
+                        <p>Matricule</p>
+                        <input type="text" placeholder="abc123"/>
+                    </label>
+                    <label>
+                        <p>Mot de passe</p>
+                        <input type="password" placeholder="topSecret"/>
+                    </label>
+
+                    <button id="loginButton">Se connecter</button>
+                </form>
+            </section>
+        </main>
+    </body>
+
+    <script type="text/javascript" src="/public/scripts/login.js"></script>
+</html>

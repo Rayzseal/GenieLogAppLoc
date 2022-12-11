@@ -1,0 +1,64 @@
+//https://designs.ai/colors/palette/1505
+
+:root {
+	// Text colors
+	--subtitle: lightgrey;
+	--text: #6c4343;
+	--text-inverted: white;
+
+	// Box colors
+	--accent-color: #e09664;
+	--main-color: #6c4343;
+	--page-background: #364968;
+	--overlays-background: #fddf97;
+
+	// Box effects
+	--box-shadow: rgba(255, 255, 255, 0.2) 0 7px 29px 0;
+}
+
+body {
+	margin: 0;
+	font-family: Helvetica, sans-serif;
+	background-color: var(--page-background);
+}
+
+form {
+	margin: 0;
+	border-radius: 15px;
+	box-shadow: var(--box-shadow);
+	padding: 1em;
+	background-color: var(--overlays-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: var(--text-inverted);
+	text-transform: uppercase;
+}
+
+menu, ul {
+	list-style-type: none;
+	margin: 0;
+}
+
+p {
+	margin: 0.5em 0;
+}
+
+input {
+	border-radius: 5px;
+	background-color: white;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	border-radius: 5px;
+	cursor: pointer;
+	background-color: white;
+}
+
+* {
+	color: var(--text-inverted);
+}

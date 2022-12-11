@@ -1,11 +1,15 @@
 <html lang="fr">
 	<head>
+		<%- include('included/common.ejs') %>
 		<title>Accueil</title>
 		<link rel="stylesheet" href="/public/styles/home.css"/>
-		<%- include('included/common.ejs') %>
 	</head>
-	<%- include('included/menu.ejs')%>
+
 	<body>
-		<p>Coucou zzzz  uihghrdhzhdhiogieorgir <%= name %></p>
+		<%- include('included/menu.ejs')%>
+		<main>
+			<h1>Bonjour <%= name %></h1>
+
+		</main>
 	</body>
 </html>

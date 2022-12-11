@@ -1,9 +1,9 @@
 :root {
-    --title: #2D232E;
+    --main-color: #2D232E;
     --subtitle: #474448;
     --text: #534B52;
-    --underline: #E0DDCF;
-    --background: #F1F0EA;
+    --accent-color: #E0DDCF;
+    --page-background: #F1F0EA;
 }
 
 /* vertical align */
