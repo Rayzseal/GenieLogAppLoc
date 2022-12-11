@@ -22,7 +22,7 @@ export class Company {
   }
 
   private removeEmployeeCascade(employee: Employee) {
-    throw new Error("Function not implemented");
+    this.rentals = this.rentals.filter(rental => rental.employee == employee);
   }
 
   removeEmployee(employee: Employee, cascade: boolean = false) {
