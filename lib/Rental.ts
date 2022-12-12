@@ -17,10 +17,10 @@ export class Rental {
 		endingDate: Date
 	}) {
 		this.id = genUniqueId();
-		this.employee = obj.employee;
-		this.material = obj.material;
-		this.startingDate = obj.startingDate;
-		this.endingDate = obj.endingDate;
+		this.setEmployee(obj.employee);
+		this.setMaterial(obj.material);
+		this.setStartingDate(obj.startingDate);
+		this.setEndingDate(obj.endingDate);
 	}
 
 	getId(): string {
@@ -53,10 +53,10 @@ export class Rental {
 
 	setStartingDate(date: Date) {
 		if (this.endingDate!=null) {
-			if (this.endingDate < date) {
+			if (this.endingDate > date) {
 				this.startingDate = date;
 			} else {
-				throw new Error("Starting date should occurs after ending date");
+				throw new Error("Starting date should occurs before ending date");
 			}
 		} else {
 			this.startingDate = date;
@@ -65,16 +65,18 @@ export class Rental {
 
 	setEndingDate(date : Date) {
 		if (this.startingDate!=null) {
-			if (this.startingDate > date) {
+			if (this.startingDate < date) {
 				this.endingDate = date;
 			} else {
-				throw new Error("Ending date should occurs before begin date");
+				throw new Error("Ending date should occurs after begin date");
 			}
+		} else {
 			this.endingDate = date;
 		}
 	}
 	
 }
+
 let mat = new Material({
 	title: "Samsung Galaxy S10",
 	version: "V1.6",
@@ -90,10 +92,10 @@ let emp = new Employee({
 	password: "Azertyuiop1234",
 	personnalNumber:"1234ABC",
 });
-console.log(emp.getName());
+//console.log(emp.getName());
 let rental = new Rental({
 	employee: emp,
 	material: mat,
 	startingDate: new Date("2019-01-16"),
-	endingDate: new Date("2019-01-16"),
+	endingDate: new Date("2019-01-17"),
 });
