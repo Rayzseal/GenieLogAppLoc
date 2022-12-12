@@ -82,6 +82,7 @@ export class Company {
   remapClasses() {
     // This method basically remaps each Object into its corresponding class instance.
     //TOOD verify here !! loop error
+    
     this.employees = this.employees.map((e: any) => new Employee(e));
     this.materials = this.materials.map((m: any) => new Material(m));
 

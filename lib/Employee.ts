@@ -42,7 +42,7 @@ export class Employee {
 	 * Getter on id.
 	 * @returns automaticly generated id of user.
 	 */
-	public getId() {
+	public getId(): string {
 		return this.id;
 	}
 
@@ -50,7 +50,7 @@ export class Employee {
 	 * Getter on name.
 	 * @returns name of user.
 	 */
-	public getName() {
+	public getName(): string {
 		return this.name;
 	}
 
@@ -58,7 +58,7 @@ export class Employee {
 	 * Getter on surname.
 	 * @returns surname of user.
 	 */
-	public getSurname() {
+	public getSurname(): string {
 		return this.surname;
 	}
 
@@ -66,7 +66,7 @@ export class Employee {
 	 * Getter on email.
 	 * @returns email of user.
 	 */
-	public getEmail() {
+	public getEmail(): string{
 		return this.email;
 	}
 
@@ -74,7 +74,7 @@ export class Employee {
 	 * Getter on role.
 	 * @returns role of user (either 1 for admin or 0 for simple user).
 	 */
-	public getRole() {
+	public getRole(): boolean {
 		return this.role;
 	}
 
@@ -82,7 +82,7 @@ export class Employee {
 	 * Getter on personnalNumber.
 	 * @returns personnal number of user.
 	 */
-	public getPersonnalNumber() {
+	public getPersonnalNumber(): string {
 		return this.personnalNumber;
 	}
 
