@@ -125,6 +125,14 @@ app.get("/material/:id/", function (req, res) {
 	res.render("material/viewMaterial.ejs");
 });
 
+/**
+ * Display the view to edit the material.
+ * @param id {string} The material id referencing the material to edit.
+ */
+app.get("/material/:id/edit/", function (req, res) {
+	res.render("material/editMaterial.ejs");
+});
+
 // -------------
 // Server start
 // -------------

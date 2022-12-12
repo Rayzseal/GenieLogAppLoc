@@ -1,0 +1,82 @@
+main > section {
+  border: thin solid black;
+  background-color: var(--white-background);
+  padding: 0.5em;
+  border-radius: var(--box-radius);
+}
+main > section h2, main > section h3, main > section h5 {
+  color: var(--black-text);
+}
+main > section > section:first-child {
+  display: flex;
+}
+main > section > section:first-child > img {
+  height: 15em;
+  border-radius: var(--box-radius);
+}
+main > section > section:first-child > div {
+  flex: 1;
+  margin-left: 1em;
+}
+main > section > section:first-child > div > section {
+  display: flex;
+  align-items: center;
+}
+main > section > section:first-child > div > section > p {
+  flex: 1;
+  color: grey;
+  margin-left: 0.5em;
+  font-style: italic;
+}
+main > section > section:first-child > div > section > ul {
+  display: flex;
+  align-items: center;
+}
+main > section > section:first-child > div > ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+main > section > section:first-child > div > ul > li {
+  flex: 1;
+}
+main > section > section:first-child > div > ul > li:first-child {
+  flex-basis: 100%;
+}
+main > section > section:nth-child(2) {
+  border-top: thin solid var(--subtitle);
+  margin-top: 0.5em;
+}
+main > section > section:nth-child(2) > menu {
+  background-color: var(--subtitle);
+  border-radius: var(--box-radius);
+  display: flex;
+  align-items: center;
+  padding: 0.5em;
+}
+main > section > section:nth-child(2) > menu > li {
+  flex: 1;
+  margin: 0 0.5em;
+}
+main > section > section:nth-child(2) > menu > li > label > p {
+  margin: 0 0 0.2em 0;
+  font-size: 0.9em;
+}
+main > section > section:nth-child(2) > menu > li > label > input, main > section > section:nth-child(2) > menu > li > label > select {
+  width: 100%;
+}
+main > section > section:nth-child(2) > table {
+  width: 100%;
+  margin-top: 1em;
+  border: thin solid var(--subtitle);
+  border-radius: var(--box-radius);
+}
+main > section > section:nth-child(2) > table th {
+  background-color: var(--subtitle);
+}
+main > section > section:nth-child(2) > table td {
+  text-align: center;
+  font-size: 0.8em;
+}
+main > section > section:nth-child(2) > table img {
+  height: 1em;
+}

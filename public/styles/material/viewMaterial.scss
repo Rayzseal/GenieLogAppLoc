@@ -1,0 +1,105 @@
+main > section {
+	border: thin solid black;
+	background-color: var(--white-background);
+	padding: 0.5em;
+	border-radius: var(--box-radius);
+
+	h2, h3, h5 {
+		color: var(--black-text);
+	}
+
+	& > section {
+		&:first-child {
+			display: flex;
+
+			& > img {
+				height: 15em;
+				border-radius: var(--box-radius);
+			}
+
+			& > div {
+				flex: 1;
+				margin-left: 1em;
+
+				& > section {
+					display: flex;
+					align-items: center;
+
+					& > p {
+						flex: 1;
+						color: grey;
+						margin-left: 0.5em;
+						font-style: italic;
+					}
+
+					& > ul {
+						display: flex;
+						align-items: center;
+					}
+				}
+
+				& > ul {
+					display: flex;
+					flex-wrap: wrap;
+
+					& > li {
+						flex: 1;
+
+						&:first-child {
+							flex-basis: 100%;
+						}
+					}
+				}
+			}
+		}
+
+		&:nth-child(2) {
+			border-top: thin solid var(--subtitle);
+			margin-top: 0.5em;
+
+			& > menu {
+				background-color: var(--subtitle);
+				border-radius: var(--box-radius);
+				display: flex;
+				align-items: center;
+				padding: 0.5em;
+
+				& > li {
+					flex: 1;
+					margin: 0 0.5em;
+
+					& > label {
+						& > p {
+							margin: 0 0 0.2em 0;
+							font-size: 0.9em;
+						}
+
+						& > input, & > select {
+							width: 100%;
+						}
+					}
+				}
+			}
+
+			& > table {
+				width: 100%;
+				margin-top: 1em;
+				border: thin solid var(--subtitle);
+				border-radius: var(--box-radius);
+
+				th {
+					background-color: var(--subtitle);
+				}
+
+				td {
+					text-align: center;
+					font-size: 0.8em;
+				}
+
+				img {
+					height: 1em;
+				}
+			}
+		}
+	}
+}
