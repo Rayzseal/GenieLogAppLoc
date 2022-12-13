@@ -25,16 +25,15 @@
                 </menu>
 
                 <ul>
-                    <% let i = 0;
-                            while (i++ < 50) { %>
+                    <% for (const material of materialsList) { %>
                         <li>
                             <div>
-                                <img src="/public/icons/material.png" alt="Image de l'appareil"/>
+                                <img src="<%= material.getPicture() %>" alt="Image de l'appareil"/>
                             </div>
                             <div>
-                                <p>IPhone 12</p>
-                                <p>258Go bleue IOS 13</p>
-                                <button title="Voir les détails de ce matériel" onclick="window.location.href=`/material/<%= i ;%>/`">Consulter</button>
+                                <p><%= material.getTitle() %></p>
+                                <p><%= material.getVersion() %></p>
+                                <button title="Voir les détails de ce matériel" onclick="window.location.href=`/material/<%= material.getId() %>/`">Consulter</button>
                             </div>
                         </li>
                     <% } %>

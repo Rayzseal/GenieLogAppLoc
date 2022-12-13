@@ -12,12 +12,13 @@ export class Material {
 	private phoneNumber: string;
 
 	/**
-	 * Constructor with parameters of a material. 
-	 * @param title Tile of a material.
-	 * @param version Version of a material.
-	 * @param reference Reference of a material.
-	 * @param picture Picture of a material.
-	 * @param phoneNumber Phone number of a material.
+	 * Constructor with parameters of a material.
+	 * @param obj {Object}
+	 * @param obj.title Tile of a material.
+	 * @param obj.version Version of a material.
+	 * @param obj.reference Reference of a material.
+	 * @param obj.picture Picture of a material.
+	 * @param obj.phoneNumber Phone number of a material.
 	 */
 	constructor(obj: {
 		id?: string;
@@ -122,7 +123,7 @@ export class Material {
 	 * @param picture new picture.
 	 */
 	public setPicture(picture: string) {
-		var regexp = new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$');
+		const regexp = new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$');
 
 		if (regexp.test(picture))
 			this.picture = picture;

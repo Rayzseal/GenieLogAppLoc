@@ -1,6 +1,7 @@
 const express      = require("express");
 const app          = express();
 const { Employee } = require("./lib/Employee");
+const { Material } = require("./lib/Material");
 const { Database } = require("./lib/Database");
 
 const PORT     = 3000;
@@ -113,7 +114,9 @@ app.post("/user/:id/delete", function (req, res) {
  * Display the view to list all the app materials
  */
 app.get("/materials/", function (req, res) {
-	res.render("material/viewMaterialList.ejs", {});
+	res.render("material/viewMaterialList.ejs", {
+		materialsList: database.company.getMaterials()
+	});
 });
 
 /**
@@ -155,12 +158,21 @@ app.listen(PORT, () => {
 	//database.company.getEmployes().forEach(e => console.log(e.getPersonnalNumber()));
 
 	// Database test additon
-	database.company.addEmployee(new Employee({
-		personnalNumber: "123ABCD",
-		surname: "Intel", 
-		name: "letnI",
-		password: "Zemodepasse123",
-		email: "truc@truc.fr",
-	}));
+	// database.company.addEmployee(new Employee({
+	// 	personnalNumber: "123ABCD",
+	// 	surname: "Intel",
+	// 	name: "letnI",
+	// 	password: "Zemodepasse123",
+	// 	email: "truc@truc.fr",
+	// }));
+	//
+	// database.company.addMaterials(new Material({
+	// 	title: "IPhone 15",
+	// 	version: "V 12",
+	// 	reference: "AP001",
+	// 	picture: "https://i.redd.it/1rqigwxf1zl31.jpg",
+	// 	phoneNumber: "0688557845"
+	// }));
+
 	database.save();
 });
