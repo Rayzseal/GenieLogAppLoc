@@ -20,7 +20,7 @@
                         </label>
                     </li>
                     <li>
-                        <button>Nouveau</button>
+                        <button onclick="window.location.href='/material/create/'" title="Créer un nouveau matériel">Nouveau</button>
                     </li>
                 </menu>
 
@@ -34,7 +34,7 @@
                             <div>
                                 <p>IPhone 12</p>
                                 <p>258Go bleue IOS 13</p>
-                                <button onclick="window.location.href=`/material/<%= i ;%>/`">Réserver</button>
+                                <button title="Voir les détails de ce matériel" onclick="window.location.href=`/material/<%= i ;%>/`">Consulter</button>
                             </div>
                         </li>
                     <% } %>

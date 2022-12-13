@@ -52,19 +52,6 @@ app.get("/users/", function (req, res) {
 });
 
 /**
- * Display the view showing the details about a specific user.
- * @param id {string} The user id referencing the user to get details about.
- */
-app.get("/user/:id/", function (req, res) {
-	res.render("user/viewuser.ejs", {
-		name: "Jean",
-		surname: "Lasalle",
-		email: "exemple@mail.com",
-		mat: "1234ABC"
-	});
-});
-
-/**
  * Display the view to create a new user
  */
 app.get("/user/create", function (req, res) {
@@ -77,6 +64,18 @@ app.post("/user/create", function (req, res) {
 	console.log(`I perform the database actions of the creation`);
 });
 
+/**
+ * Display the view showing the details about a specific user.
+ * @param id {string} The user id referencing the user to get details about.
+ */
+app.get("/user/:id/", function (req, res) {
+	res.render("user/viewuser.ejs", {
+		name: "Jean",
+		surname: "Lasalle",
+		email: "exemple@mail.com",
+		mat: "1234ABC"
+	});
+});
 
 /**
  * Display the view to edit a specific user.
@@ -118,6 +117,19 @@ app.get("/materials/", function (req, res) {
 });
 
 /**
+ * Display the view to create a new material.
+ */
+app.get("/material/create", function (req, res) {
+	res.render("material/createMaterial.ejs");
+});
+/**
+ * Perform the material creation into the database.
+ */
+app.post("/material/create", function (req, res) {
+	console.log(`I perform the database actions of the creation`);
+});
+
+/**
  * Display the view showing the details about a specific material.
  * @param id {string} The material id referencing the material to get details about.
  */
@@ -132,6 +144,7 @@ app.get("/material/:id/", function (req, res) {
 app.get("/material/:id/edit/", function (req, res) {
 	res.render("material/editMaterial.ejs");
 });
+
 
 // -------------
 // Server start

@@ -32,6 +32,9 @@ main > section > section:first-child > div > section > ul {
   display: flex;
   align-items: center;
 }
+main > section > section:first-child > div > section > ul > li {
+  margin-left: 0.5em;
+}
 main > section > section:first-child > div > ul {
   display: flex;
   flex-wrap: wrap;
