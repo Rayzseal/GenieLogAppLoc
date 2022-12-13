@@ -28,7 +28,7 @@
                     <% for (const material of materialsList) { %>
                         <li>
                             <div>
-                                <img src="<%= material.getPicture() %>" alt="Image de l'appareil"/>
+                                <img src="<%= material.getPicture() ?? "/public/icons/phone.png" %>" alt="Image de l'appareil"/>
                             </div>
                             <div>
                                 <p><%= material.getTitle() %></p>

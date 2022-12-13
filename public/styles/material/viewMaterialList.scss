@@ -30,6 +30,7 @@ main > section {
 					display: flex;
 					justify-content: center;
 					background-color: white;
+					padding: 0.1em;
 					border-radius: var(--box-radius);
 
 					& > img {

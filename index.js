@@ -165,14 +165,13 @@ app.listen(PORT, () => {
 	// 	password: "Zemodepasse123",
 	// 	email: "truc@truc.fr",
 	// }));
-	//
+
 	// database.company.addMaterials(new Material({
-	// 	title: "IPhone 15",
-	// 	version: "V 12",
-	// 	reference: "AP001",
-	// 	picture: "https://i.redd.it/1rqigwxf1zl31.jpg",
-	// 	phoneNumber: "0688557845"
+	// 	title: "Samsung Galaxy fold",
+	// 	version: "v2458-7",
+	// 	reference: "AN001",
+	// 	phoneNumber: "0685557844"
 	// }));
 
-	database.save();
+	// database.save();
 });
