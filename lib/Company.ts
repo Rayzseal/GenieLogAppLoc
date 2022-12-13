@@ -64,6 +64,15 @@ export class Company {
   }
 
   /**
+   * Returns a materials corresponding to be specified id.
+   * @param materialId Id of a material.
+   * @returns Specified material. 
+   */
+  getMaterial(materialId: string): Material | undefined {
+		return this.materials.find((material: Material) => material.getId() === materialId)
+	}
+
+  /**
    * Add a material.
    * @param material Material to be added. 
    */
