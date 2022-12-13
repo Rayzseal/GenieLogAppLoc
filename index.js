@@ -137,7 +137,11 @@ app.post("/material/create", function (req, res) {
  * @param id {string} The material id referencing the material to get details about.
  */
 app.get("/material/:id/", function (req, res) {
-	res.render("material/viewMaterial.ejs");
+	const materialId = req.params.id;
+
+	res.render("material/viewMaterial.ejs", {
+		material: database.company.getMaterial(materialId)
+	});
 });
 
 /**
@@ -145,7 +149,11 @@ app.get("/material/:id/", function (req, res) {
  * @param id {string} The material id referencing the material to edit.
  */
 app.get("/material/:id/edit/", function (req, res) {
-	res.render("material/editMaterial.ejs");
+	const materialId = req.params.id;
+
+	res.render("material/editMaterial.ejs", {
+		material: database.company.getMaterial(materialId)
+	});
 });
 
 
@@ -158,20 +166,20 @@ app.listen(PORT, () => {
 	//database.company.getEmployes().forEach(e => console.log(e.getPersonnalNumber()));
 
 	// Database test additon
-	// database.company.addEmployee(new Employee({
-	// 	personnalNumber: "123ABCD",
-	// 	surname: "Intel",
-	// 	name: "letnI",
-	// 	password: "Zemodepasse123",
-	// 	email: "truc@truc.fr",
-	// }));
+	database.company.addEmployee(new Employee({
+		personnalNumber: "123ABCD",
+		surname: "Intel",
+		name: "letnI",
+		password: "Zemodepasse123",
+		email: "truc@truc.fr",
+	}));
 
-	// database.company.addMaterials(new Material({
-	// 	title: "Samsung Galaxy fold",
-	// 	version: "v2458-7",
-	// 	reference: "AN001",
-	// 	phoneNumber: "0685557844"
-	// }));
+	database.company.addMaterials(new Material({
+		title: "Samsung Galaxy fold",
+		version: "v2458-7",
+		reference: "AN001",
+		phoneNumber: "0685557844"
+	}));
 
 	// database.save();
 });

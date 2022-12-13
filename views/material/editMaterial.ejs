@@ -13,33 +13,33 @@
 
             <section>
                 <section>
-                    <img src="/public/icons/material.png" alt="Image du matériel">
+                    <img src="<%= material.getPicture() ?? '/public/icons/phone.png' %>" alt="Image du matériel">
 
                     <div>
                         <section>
-                            <input type="text" value="IPhone 15" >
-                            <p>#68745</p>
+                            <input type="text" value="<%= material.getTitle() %>" >
+                            <p>#<%= material.getId() %></p>
                             <ul>
                                 <li>
-                                    <button title="Annuler les modifications" onclick="window.location.href='/material/5'">Annuler</button>
+                                    <button title="Annuler les modifications" onclick="window.location.href='/material/<%= material.getId() %>'">Annuler</button>
                                 </li>
                                 <li>
-                                    <button title="Enregsiter les modifications" onclick="window.location.href='/material/5'">Enregistrer</button>
+                                    <button title="Enregistrer les modifications" onclick="window.location.href='/material/<%= material.getId() %>'">Enregistrer</button>
                                 </li>
                             </ul>
                         </section>
                         <ul>
                             <li>
                                 <h5>Version</h5>
-                                <input type="text" value="Lorem ipsum">
+                                <input type="text" value="<%= material.getVersion() %>">
                             </li>
                             <li>
                                 <h5>Référence</h5>
-                                <input type="text" value="Lorem ipsum">
+                                <input type="text" value="<%= material.getReference() %>">
                             </li>
                             <li>
                                 <h5>Numéro de téléphone</h5>
-                                <input type="text" value="Lorem ipsum">
+                                <input type="text" value="<%= material.getPhoneNumber() %>">
                             </li>
                         </ul>
                     </div>

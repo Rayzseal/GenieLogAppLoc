@@ -12,6 +12,15 @@ main > section > ul {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+main > section > ul > p {
+  display: none;
+}
+main > section > ul > p:only-child {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 main > section > ul > li {
   margin: 1em;
   flex-basis: 15%;

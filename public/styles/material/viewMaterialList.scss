@@ -13,6 +13,18 @@ main > section {
 		flex-wrap: wrap;
 		justify-content: space-evenly;
 
+		// The empty list message
+		& > p {
+			display: none;
+		}
+		& > p:only-child {
+			height: 50vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		// The standard lit items
 		& > li {
 			margin: 1em;
 			flex-basis: 15%;

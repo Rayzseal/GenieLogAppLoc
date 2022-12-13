@@ -13,15 +13,15 @@
 
             <section>
                 <section>
-                    <img src="/public/icons/material.png" alt="Image du matériel">
+                    <img src="<%= material.getPicture() ?? '/public/icons/phone.png' %>" alt="Image du matériel">
 
                     <div>
                         <section>
-                            <h3>IPhone 15</h3>
-                            <p>#68745</p>
+                            <h3><%= material.getTitle() %></h3>
+                            <p>#<%= material.getId() %></p>
                             <ul>
                                 <li>
-                                    <button onclick="window.location.href='/material/5/edit'" title="Modifier le matériel">Modifier</button>
+                                    <button onclick="window.location.href='/material/<%= material.getId() %>/edit'" title="Modifier le matériel">Modifier</button>
                                 </li>
                                 <li>
                                     <button title="Supprimer le matériel">Supprimer</button>
@@ -31,15 +31,15 @@
                         <ul>
                             <li>
                                 <h5>Version</h5>
-                                <p>Lorem ipsum</p>
+                                <p><%= material.getVersion() %></p>
                             </li>
                             <li>
                                 <h5>Référence</h5>
-                                <p>Lorem ipsum</p>
+                                <p><%= material.getReference() %></p>
                             </li>
                             <li>
                                 <h5>Numéro de téléphone</h5>
-                                <p>Lorem ipsum</p>
+                                <p><%= material.getPhoneNumber() %></p>
                             </li>
                         </ul>
                     </div>
