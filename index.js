@@ -11,7 +11,7 @@ const database = Database.load(); // Retrieve the saved datas
 // -------------
 // Server settings
 // -------------
-app.use('/public/', express.static("public/"));
+app.use("/public/", express.static("public/"));
 
 // -------------
 // Server global routes
@@ -166,20 +166,20 @@ app.listen(PORT, () => {
 	//database.company.getEmployes().forEach(e => console.log(e.getPersonnalNumber()));
 
 	// Database test additon
-	database.company.addEmployee(new Employee({
-		personnalNumber: "123ABCD",
-		surname: "Intel",
-		name: "letnI",
-		password: "Zemodepasse123",
-		email: "truc@truc.fr",
-	}));
-
-	database.company.addMaterials(new Material({
-		title: "Samsung Galaxy fold",
-		version: "v2458-7",
-		reference: "AN001",
-		phoneNumber: "0685557844"
-	}));
+	// database.company.addEmployee(new Employee({
+	// 	personnalNumber: "123ABCD",
+	// 	surname: "Intel",
+	// 	name: "letnI",
+	// 	password: "Zemodepasse123",
+	// 	email: "truc@truc.fr",
+	// }));
+	//
+	// database.company.addMaterials(new Material({
+	// 	title: "Samsung Galaxy fold",
+	// 	version: "v2458-7",
+	// 	reference: "AN001",
+	// 	phoneNumber: "0685557844"
+	// }));
 
 	// database.save();
 });

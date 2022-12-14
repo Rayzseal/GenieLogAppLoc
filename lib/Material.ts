@@ -8,8 +8,8 @@ export class Material {
 	private title: string;
 	private version: string;
 	private reference: string;
-	private picture: string;
-	private phoneNumber: string;
+	private picture: string | undefined;
+	private phoneNumber: string | undefined;
 
 	/**
 	 * Constructor with parameters of a material.
@@ -25,8 +25,8 @@ export class Material {
 		title: string;
 		version: string;
 		reference: string;
-		picture: string;
-		phoneNumber: string;
+		picture?: string;
+		phoneNumber?: string;
 	}) {
 		this.id = obj.id ?? genUniqueId();
 		this.setTitle(obj.title);
@@ -72,7 +72,7 @@ export class Material {
 	 * Getter on picture.
 	 * @returns picture of material.
 	 */
-	public getPicture(): string {
+	public getPicture(): string | undefined {
 		return this.picture;
 	}
 
@@ -80,7 +80,7 @@ export class Material {
 	 * Getter on phone number.
 	 * @returns phone number of material.
 	 */
-	public getPhoneNumber(): string {
+	public getPhoneNumber(): string | undefined {
 		return this.phoneNumber;
 	}
 
@@ -89,6 +89,9 @@ export class Material {
 	 * @param title new title.
 	 */
 	public setTitle(title: string) {
+		if (!title || title.trim() === "")
+			throw new Error("Title should not be empty");
+
 		if (/^[a-zA-Z0-9 ._-]{1,30}$/.test(title))
 			this.title = title;
 		else
@@ -122,8 +125,8 @@ export class Material {
 	 * Setter on picture.
 	 * @param picture new picture.
 	 */
-	public setPicture(picture: string) {
-        if (!picture || new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$').test(picture))
+	public setPicture(picture: string | undefined) {
+		if (!picture || new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$').test(picture))
 			this.picture = picture;
 		else
 			throw new Error("A link should begin with either http:// or https:// and finish .jpg or .png");
@@ -133,8 +136,8 @@ export class Material {
 	 * Setter on phone number.
 	 * @param phoneNumber new phone number.
 	 */
-	public setPhoneNumber(phoneNumber: string) {
-		if (/^[0-9]{10}$/.test(phoneNumber))
+	public setPhoneNumber(phoneNumber: string | undefined) {
+		if (!phoneNumber || /^[0-9]{10}$/.test(phoneNumber))
 			this.phoneNumber = phoneNumber;
 		else
 			throw new Error("PhoneNumber should contains 10 numbers");
