@@ -46,6 +46,15 @@ describe("Material", () => {
 					});
 				}, Error, "The material is being created with a non alphanumerical character in the title");
 
+				assert.throws(() => {
+					new Material({
+						title: 48,
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with a non string title");
+
 				done();
 			});
 
@@ -130,6 +139,15 @@ describe("Material", () => {
 						phoneNumber: "0685557844"
 					});
 				}, Error, "The material is being created whith a version field containing non alphanumerical character");
+
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: 158,
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created whith a non string version");
 
 				done();
 			});
@@ -225,6 +243,15 @@ describe("Material", () => {
 
 			// Wrong value problem
 			it("Should not create the material with a wrong reference value", (done) => {
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: 158,
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created whith a non string reference");
+
 				assert.throws(() => {
 					new Material({
 						title: "Samsung galaxy s7",
@@ -345,8 +372,18 @@ describe("Material", () => {
 				done();
 			});
 
-			// Picture extension problem
+			// Wrong value problem
 			it("Should not create the material with a wrong extension picture", (done) => {
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AP150",
+						picture: 158,
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with a non string picture");
+
 				assert.throws(() => {
 					new Material({
 						title: "Samsung galaxy s7",
@@ -464,6 +501,15 @@ describe("Material", () => {
 						phoneNumber: "06855-7844"
 					});
 				}, Error, "The material is being created with a phone number containing non numerical characters");
+
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: 1587485
+					});
+				}, Error, "The material is being created with a non string phone number");
 
 				done();
 			});
