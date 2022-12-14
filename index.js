@@ -55,7 +55,7 @@ app.get("/users/", function (req, res) {
 /**
  * Display the view to create a new user
  */
-app.get("/user/create", function (req, res) {
+app.get("/	", function (req, res) {
 	res.render("user/createUser.ejs");
 });
 /**
@@ -63,6 +63,13 @@ app.get("/user/create", function (req, res) {
  */
 app.post("/user/create", function (req, res) {
 	console.log(`I perform the database actions of the creation`);
+	database.company.addEmployee(new Employee({
+		personnalNumber: req.mat,
+		surname: req.name,
+		name: req.name,
+		password: req.password,
+		email: req.email,
+	}));
 });
 
 /**
@@ -173,7 +180,7 @@ app.listen(PORT, () => {
 	// 	password: "Zemodepasse123",
 	// 	email: "truc@truc.fr",
 	// }));
-	//
+
 	// database.company.addMaterials(new Material({
 	// 	title: "Samsung Galaxy fold",
 	// 	version: "v2458-7",

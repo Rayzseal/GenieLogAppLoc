@@ -1,4 +1,4 @@
-import genUniqueId from './utils';
+import { genUniqueId } from './utils';
 
 /**
  * Class to create an employee. 
@@ -13,12 +13,13 @@ export class Employee {
 	private personnalNumber: string;
 
 	/**
-	 * Constructor with parameters of an employee. 
-	 * @param name Name of an employee. 
-	 * @param surname Surname of an employee. 
-	 * @param password Password of an employee. 
-	 * @param email Email of an employee. 
-	 * @param personnalNumber Employee number. 
+	 * Constructor with parameters of an employee.
+	 * @param obj {Object}
+	 * @param obj.name Name of an employee.
+	 * @param obj.surname Surname of an employee.
+	 * @param obj.password Password of an employee.
+	 * @param obj.email Email of an employee.
+	 * @param obj.personnalNumber Employee number.
 	 */
 	public constructor(obj: {
 		id?: string,
@@ -141,7 +142,7 @@ export class Employee {
 
 	/**
 	 * Setter on personnalNumber.
-	 * @param idNumber new personnalNumber.
+	 * @param personnalNumber new personnalNumber.
 	 */
 	public setPersonnalNumber(personnalNumber: string) {
 		if (/^[a-zA-Z0-9]{7}$/.test(personnalNumber))
