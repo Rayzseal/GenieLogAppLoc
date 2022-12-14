@@ -1,6 +1,6 @@
 import { Employee } from "./Employee";
 import { Material } from "./Material";
-import genUniqueId from './utils';
+import { dateInInterval, genUniqueId } from './utils';
 
 export class Rental {
 	private id: string;
@@ -23,6 +23,15 @@ export class Rental {
 		this.setEndingDate(obj.endingDate);
 	}
 
+	/**
+	 * Check if a location is active. 
+	 * @param rental Given rent to be checked. 
+	 * @returns False if no location is active right now for the specified rental. 
+	 */
+	public isActive(): boolean {
+		return dateInInterval(new Date(), this.startingDate, this.endingDate);
+	}
+
 	getId(): string {
 		return this.id;
 	}
@@ -35,44 +44,43 @@ export class Rental {
 		return this.employee;
 	}
 
-	getStartingDate() : Date {
+	getStartingDate(): Date {
 		return this.startingDate;
 	}
 
-	getEndingDate() : Date {
+	getEndingDate(): Date {
 		return this.endingDate;
 	}
 
-	setEmployee(e : Employee) {
+	setEmployee(e: Employee) {
 		this.employee = e;
 	}
 
-	setMaterial(m : Material) {
+	setMaterial(m: Material) {
 		this.material = m;
 	}
 
 	setStartingDate(date: Date) {
-		if (this.endingDate!=null) {
-			if (this.endingDate > date) {
-				this.startingDate = date;
-			} else {
-				throw new Error("Starting date should occurs before ending date");
-			}
-		} else {
-			this.startingDate = date;
+		if (date instanceof String) {
+			date = new Date(date);
 		}
+
+		if (this.endingDate != null && date > this.endingDate) {
+			throw new Error("Starting date should occurs before ending date");
+		}
+
+		this.startingDate = date;
 	}
 
-	setEndingDate(date : Date) {
-		if (this.startingDate!=null) {
-			if (this.startingDate < date) {
-				this.endingDate = date;
-			} else {
-				throw new Error("Ending date should occurs after begin date");
-			}
-		} else {
-			this.endingDate = date;
+	setEndingDate(date: Date) {
+		if (date instanceof String) {
+			date = new Date(date);
 		}
+
+		if (this.endingDate != null && date < this.endingDate) {
+			throw new Error("Ending date should occurs after begin date");
+		}
+
+		this.endingDate = date;
 	}
-	
 }

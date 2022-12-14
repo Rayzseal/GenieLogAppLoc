@@ -1,4 +1,4 @@
-import genUniqueId from './utils';
+import { genUniqueId } from './utils';
 
 /**
  * Class to create an employee. 

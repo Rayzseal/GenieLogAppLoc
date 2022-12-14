@@ -1,4 +1,4 @@
-import genUniqueId from './utils';
+import { genUniqueId } from './utils';
 
 /**
  * Class to create a material.
@@ -123,10 +123,11 @@ export class Material {
 	 * @param picture new picture.
 	 */
 	public setPicture(picture: string) {
-        if (!picture || new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$').test(picture))
+		if (!picture || new RegExp('^(http://|https://){1}[A-Za-z0-9-_./]*(\.jpg|\.png){1}$').test(picture)) {
 			this.picture = picture;
-		else
+		} else {
 			throw new Error("A link should begin with either http:// or https:// and finish .jpg or .png");
+		}
 	}
 
 	/**
@@ -134,9 +135,10 @@ export class Material {
 	 * @param phoneNumber new phone number.
 	 */
 	public setPhoneNumber(phoneNumber: string) {
-		if (/^[0-9]{10}$/.test(phoneNumber))
+		if (/^[0-9]{10}$/.test(phoneNumber)) {
 			this.phoneNumber = phoneNumber;
-		else
+		} else {
 			throw new Error("PhoneNumber should contains 10 numbers");
+		}
 	}
 }
