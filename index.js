@@ -164,6 +164,13 @@ app.get("/material/:id/edit/", function (req, res) {
 });
 
 
+app.get("/accessForbidden", function (req, res) {
+
+	res.render("accessForbidden.ejs", {
+		
+	});
+});
+
 // -------------
 // Server start
 // -------------
