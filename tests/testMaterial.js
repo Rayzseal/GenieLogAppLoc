@@ -3,7 +3,79 @@ const assert       = require("assert").strict;
 
 describe("Material", () => {
 	describe("Creation", () => {
-		describe("Title", () => {
+		describe("Id tests", () => {
+			// Missing value problem
+			it("Should create the material whithout an id specified", (done) => {
+				const mat1 = new Material({
+					title: "Samsung galaxy s7",
+					version: "v24587",
+					reference: "AN001"
+				});
+
+				assert.equal(typeof mat1.getId(), "string", "The id must be a String (no value given)");
+
+				assert.throws(() => {
+					new Material({
+						id: "",
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AN001"
+					});
+
+					new Material({
+						id: " ",
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AN001"
+					});
+				}, Error, "The material is being created whith an empty id given");
+
+				done();
+			});
+
+			// Wrong value problem
+			it("Should not create the material with a wrong id value", (done) => {
+				// assert.throws(() => {
+				// 	new Material({
+				// 		id: "zef_18z",
+				// 		title: "Samsung 10",
+				// 		version: "v24587",
+				// 		reference: "AN001",
+				// 		phoneNumber: "0685557844"
+				// 	});
+				// }, Error, "The material is being created with a non alphanumerical character in the id");
+
+				assert.throws(() => {
+					new Material({
+						id: 48,
+						title: "Samsung 10",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with a non string id");
+
+				done();
+			});
+
+			// Standard creation
+			it("Should create the material with specified id", (done) => {
+				const mat1 = new Material({
+					id: "1487aze",
+					title: "Samsung galaxy s7",
+					version: "IOS157",
+					reference: "AP150",
+					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
+					phoneNumber: "0685557844"
+				});
+
+				assert.equal(mat1.getId(), "1487aze", "The id should be defined when gave through the constructor");
+
+				done();
+			});
+		});
+
+		describe("Title tests", () => {
 			// Missing value problem
 			it("Should not create the material with a missing title", (done) => {
 				assert.throws(() => {
@@ -97,7 +169,7 @@ describe("Material", () => {
 			});
 		});
 
-		describe("Version", () => {
+		describe("Version tests", () => {
 			// Missing value problem
 			it("Should not create the material with a missing version", (done) => {
 				assert.throws(() => {
@@ -209,7 +281,7 @@ describe("Material", () => {
 			});
 		});
 
-		describe("Reference", () => {
+		describe("Reference tests", () => {
 			// Missing value problem
 			it("Should not create the material with a missing reference", (done) => {
 				assert.throws(() => {
@@ -339,7 +411,7 @@ describe("Material", () => {
 			});
 		});
 
-		describe("Picture", () => {
+		describe("Picture tests", () => {
 			// Missing value problem
 			it("Should create the material whith a missing picture", (done) => {
 				const mat1 = new Material({
@@ -349,25 +421,25 @@ describe("Material", () => {
 					phoneNumber: "0685557844"
 				});
 
-				const mat2 = new Material({
-					title: "Samsung galaxy s7",
-					version: "v24587",
-					reference: "AP150",
-					picture: "",
-					phoneNumber: "0685557844"
-				});
-
-				const mat3 = new Material({
-					title: "Samsung galaxy s7",
-					version: "v24587",
-					reference: "AP150",
-					picture: " ",
-					phoneNumber: "0685557844"
-				});
-
 				assert.equal(mat1.getPicture(), undefined, "The picture should be undefined (no value given)");
-				assert.equal(mat2.getPicture(), undefined, "The picture should be undefined (empty string given)");
-				assert.equal(mat3.getPicture(), undefined, "The picture should be undefined (string containing a space only given)");
+
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AP150",
+						picture: "",
+						phoneNumber: "0685557844"
+					});
+
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AP150",
+						picture: " ",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with an empty string picture link");
 
 				done();
 			});
@@ -432,7 +504,7 @@ describe("Material", () => {
 			});
 		});
 
-		describe("Phone number", () => {
+		describe("Phone number tests", () => {
 			// Missing value problem
 			it("Should create the material whithout a phone number", (done) => {
 				const mat1 = new Material({
@@ -440,24 +512,23 @@ describe("Material", () => {
 					version: "v24587",
 					reference: "AN001"
 				});
-
-				const mat2 = new Material({
-					title: "Samsung galaxy s7",
-					version: "v24587",
-					reference: "AN001",
-					phoneNumber: ""
-				});
-
-				const mat3 = new Material({
-					title: "Samsung galaxy s7",
-					version: "v24587",
-					reference: "AN001",
-					phoneNumber: " "
-				});
-
 				assert.equal(mat1.getPhoneNumber(), undefined, "The phone number should be undefined (no value given)");
-				assert.equal(mat2.getPhoneNumber(), undefined, "The phone number should be undefined (empty string given)");
-				assert.equal(mat3.getPhoneNumber(), undefined, "The phone number should be undefined (string containing a space only given)");
+
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: ""
+					});
+
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: " "
+					});
+				}, Error, "The material is being created with an empty phone number field");
 
 				done();
 			});
