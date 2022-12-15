@@ -102,6 +102,9 @@ export class Material {
 			if (id === "") // An id is specified but wengly formed
 				throw new Error("Id should not be empty");
 
+			if (new RegExp(/\s+/g).test(id))
+				throw new Error("Id should not contain space");
+
 			this.id = id;
 		} else {
 			this.id = genUniqueId();

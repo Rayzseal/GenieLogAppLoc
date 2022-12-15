@@ -1,6 +1,9 @@
+// noinspection JSCheckFunctionSignatures
+
 const { Material } = require("../lib/Material");
 const assert       = require("assert").strict;
 
+// TODO: Ajouter des tests incluant des espaces au centre de certains strings
 describe("Material", () => {
 	describe("Creation", () => {
 		describe("Id tests", () => {
@@ -13,6 +16,21 @@ describe("Material", () => {
 				});
 
 				assert.equal(typeof mat1.getId(), "string", "The id must be a String (no value given)");
+
+				done();
+			});
+
+			// Wrong value problem
+			it("Should not create the material with a wrong id value", (done) => {
+				assert.throws(() => {
+					new Material({
+						id: 48,
+						title: "Samsung 10",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with a non string id");
 
 				assert.throws(() => {
 					new Material({
@@ -30,30 +48,14 @@ describe("Material", () => {
 					});
 				}, Error, "The material is being created whith an empty id given");
 
-				done();
-			});
-
-			// Wrong value problem
-			it("Should not create the material with a wrong id value", (done) => {
-				// assert.throws(() => {
-				// 	new Material({
-				// 		id: "zef_18z",
-				// 		title: "Samsung 10",
-				// 		version: "v24587",
-				// 		reference: "AN001",
-				// 		phoneNumber: "0685557844"
-				// 	});
-				// }, Error, "The material is being created with a non alphanumerical character in the id");
-
 				assert.throws(() => {
 					new Material({
-						id: 48,
-						title: "Samsung 10",
+						id: "azed a74a ",
+						title: "Samsung galaxy s7",
 						version: "v24587",
-						reference: "AN001",
-						phoneNumber: "0685557844"
+						reference: "AN001"
 					});
-				}, Error, "The material is being created with a non string id");
+				}, Error, "The material is being created whith an id composed of one or more spaces");
 
 				done();
 			});
@@ -86,24 +88,6 @@ describe("Material", () => {
 					});
 				}, Error, "The material is being created whithout a title");
 
-				assert.throws(() => {
-					new Material({
-						title: "",
-						version: "v24587",
-						reference: "AN001",
-						phoneNumber: "0685557844"
-					});
-				}, Error, "The material is being created with an empty title");
-
-				assert.throws(() => {
-					new Material({
-						title: " ",
-						version: "v24587",
-						reference: "AN001",
-						phoneNumber: "0685557844"
-					});
-				}, Error, "The material is being created with an empty title (it contains just a space character)");
-
 				done();
 			});
 
@@ -126,6 +110,24 @@ describe("Material", () => {
 						phoneNumber: "0685557844"
 					});
 				}, Error, "The material is being created with a non string title");
+
+				assert.throws(() => {
+					new Material({
+						title: "",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with an empty title");
+
+				assert.throws(() => {
+					new Material({
+						title: " ",
+						version: "v24587",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created with an empty title (it contains just a space character)");
 
 				done();
 			});
@@ -180,24 +182,6 @@ describe("Material", () => {
 					});
 				}, Error, "The material is being created whithout a version");
 
-				assert.throws(() => {
-					new Material({
-						title: "Samsung galaxy s7",
-						version: "",
-						reference: "AN001",
-						phoneNumber: "0685557844"
-					});
-				}, Error, "The material is being created whith an empty version field");
-
-				assert.throws(() => {
-					new Material({
-						title: "Samsung galaxy s7",
-						version: " ",
-						reference: "AN001",
-						phoneNumber: "0685557844"
-					});
-				}, Error, "The material is being created whith an empty version field (just a space)");
-
 				done();
 			});
 
@@ -220,6 +204,24 @@ describe("Material", () => {
 						phoneNumber: "0685557844"
 					});
 				}, Error, "The material is being created whith a non string version");
+
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created whith an empty version field");
+
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: " ",
+						reference: "AN001",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created whith an empty version field (just a space)");
 
 				done();
 			});
