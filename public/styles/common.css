@@ -63,3 +63,8 @@ button {
 main {
   padding: 1em;
 }
+
+.input-error{
+  border-color: red;
+  border-width: 0.5em;
+}
