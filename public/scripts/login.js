@@ -6,15 +6,18 @@ loginButton.addEventListener('click', (ev) => {
 	let matricule = document.getElementById('matricule');
 	let password = document.getElementById('password');
 
-	fetch(
-		'/login',
-		{
-			method : 'POST',
-			body : JSON.stringify({
-				matricule : matricule.value,
-				password : password.value
-			})
-		}
-	).then(function(res){
-	});
+	checkInput(matricule);
+	checkInput(password);
+
+	// fetch(
+	// 	'/login',
+	// 	{
+	// 		method : 'POST',
+	// 		body : JSON.stringify({
+	// 			matricule : matricule.value,
+	// 			password : password.value
+	// 		})
+	// 	}
+	// ).then(function(res){
+	// });
 });
