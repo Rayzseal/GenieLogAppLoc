@@ -1,6 +1,8 @@
 import {readFileSync, writeFileSync} from "fs";
 import {Company} from "./Company";
 
+const DB_FILE = "db.json";
+
 export class Database {
 	private readonly company: Company;
 
@@ -8,7 +10,7 @@ export class Database {
 		this.company = company;
 	}
 
-	static load(path: string = "db.json") {
+	static load(path: string = DB_FILE) {
 		try {
 			let content = readFileSync(path);
 			let company: Company = JSON.parse(content.toString());
@@ -24,7 +26,7 @@ export class Database {
 		}
 	}
 
-	save(path: string = "db.json") {
+	saveToFile(path: string = DB_FILE) {
 		let json = JSON.stringify(this.company);
 		writeFileSync(path, json);
 	}

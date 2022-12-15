@@ -1,4 +1,4 @@
-import {genUniqueId} from './utils';
+import {randomUUID} from 'crypto'
 
 const fieldsSize = {
 	title: {min: 1, max: 30},
@@ -11,7 +11,7 @@ const fieldsSize = {
  * Class to create a material.
  */
 export class Material {
-	private id: string;
+	private readonly id: string;
 	private title: string;
 	private version: string;
 	private reference: string;
@@ -35,7 +35,7 @@ export class Material {
 		picture?: string;
 		phoneNumber?: string;
 	}) {
-		this.setId(obj.id);
+		this.id = randomUUID();
 		this.setTitle(obj.title);
 		this.setVersion(obj.version);
 		this.setReference(obj.reference);
@@ -92,26 +92,6 @@ export class Material {
 	}
 
 	/**
-	 * Setter on id.
-	 * @param id new id.
-	 */
-	private setId(id: string | undefined) {
-		if (id) {
-			id = id.trim();
-
-			if (id === "") // An id is specified but wengly formed
-				throw new Error("Id should not be empty");
-
-			if (new RegExp(/\s+/g).test(id))
-				throw new Error("Id should not contain space");
-
-			this.id = id;
-		} else {
-			this.id = genUniqueId();
-		}
-	}
-
-	/**
 	 * Setter on title.
 	 * @param title new title.
 	 */
@@ -123,7 +103,7 @@ export class Material {
 		if (title.length < fieldsSize.title.min || title.length > fieldsSize.title.max)
 			throw new Error(`Title field length is not between ${fieldsSize.title.min} and ${fieldsSize.title.max} characters : size is ${title.length}`);
 
-		if (! new RegExp(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g).test(title))
+		if (!new RegExp(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g).test(title))
 			this.title = title;
 		else
 			throw new Error("Title is not alphanumeric");
@@ -141,7 +121,7 @@ export class Material {
 		if (version.length < fieldsSize.version.min || version.length > fieldsSize.version.max)
 			throw new Error(`Version field length is not between ${fieldsSize.version.min} and ${fieldsSize.version.max} characters : size is ${version.length}`);
 
-		if (! new RegExp(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g).test(version))
+		if (!new RegExp(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g).test(version))
 			this.version = version;
 		else
 			throw new Error("Version is not alphanumeric");
@@ -168,7 +148,7 @@ export class Material {
 	 */
 	public setPicture(picture: string | undefined) {
 		if (!picture)
-			return ;
+			return;
 
 		picture = picture.trim();
 		if (new RegExp('^(http://|https://)[A-Za-z0-9-_./]*(\.jpg|\.png)$').test(picture))
@@ -183,7 +163,7 @@ export class Material {
 	 */
 	public setPhoneNumber(phoneNumber: string | undefined) {
 		if (!phoneNumber)
-			return ;
+			return;
 
 		phoneNumber = phoneNumber.trim();
 		if (phoneNumber.length !== fieldsSize.phoneNumber)

@@ -1,9 +1,10 @@
 // noinspection JSCheckFunctionSignatures
 
+const { Company }  = require("../lib/Company");
 const { Material } = require("../lib/Material");
+const { Database } = require("../lib/Database");
 const assert       = require("assert").strict;
 
-// TODO: Ajouter des tests incluant des espaces au centre de certains strings
 describe("Material", () => {
 	describe("Creation", () => {
 		describe("Id tests", () => {
@@ -16,62 +17,6 @@ describe("Material", () => {
 				});
 
 				assert.equal(typeof mat1.getId(), "string", "The id must be a String (no value given)");
-
-				done();
-			});
-
-			// Wrong value problem
-			it("Should not create the material with a wrong id value", (done) => {
-				assert.throws(() => {
-					new Material({
-						id: 48,
-						title: "Samsung 10",
-						version: "v24587",
-						reference: "AN001",
-						phoneNumber: "0685557844"
-					});
-				}, Error, "The material is being created with a non string id");
-
-				assert.throws(() => {
-					new Material({
-						id: "",
-						title: "Samsung galaxy s7",
-						version: "v24587",
-						reference: "AN001"
-					});
-
-					new Material({
-						id: " ",
-						title: "Samsung galaxy s7",
-						version: "v24587",
-						reference: "AN001"
-					});
-				}, Error, "The material is being created whith an empty id given");
-
-				assert.throws(() => {
-					new Material({
-						id: "azed a74a ",
-						title: "Samsung galaxy s7",
-						version: "v24587",
-						reference: "AN001"
-					});
-				}, Error, "The material is being created whith an id composed of one or more spaces");
-
-				done();
-			});
-
-			// Standard creation
-			it("Should create the material with specified id", (done) => {
-				const mat1 = new Material({
-					id: "1487aze",
-					title: "Samsung galaxy s7",
-					version: "IOS157",
-					reference: "AP150",
-					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
-					phoneNumber: "0685557844"
-				});
-
-				assert.equal(mat1.getId(), "1487aze", "The id should be defined when gave through the constructor");
 
 				done();
 			});
@@ -597,6 +542,58 @@ describe("Material", () => {
 				});
 
 				assert.equal(mat1.getPhoneNumber(), "0685557844", "The phone number should be defined");
+
+				done();
+			});
+		});
+	});
+
+	describe("Database insertion", () => {
+		const testMaterial = new Material({
+			title: "Samsung Galaxy fold",
+			version: "v24587",
+			reference: "AN001",
+			phoneNumber: "0685557844"
+		});
+		const database     = new Database(new Company()); // Retrieve the saved datas
+
+		// Add a material in the company
+		before(() => database.company.addMaterial(testMaterial));
+
+		describe("Unicity tests", () => {
+			// Cannot retrieve the added material
+			it("Should return the material added", (done) => {
+				const retrievedMaterial = database.company.getMaterial(testMaterial.getId());
+
+				assert.equal(retrievedMaterial, testMaterial, "An added material is not returned by the getter");
+
+				done();
+			});
+		});
+
+		describe("Unicity tests", () => {
+			// Strict copy added
+			it("Should not add a material already in the database", (done) => {
+				// Exact same object (same id)
+				assert.throws(() => {
+					database.company.addMaterial(testMaterial);
+				}, Error, "A same material is being added several times in the database");
+
+				// Same reference but different id
+				assert.throws(() => {
+					const sameReferenceDifferentId = new Material(testMaterial);
+					database.company.addMaterial(sameReferenceDifferentId);
+				}, Error, "A material is being added in the database with an already added material id");
+
+				assert.throws(() => {
+					const referenceCopy = new Material({
+						title: "Samsung Galaxy fold",
+						version: "v24587",
+						reference: testMaterial.getReference(),
+						phoneNumber: "0685557844"
+					});
+					database.company.addMaterial(referenceCopy);
+				}, Error, "A material with an already used reference is being added to the company");
 
 				done();
 			});

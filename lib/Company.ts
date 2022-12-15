@@ -1,198 +1,207 @@
-import { Employee } from "./Employee";
-import { Material } from "./Material";
-import { Rental } from "./Rental";
+import {Employee} from "./Employee";
+import {Material} from "./Material";
+import {Rental} from "./Rental";
 
-import { dateInInterval } from "./utils"
+import {dateInInterval} from "./utils"
 
 /**
- * The class company allows the user to add materials, employees and rentals using an existing employee & material. 
+ * The class company allows the user to add materials, employees and rentals using an existing employee & material.
  */
 export class Company {
-  private employees: Array<Employee>;
-  private materials: Array<Material>;
-  private rentals: Array<Rental>;
+	private employees: Array<Employee>;
+	private materials: Array<Material>;
+	private rentals: Array<Rental>;
 
-  constructor() {
-    this.employees = [];
-    this.materials = [];
-    this.rentals = [];
-  }
+	constructor() {
+		this.employees = [];
+		this.materials = [];
+		this.rentals = [];
+	}
 
-  /**
-   * List of employees. 
-   * @returns A list of employees. 
-   */
-  getEmployes(): ReadonlyArray<Employee> {
-    return this.employees;
-  }
+	/**
+	 * List of employees.
+	 * @returns A list of employees.
+	 */
+	getEmployes(): ReadonlyArray<Employee> {
+		return this.employees;
+	}
 
-  /**
-   * Add an employee. 
-   * @param employee Employee to be added. 
-   */
-  addEmployee(employee: Employee) {
-    this.employees.push(employee);
-  }
+	/**
+	 * Add an employee.
+	 * @param employee Employee to be added.
+	 */
+	addEmployee(employee: Employee) {
+		this.employees.push(employee);
+	}
 
-  /**
-   * Remove an employee. 
-   * @param employee Employee to be deleted. 
-   */
-  private removeEmployeeCascade(employee: Employee) {
-    this.rentals = this.rentals.filter(rental => rental.getEmployee() != employee);
-  }
+	/**
+	 * Remove an employee.
+	 * @param employee Employee to be deleted.
+	 */
+	private removeEmployeeCascade(employee: Employee) {
+		this.rentals = this.rentals.filter(rental => rental.getEmployee() != employee);
+	}
 
-  /**
-   * Deletes an employee from a list. 
-   * @param employee Employee to be deleted.
-   * @param force Force the removal of the employee, even if there are active rentals.
-   */
-  removeEmployee(employee: Employee, force: boolean = false) {
-    // Can't remove employee with an active rental.
-    if (!force && this.hasActiveRental(employee)) {
-      throw "Can't delete the employe while a rental is active";
-    }
+	/**
+	 * Deletes an employee from a list.
+	 * @param employee Employee to be deleted.
+	 * @param force Force the removal of the employee, even if there are active rentals.
+	 */
+	removeEmployee(employee: Employee, force: boolean = false) {
+		// Can't remove employee with an active rental.
+		if (!force && this.hasActiveRental(employee)) {
+			throw "Can't delete the employe while a rental is active";
+		}
 
-    this.removeEmployeeCascade(employee);
-    this.employees = this.employees.filter(e => e != employee);
-  }
+		this.removeEmployeeCascade(employee);
+		this.employees = this.employees.filter(e => e != employee);
+	}
 
-  /**
-   * List of materials. 
-   * @returns A list of materials.
-   */
-  getMaterials(): ReadonlyArray<Material> {
-    return this.materials;
-  }
+	/**
+	 * List of materials.
+	 * @returns A list of materials.
+	 */
+	getMaterials(): ReadonlyArray<Material> {
+		return this.materials;
+	}
 
-  /**
-   * Returns a materials corresponding to be specified id.
-   * @param materialId Id of a material.
-   * @returns Specified material. 
-   */
-  getMaterial(materialId: string): Material | undefined {
-    return this.materials.find((material: Material) => material.getId() === materialId)
-  }
+	/**
+	 * Returns a materials corresponding to be specified id.
+	 * @param materialId Id of a material.
+	 * @returns Specified material.
+	 */
+	getMaterial(materialId: string): Material | undefined {
+		return this.materials.find((material: Material) => material.getId() === materialId)
+	}
 
-  /**
-   * Add a material.
-   * @param material Material to be added. 
-   */
-  addMaterials(material: Material) {
-    this.materials.push(material);
-  }
+	/**
+	 * Add a material.
+	 * @param material Material to be added.
+	 */
+	addMaterial(material: Material) {
+		if (!Material)
+			return;
 
-  /**
-   * Remove a material. 
-   * @param material Material to be deleted. 
-   */
-  private removeMaterialCascade(material: Material) {
-    this.rentals = this.rentals.filter(rental => rental.getMaterial() != material);
-  }
+		if (this.materials.find((mat: Material) => mat.getId() === material.getId()))
+			throw new Error("This material is already in the company.");
 
-  /**
-   * Deletes a material from a list. 
-   * @param material Material to be deleted. 
-   * @param force Force the removal of the material, even if there are active rentals. 
-   */
-  removeMaterial(material: Material, force: boolean = false) {
-    if (!force && this.hasActiveRental(material)) {
-      throw new Error("Can't remove material with an active location.");
-    }
+        if (this.materials.find((mat: Material) => mat.getReference() === material.getReference()))
+			throw new Error("This material has not a unique reference : another material in the company already has this reference.");
 
-    this.removeMaterialCascade(material);
-    this.materials = this.materials.filter(m => m != material);
-  }
+		this.materials.push(material);
+	}
 
-  /**
-   * List of rentals.
-   * @returns A list of rentals.
-   */
-  getRentals(): ReadonlyArray<Rental> {
-    return this.rentals;
-  }
+	/**
+	 * Remove a material.
+	 * @param material Material to be deleted.
+	 */
+	private removeMaterialCascade(material: Material) {
+		this.rentals = this.rentals.filter(rental => rental.getMaterial() != material);
+	}
 
-  /**
-   * Rent a material only if the given material if available during this period.
-   * @param rental Rent to be added.
-   */
-  addRental(rental: Rental) {
-    if (!this.employees.find(e => rental.getEmployee() == e)) {
-      throw new Error("Employee doesn't exist in database");
-    }
+	/**
+	 * Deletes a material from a list.
+	 * @param material Material to be deleted.
+	 * @param force Force the removal of the material, even if there are active rentals.
+	 */
+	removeMaterial(material: Material, force: boolean = false) {
+		if (!force && this.hasActiveRental(material)) {
+			throw new Error("Can't remove material with an active location.");
+		}
 
-    if (!this.materials.find(m => rental.getMaterial() == m)) {
-      throw new Error("Material doesn't exist in database");
-    }
+		this.removeMaterialCascade(material);
+		this.materials = this.materials.filter(m => m != material);
+	}
 
-    /** 
-      * - The given starting date of rent in argument is not already during the period of rent for the same material of another rent. 
-      * - The given ending date of rent in argument is not already during the period of rent for the same material of another rent.
-      * - Check if in all the rents already added to the list, if a rent have a starting date that will occurs between the interval of the rent to be added. 
-      * - Check if in all the rents already added to the list, if a rent have a ending date that will occurs between the interval of the rent to be added.
-    */
-    this.rentals.forEach(r => {
-      if (r.getMaterial() == rental.getMaterial()) {
-        if ((dateInInterval(rental.getStartingDate(), r.getStartingDate(), r.getEndingDate()))
-          || (dateInInterval(rental.getEndingDate(), r.getStartingDate(), r.getEndingDate()))
-          || (dateInInterval(r.getStartingDate(), rental.getStartingDate(), rental.getEndingDate()))
-          || (dateInInterval(r.getEndingDate(), rental.getStartingDate(), rental.getEndingDate())))
-          throw new Error("Could not add rental, someone is already renting this material during this period r : " + r.getStartingDate() + "  rental add : " + rental.getStartingDate() + "-" + rental.getEndingDate());
-      }
-    });
+	/**
+	 * List of rentals.
+	 * @returns A list of rentals.
+	 */
+	getRentals(): ReadonlyArray<Rental> {
+		return this.rentals;
+	}
 
-    this.rentals.push(rental);
-  }
+	/**
+	 * Rent a material only if the given material if available during this period.
+	 * @param rental Rent to be added.
+	 */
+	addRental(rental: Rental) {
+		if (!this.employees.find(e => rental.getEmployee() == e)) {
+			throw new Error("Employee doesn't exist in database");
+		}
 
-  /**
-   * Remove a rental from a list. 
-   * @param rental Rental to be deleted. 
-   */
-  removeRental(rental: Rental) {
-    this.rentals = this.rentals.filter(l => l == rental);
-  }
+		if (!this.materials.find(m => rental.getMaterial() == m)) {
+			throw new Error("Material doesn't exist in database");
+		}
 
-  /**
-   * Check if a location is active for a given employee or material.
-   * @param referee Given employee or material to be checked.
-   * @returns False if no location is active right now for the specified employee.
-   */
-  hasActiveRental(referee: Employee | Material): boolean {
-    if (referee instanceof Employee) {
-      // Check if the employee has an active rental.
-      return this.rentals.find(rental =>
-        rental.isActive() && (rental.getEmployee() == referee)
-      ) != undefined;
+		/**
+		 * - The given starting date of rent in argument is not already during the period of rent for the same material of another rent.
+		 * - The given ending date of rent in argument is not already during the period of rent for the same material of another rent.
+		 * - Check if in all the rents already added to the list, if a rent have a starting date that will occurs between the interval of the rent to be added.
+		 * - Check if in all the rents already added to the list, if a rent have a ending date that will occurs between the interval of the rent to be added.
+		 */
+		this.rentals.forEach(r => {
+			if (r.getMaterial() == rental.getMaterial()) {
+				if ((dateInInterval(rental.getStartingDate(), r.getStartingDate(), r.getEndingDate()))
+					|| (dateInInterval(rental.getEndingDate(), r.getStartingDate(), r.getEndingDate()))
+					|| (dateInInterval(r.getStartingDate(), rental.getStartingDate(), rental.getEndingDate()))
+					|| (dateInInterval(r.getEndingDate(), rental.getStartingDate(), rental.getEndingDate())))
+					throw new Error("Could not add rental, someone is already renting this material during this period r : " + r.getStartingDate() + "  rental add : " + rental.getStartingDate() + "-" + rental.getEndingDate());
+			}
+		});
 
-    } else if (referee instanceof Material) {
-      // Check if the material has an active rental.
-      return this.rentals.find(rental =>
-        rental.isActive() && (rental.getMaterial() == referee)
-      ) != undefined;
-      
-    } else {
-      throw new Error("Invalid type used for referee");
-    }
-  }
+		this.rentals.push(rental);
+	}
 
-  remapClasses() {
-    // This method basically remaps each Object into its corresponding class instance.
+	/**
+	 * Remove a rental from a list.
+	 * @param rental Rental to be deleted.
+	 */
+	removeRental(rental: Rental) {
+		this.rentals = this.rentals.filter(l => l == rental);
+	}
 
-    this.employees = this.employees.map((e: any) => new Employee(e));
-    this.materials = this.materials.map((m: any) => new Material(m));
+	/**
+	 * Check if a location is active for a given employee or material.
+	 * @param referee Given employee or material to be checked.
+	 * @returns False if no location is active right now for the specified employee.
+	 */
+	hasActiveRental(referee: Employee | Material): boolean {
+		if (referee instanceof Employee) {
+			// Check if the employee has an active rental.
+			return this.rentals.find(rental =>
+				rental.isActive() && (rental.getEmployee() == referee)
+			) != undefined;
 
-    // Deduplicate and fix each rental.employee/material references.
-    this.rentals = this.rentals.map((r: any) => {
-      r.employee = this.employees.find(e => e.getPersonnalNumber() == r.employee.personnalNumber);
-      r.material = this.materials.find(m => m.getId() == r.material.id);
+		} else if (referee instanceof Material) {
+			// Check if the material has an active rental.
+			return this.rentals.find(rental =>
+				rental.isActive() && (rental.getMaterial() == referee)
+			) != undefined;
 
-      return new Rental(r);
-    });
-  }
+		} else {
+			throw new Error("Invalid type used for referee");
+		}
+	}
+
+	remapClasses() {
+		// This method basically remaps each Object into its corresponding class instance.
+
+		this.employees = this.employees.map((e: any) => new Employee(e));
+		this.materials = this.materials.map((m: any) => new Material(m));
+
+		// Deduplicate and fix each rental.employee/material references.
+		this.rentals = this.rentals.map((r: any) => {
+			r.employee = this.employees.find(e => e.getPersonnalNumber() == r.employee.personnalNumber);
+			r.material = this.materials.find(m => m.getId() == r.material.id);
+
+			return new Rental(r);
+		});
+	}
 }
 
-let company = new Company;
-
+/*
+let company = new Company();
 
 let mat = new Material({
   title: "Samsung Galaxy S10",
@@ -232,17 +241,16 @@ let rental2 = new Rental({
 
 
 company.addEmployee(emp);
-company.addMaterials(mat);
-company.addMaterials(mat2);
+company.addMaterial(mat);
+company.addMaterial(mat2);
 company.addRental(rental2);
 company.addRental(rental);
 
-/*
+
 console.log(company.getRentals().length);
 company.removeRental(rental2);
 console.log(company.getRentals().length);
-*/
-//console.log(company.locationIsActiveRental(rental));
+console.log(company.locationIsActiveRental(rental));
 
 
 console.log(company.getEmployes().length);
@@ -251,4 +259,5 @@ console.log(company.getEmployes().length);
 
 console.log(company.getRentals().at(0)?.getEmployee());
 
-//console.log(company.locationIsActiveEmployee(emp));
+console.log(company.locationIsActiveEmployee(emp));
+*/

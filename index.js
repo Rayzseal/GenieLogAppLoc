@@ -68,7 +68,7 @@ app.post("/user/create", function (req, res) {
 		surname: req.name,
 		name: req.name,
 		password: req.password,
-		email: req.email,
+		email: req.email
 	}));
 });
 
@@ -166,9 +166,7 @@ app.get("/material/:id/edit/", function (req, res) {
 
 app.get("/accessForbidden", function (req, res) {
 
-	res.render("accessForbidden.ejs", {
-		
-	});
+	res.render("accessForbidden.ejs", {});
 });
 
 // -------------
@@ -188,12 +186,12 @@ app.listen(PORT, () => {
 	// 	email: "truc@truc.fr",
 	// }));
 
-	// database.company.addMaterials(new Material({
+	// database.company.addMaterial(new Material({
 	// 	title: "Samsung Galaxy fold",
 	// 	version: "v2458-7",
 	// 	reference: "AN001",
 	// 	phoneNumber: "0685557844"
 	// }));
 
-	// database.save();
+	// database.saveToFile();
 });
