@@ -6,8 +6,14 @@ loginButton.addEventListener('click', (ev) => {
 	let matricule = document.getElementById('matricule');
 	let password = document.getElementById('password');
 
-	checkInput(matricule);
-	checkInput(password);
+
+	let result_matricule = checkInput(matricule);
+	let result_password = checkInput(password);
+	if(result_matricule || result_password)
+	{
+		set_modal_text(getErrorFlow());	
+		open_modal();
+	}
 
 	// fetch(
 	// 	'/login',
