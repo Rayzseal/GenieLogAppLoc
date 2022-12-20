@@ -85,7 +85,7 @@ export class Company {
 		if (this.materials.find((mat: Material) => mat.getId() === material.getId()))
 			throw new Error("This material is already in the company.");
 
-        if (this.materials.find((mat: Material) => mat.getReference() === material.getReference()))
+		if (this.materials.find((mat: Material) => mat.getReference() === material.getReference()))
 			throw new Error("This material has not a unique reference : another material in the company already has this reference.");
 
 		this.materials.push(material);
@@ -96,21 +96,23 @@ export class Company {
 	 * @param material Material to be deleted.
 	 */
 	private removeMaterialCascade(material: Material) {
+		this.materials.splice(this.materials.indexOf(material), 1);
+		// Remove the rentals (active or not) associaed with the deleted material
 		this.rentals = this.rentals.filter(rental => rental.getMaterial() != material);
 	}
 
 	/**
-	 * Deletes a material from a list.
+	 * Try to remove a specific material from the materials list.
+	 * If this material already has a rental, the deletion is not performed except if the force paramater is set to true.
+	 * In this case, the material will be deleted, the active rental and the rentals history also.
 	 * @param material Material to be deleted.
 	 * @param force Force the removal of the material, even if there are active rentals.
 	 */
 	removeMaterial(material: Material, force: boolean = false) {
-		if (!force && this.hasActiveRental(material)) {
+		if (this.hasActiveRental(material) && !force)
 			throw new Error("Can't remove material with an active location.");
-		}
 
 		this.removeMaterialCascade(material);
-		this.materials = this.materials.filter(m => m != material);
 	}
 
 	/**
@@ -199,65 +201,3 @@ export class Company {
 		});
 	}
 }
-
-/*
-let company = new Company();
-
-let mat = new Material({
-  title: "Samsung Galaxy S10",
-  version: "V1.6",
-  reference: "AN123",
-  picture: "https://exemple/image.jpg",
-  phoneNumber: "1234567890",
-});
-let mat2 = new Material({
-  title: "Samsung Galaxy S10",
-  version: "V1.6",
-  reference: "AN123",
-  picture: "https://exemple/image.jpg",
-  phoneNumber: "1234567890",
-});
-let emp = new Employee({
-  name: "Jean",
-  surname: "Lasalle",
-  email: "jean.lasalle@mail.com",
-  role: false,
-  password: "Azertyuiop1234",
-  personnalNumber: "1234ABC",
-});
-//console.log(emp.getName());
-let rental = new Rental({
-  employee: emp,
-  material: mat,
-  startingDate: new Date("2022-12-10"),
-  endingDate: new Date("2022-12-12"),
-});
-let rental2 = new Rental({
-  employee: emp,
-  material: mat2,
-  startingDate: new Date("2022-12-25"),
-  endingDate: new Date("2022-12-30"),
-});
-
-
-company.addEmployee(emp);
-company.addMaterial(mat);
-company.addMaterial(mat2);
-company.addRental(rental2);
-company.addRental(rental);
-
-
-console.log(company.getRentals().length);
-company.removeRental(rental2);
-console.log(company.getRentals().length);
-console.log(company.locationIsActiveRental(rental));
-
-
-console.log(company.getEmployes().length);
-company.removeEmployee(emp);
-console.log(company.getEmployes().length);
-
-console.log(company.getRentals().at(0)?.getEmployee());
-
-console.log(company.locationIsActiveEmployee(emp));
-*/

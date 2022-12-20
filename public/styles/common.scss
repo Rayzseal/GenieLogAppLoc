@@ -10,6 +10,7 @@
 	--accent-color: #e09664;
 	--accent-color2: #6c4343;
 	--error-color: #e64c3c;
+	--success-color: #4fba6f;
 	--page-background: #364968;
 	--overlays-background: #fddf97;
 	--white-background: #f2f3f4;
@@ -64,8 +65,8 @@ a {
 button {
 	border-radius: 5px;
 	cursor: pointer;
-	background-color: white;
-	color: var(--black-text);
+	background-color: lightgrey;
+	color: black;
 }
 
 * {

@@ -17,29 +17,29 @@
 
                     <div>
                         <section>
-                            <input type="text" value="IPhone 15" >
-                            <p>#68745</p>
+                            <input id="title" type="text" placeholder="IPhone 15">
+                            <p></p>
                             <ul>
                                 <li>
-                                    <button title="Annuler les modifications" onclick="window.location.href='/materials/'">Annuler</button>
+                                    <button title="Abandonner la création" onclick="window.location.href='/materials/'">Abandonner</button>
                                 </li>
                                 <li>
-                                    <button title="Enregsiter les modifications" onclick="window.location.href='/material/5'">Enregistrer</button>
+                                    <button id="save" title="Enregistrer ce nouveau métriel">Enregistrer</button>
                                 </li>
                             </ul>
                         </section>
                         <ul>
                             <li>
                                 <h5>Version</h5>
-                                <input type="text" value="Lorem ipsum">
+                                <input id="version" type="text" placeholder="V8.0">
                             </li>
                             <li>
                                 <h5>Référence</h5>
-                                <input type="text" value="Lorem ipsum">
+                                <input id="reference" type="text" placeholder="AN150">
                             </li>
                             <li>
                                 <h5>Numéro de téléphone</h5>
-                                <input type="text" value="Lorem ipsum">
+                                <input id="phoneNumber" type="text" placeholder="0618784858">
                             </li>
                         </ul>
                     </div>
@@ -47,4 +47,11 @@
             </section>
         </main>
     </body>
+
+    <script type="text/javascript">
+		// Set the structure of a toast
+		const toast_structure = `<%- include('../included/toast.ejs'); %>`;
+    </script>
+    <script type="text/javascript" src="/public/scripts/Toast.js"></script>
+    <script type="text/javascript" src="/public/scripts/material/create.js"></script>
 </html>

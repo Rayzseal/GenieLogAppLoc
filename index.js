@@ -11,6 +11,7 @@ const database = Database.load(); // Retrieve the saved datas
 // -------------
 // Server settings
 // -------------
+app.use(express.json());
 app.use("/public/", express.static("public/"));
 
 // -------------
@@ -62,7 +63,6 @@ app.get("/user/create/", function (req, res) {
  * Perform the user creation into the database
  */
 app.post("/user/create", function (req, res) {
-	console.log(`I perform the database actions of the creation`);
 	database.company.addEmployee(new Employee({
 		personnalNumber: req.mat,
 		surname: req.name,
@@ -136,7 +136,29 @@ app.get("/material/create", function (req, res) {
  * Perform the material creation into the database.
  */
 app.post("/material/create", function (req, res) {
-	console.log(`I perform the database actions of the creation`);
+	let createdMaterial;
+	try {
+		createdMaterial = new Material({
+			title: req.body.title,
+			version: req.body.version,
+			reference: req.body.reference,
+			picture: req.body.picture,
+			phoneNumber: req.body.phoneNumber
+		});
+
+		database.company.addMaterial(createdMaterial);
+		database.saveToFile();
+	} catch (e) {
+		return res.send(JSON.stringify({
+			success: false,
+			message: e.message
+		}));
+	}
+
+	res.send(JSON.stringify({
+		success: true,
+		materialId: createdMaterial.getId()
+	}));
 });
 
 /**

@@ -20,7 +20,7 @@ export class Material {
 
 	/**
 	 * Constructor with parameters of a material.
-	 * @param obj {Object}
+	 * @param obj
 	 * @param obj.title Tile of a material.
 	 * @param obj.version Version of a material.
 	 * @param obj.reference Reference of a material.
@@ -28,7 +28,6 @@ export class Material {
 	 * @param obj.phoneNumber Phone number of a material.
 	 */
 	constructor(obj: {
-		id?: string;
 		title: string;
 		version: string;
 		reference: string;
@@ -95,7 +94,7 @@ export class Material {
 	 * Setter on title.
 	 * @param title new title.
 	 */
-	public setTitle(title: string) {
+	public setTitle(title: string = "") {
 		title = title.trim();
 		if (!title || title === "")
 			throw new Error("Title should not be empty");
@@ -134,7 +133,7 @@ export class Material {
 	public setReference(reference: string = "") {
 		reference = reference.trim();
 		if (reference.length !== fieldsSize.reference)
-			throw new Error(`Reference field size is different of ${fieldsSize.reference} : size is ${reference.length}`);
+			throw new Error(`"Reference" field size is different from ${fieldsSize.reference} : current size is ${reference.length}`);
 
 		if (/^(AN|AP|XX)(\d){3}$/.test(reference))
 			this.reference = reference;
