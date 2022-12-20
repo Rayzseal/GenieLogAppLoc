@@ -3,10 +3,11 @@
         <%- include('included/common.ejs') %>
         <title>Page de connexion</title>
         <link rel="stylesheet" href="/public/styles/login.css"/>
+        <link rel="stylesheet" href="/public/styles/popup.css"/>
     </head>
 
     <body>
-        <%- include('included/popup.ejs', {error_text : ''}) %>
+        <%- include('included/popup.ejs', {errorText : ''}) %>
         <main>
             <section>
                 <h1>Connexion</h1>
@@ -28,6 +29,7 @@
         </main>
     </body>
 
+    <script type="text/javascript" src="/public/scripts/popup.js"></script>
     <script type="text/javascript" src="/public/scripts/input.js"></script>
     <script type="text/javascript" src="/public/scripts/login.js"></script>
 </html>

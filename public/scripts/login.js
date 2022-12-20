@@ -1,18 +1,17 @@
-const loginButton = document.getElementById('loginButton');
+const loginButton = document.getElementById("loginButton");
 
 // On submit
-loginButton.addEventListener('click', (ev) => {
+loginButton.addEventListener("click", (ev) => {
 	ev.preventDefault();
-	let matricule = document.getElementById('matricule');
-	let password = document.getElementById('password');
+	let matricule = document.getElementById("matricule");
+	let password  = document.getElementById("password");
 
 
 	let result_matricule = checkInput(matricule);
-	let result_password = checkInput(password);
-	if(result_matricule || result_password)
-	{
-		set_modal_text(getErrorFlow());	
-		open_modal();
+	let result_password  = checkInput(password);
+	if (result_matricule || result_password) {
+		const errorPopup = new Popup(getErrorFlow());
+		errorPopup.open();
 	}
 
 	// fetch(
