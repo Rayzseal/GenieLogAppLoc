@@ -55,7 +55,7 @@ app.get("/users/", function (req, res) {
 /**
  * Display the view to create a new user
  */
-app.get("/	", function (req, res) {
+app.get("/user/create/", function (req, res) {
 	res.render("user/createUser.ejs");
 });
 /**
