@@ -22,7 +22,7 @@ export class Company {
 	 * List of employees.
 	 * @returns A list of employees.
 	 */
-	getEmployes(): ReadonlyArray<Employee> {
+	getEmployees(): ReadonlyArray<Employee> {
 		return this.employees;
 	}
 

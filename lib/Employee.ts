@@ -1,10 +1,10 @@
-import { genUniqueId } from './utils';
+import {randomUUID} from "crypto";
 
 /**
  * Class to create an employee. 
  */
 export class Employee {
-	private id: string;
+	private readonly id: string;
 	private name: string;
 	private surname: string;
 	private email: string;
@@ -30,7 +30,7 @@ export class Employee {
 		password: string,
 		personnalNumber: string
 	}) {
-		this.id = obj.id ?? genUniqueId();
+		this.id = randomUUID();
 		this.role = obj.role ?? false;
 		this.setName(obj.name);
 		this.setSurname(obj.surname);

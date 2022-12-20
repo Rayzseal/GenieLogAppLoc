@@ -54,8 +54,9 @@
                                 <p>Emprunteur</p>
                                 <select>
                                     <option value="" selected>Sélectionner un utilisateur</option>
-                                    <option value="">Teddyx</option>
-                                    <option value="">Teddyx 2</option>
+                                    <% for (const user of employees) { %>
+                                        <option value="<%= user.getId() %>"><%= user.getName() %></option>
+                                    <% } %>
                                 </select>
                             </label>
                         </li>

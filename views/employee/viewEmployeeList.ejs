@@ -1,0 +1,43 @@
+<html lang="fr">
+    <head>
+        <%- include('../included/common.ejs') %>
+        <title>Liste des employés</title>
+		<link rel="stylesheet" href="/public/styles/material/viewMaterialList.css"/>
+    </head>
+
+    <body>
+        <%- include('../included/menu.ejs') %>
+
+        <main>
+            <h1>Liste des employés</h1>
+
+            <section>
+                <menu>
+                    <li>
+                        <label>
+                            Filtrer
+                            <input type="text" placeholder="Jean">
+                        </label>
+                    </li>
+                    <li>
+                        <button onclick="window.location.href='/employee/create/'" title="Ajouter un nouvel employé">Nouveau</button>
+                    </li>
+                </menu>
+
+                <ul>
+                    <p>Utilisez le bouton "nouveau" pour ajouter un employé</p>
+                    <% for (const employee of employeesList) { %>
+                        <li>
+                            <div>
+                                <p><%= employee.getName() ;%><%= employee.getSurname() ;%></p>
+                                <p><%= employee.getPersonnalNumber() ;%></p>
+                                <button title="Voir les détails de cet employé" onclick="window.location.href=`/employee/<%= employee.getId() ;%>/`">Consulter</button>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </section>
+        </main>
+
+    </body>
+</html>

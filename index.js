@@ -24,7 +24,7 @@ app.get("/", function (req, res) {
 	res.render("login.ejs");
 });
 /**
- * Check the login identifier and password provided in the login view and login the user if all is good.
+ * Check the login identifier and password provided in the login view and login the employee if all is good.
  */
 app.post("/login", function (req, res) {
 	console.log(`I perform the login id and password check before creating the session`);
@@ -44,25 +44,27 @@ app.get("/home", function (req, res) {
 });
 
 // -------------
-// Server user routes
+// Server employee routes
 // -------------
 /**
- * Display the view listing all users of this app
+ * Display the view listing all employees of this app
  */
-app.get("/users/", function (req, res) {
-	res.render("user/viewUserList.ejs", {});
+app.get("/employees/", function (req, res) {
+	res.render("employee/viewEmployeeList.ejs", {
+		employeesList: database.company.getEmployees()
+	});
 });
 
 /**
- * Display the view to create a new user
+ * Display the view to create a new employee
  */
-app.get("/user/create/", function (req, res) {
-	res.render("user/createUser.ejs");
+app.get("/employee/create/", function (req, res) {
+	res.render("employee/createEmployee.ejs");
 });
 /**
- * Perform the user creation into the database
+ * Perform the employee creation into the database
  */
-app.post("/user/create", function (req, res) {
+app.post("/employee/create", function (req, res) {
 	database.company.addEmployee(new Employee({
 		personnalNumber: req.mat,
 		surname: req.name,
@@ -73,11 +75,11 @@ app.post("/user/create", function (req, res) {
 });
 
 /**
- * Display the view showing the details about a specific user.
- * @param id {string} The user id referencing the user to get details about.
+ * Display the view showing the details about a specific employee.
+ * @param id {string} The employee id referencing the employee to get details about.
  */
-app.get("/user/:id/", function (req, res) {
-	res.render("user/viewuser.ejs", {
+app.get("/employee/:id/", function (req, res) {
+	res.render("employee/viewemployee.ejs", {
 		name: "Jean",
 		surname: "Lasalle",
 		email: "exemple@mail.com",
@@ -86,11 +88,11 @@ app.get("/user/:id/", function (req, res) {
 });
 
 /**
- * Display the view to edit a specific user.
- * @param id {string} The user id referencing the user to edit.
+ * Display the view to edit a specific employee.
+ * @param id {string} The employee id referencing the employee to edit.
  */
-app.get("/user/:id/edit", function (req, res) {
-	res.render("user/editUser.ejs", {
+app.get("/employee/:id/edit", function (req, res) {
+	res.render("employee/editEmployee.ejs", {
 		name: "Jean",
 		surname: "Lasalle",
 		email: "exemple@mail.com",
@@ -98,18 +100,18 @@ app.get("/user/:id/edit", function (req, res) {
 	});
 });
 /**
- * Save the edited datas of a specific user in the database.
- * @param id {string} The user id referencing the user to edit.
+ * Save the edited datas of a specific employee in the database.
+ * @param id {string} The employee id referencing the employee to edit.
  */
-app.post("/user/:id/edit", function (req, res) {
+app.post("/employee/:id/edit", function (req, res) {
 	console.log(`I perform the database actions of the edition`);
 });
 
 /**
- * Delete a specifi user from the database.
- * @param id {string} The user id referencing the user to delete.
+ * Delete a specifi employee from the database.
+ * @param id {string} The employee id referencing the employee to delete.
  */
-app.post("/user/:id/delete", function (req, res) {
+app.post("/employee/:id/delete", function (req, res) {
 	console.log(`I perform the database actions of the deletion`);
 });
 
@@ -170,7 +172,8 @@ app.get("/material/:id/", function (req, res) {
 
 	res.render("material/viewMaterial.ejs", {
 		material: database.company.getMaterial(materialId),
-		rentals: database.company.getRentalsForMaterial(materialId)
+		rentals: database.company.getRentalsForMaterial(materialId),
+		employees: database.company.getEmployees()
 	});
 });
 
@@ -198,7 +201,7 @@ app.get("/accessForbidden", function (req, res) {
 app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur http://localhost:${PORT}`);
 
-	//database.company.getEmployes().forEach(e => console.log(e.getPersonnalNumber()));
+	//database.company.getEmployees().forEach(e => console.log(e.getPersonnalNumber()));
 
 	// Database test additon
 	// database.company.addEmployee(new Employee({
