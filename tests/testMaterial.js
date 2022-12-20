@@ -6,7 +6,7 @@ const { Database } = require("../lib/Database");
 const assert       = require("assert").strict;
 
 describe("Material", () => {
-	describe("Creation", () => {
+	describe("Object creation", () => {
 		describe("Id tests", () => {
 			// Missing value problem
 			it("Should create the material whithout an id specified", (done) => {
@@ -560,7 +560,7 @@ describe("Material", () => {
 		// Add a material in the company
 		before(() => database.company.addMaterial(testMaterial));
 
-		describe("Unicity tests", () => {
+		describe("Retrieve tests", () => {
 			// Cannot retrieve the added material
 			it("Should return the material added", (done) => {
 				const retrievedMaterial = database.company.getMaterial(testMaterial.getId());
@@ -595,6 +595,29 @@ describe("Material", () => {
 					database.company.addMaterial(referenceCopy);
 				}, Error, "A material with an already used reference is being added to the company");
 
+				done();
+			});
+		});
+	});
+
+	describe("Database deletion", () => {
+		const testMaterial = new Material({
+			title: "Samsung Galaxy fold",
+			version: "v24587",
+			reference: "AN001",
+			phoneNumber: "0685557844"
+		});
+		const database     = new Database(new Company()); // Retrieve the saved datas
+
+		// Add a material in the company
+		before(() => database.company.addMaterial(testMaterial));
+
+		describe("Retrieve tests", () => {
+			// Can retrieve the deleted material
+			it("Should not return the deleted material", (done) => {
+				database.company.removeMaterial(testMaterial);
+
+				assert.equal(database.company.getMaterial(testMaterial.getId()), undefined, "The material is not removed from the database when called for being deleted.");
 				done();
 			});
 		});
