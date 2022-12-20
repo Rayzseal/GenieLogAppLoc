@@ -13,33 +13,37 @@
 
             <section>
                 <section>
-                    <img src="<%= material.getPicture() ?? '/public/icons/phone.png' %>" alt="Image du matériel">
+                    <img id="image_preview" src="<%= material.getPicture() ?? "/public/icons/phone.png" ;%>" alt="Image du matériel">
 
                     <div>
                         <section>
-                            <input type="text" value="<%= material.getTitle() %>" >
-                            <p>#<%= material.getId() %></p>
+                            <input id="title" type="text" placeholder="IPhone 15" value="<%= material.getTitle() ;%>">
+                            <p>#<%= material.getId() ;%></p>
                             <ul>
                                 <li>
-                                    <button title="Annuler les modifications" onclick="window.location.href='/material/<%= material.getId() %>'">Annuler</button>
+                                    <button title="Annuler les modifications" onclick="window.location.href='/material/<%= material.getId() ;%>'">Annuler</button>
                                 </li>
                                 <li>
-                                    <button title="Enregistrer les modifications" onclick="window.location.href='/material/<%= material.getId() %>'">Enregistrer</button>
+                                    <button id="save" title="Enregistrer les modifications" onclick="window.location.href='/material/<%= material.getId() ;%>'">Enregistrer</button>
                                 </li>
                             </ul>
                         </section>
                         <ul>
                             <li>
                                 <h5>Version</h5>
-                                <input type="text" value="<%= material.getVersion() %>">
+                                <input id="version" type="text" placeholder="V8.0" value="<%= material.getVersion() ;%>">
+                            </li>
+                            <li>
+                                <h5>Image</h5>
+                                <input id="image" type="text" placeholder="https://site/example.png" value="<%= material.getPicture() ;%>">
                             </li>
                             <li>
                                 <h5>Référence</h5>
-                                <input type="text" value="<%= material.getReference() %>">
+                                <input id="reference" type="text" placeholder="AN150" value="<%= material.getReference() ;%>">
                             </li>
                             <li>
                                 <h5>Numéro de téléphone</h5>
-                                <input type="text" value="<%= material.getPhoneNumber() %>">
+                                <input id="phoneNumber" type="text" placeholder="0618784858" value="<%= material.getPhoneNumber() ;%>">
                             </li>
                         </ul>
                     </div>

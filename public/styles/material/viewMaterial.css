@@ -41,8 +41,9 @@ main > section > section:first-child > div > ul {
 }
 main > section > section:first-child > div > ul > li {
   flex: 1;
+  flex-basis: 45%;
 }
-main > section > section:first-child > div > ul > li:first-child {
+main > section > section:first-child > div > ul > li:first-child:nth-last-child(3) {
   flex-basis: 100%;
 }
 main > section > section:nth-child(2) {

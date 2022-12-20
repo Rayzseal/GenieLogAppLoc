@@ -135,7 +135,7 @@ export class Material {
 		if (reference.length !== fieldsSize.reference)
 			throw new Error(`"Reference" field size is different from ${fieldsSize.reference} : current size is ${reference.length}`);
 
-		if (/^(AN|AP|XX)(\d){3}$/.test(reference))
+			if (/^(AN|AP|XX)(\d){3}$/.test(reference))
 			this.reference = reference;
 		else
 			throw new Error("Reference should start by either AN for android or AP for apple or XX for other and end with 3 numbers");

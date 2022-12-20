@@ -325,6 +325,15 @@ describe("Material", () => {
 					});
 				}, Error, "The material is being created whith a non alphanumerical character in the reference");
 
+				assert.throws(() => {
+					new Material({
+						title: "Samsung galaxy s7",
+						version: "v24587",
+						reference: "CD005",
+						phoneNumber: "0685557844"
+					});
+				}, Error, "The material is being created whith a non Apple, Android or XX format");
+
 				done();
 			});
 
@@ -345,14 +354,32 @@ describe("Material", () => {
 			// Standard creation
 			it("Should create the material with specified references", (done) => {
 				const mat1 = new Material({
-					title: "Samsung galaxy s7",
+					title: "Iphone 10",
 					version: "v24587",
 					reference: "AP150",
 					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
 					phoneNumber: "0685557844"
 				});
 
-				assert.equal(mat1.getReference(), "AP150", "The reference should be defined (this is a two letters, 3 numbers format reference)");
+				const mat2 = new Material({
+					title: "Samsung galaxy s7",
+					version: "v24587",
+					reference: "AN014",
+					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
+					phoneNumber: "0685557844"
+				});
+
+				const mat3 = new Material({
+					title: "Samsung galaxy s7",
+					version: "v24587",
+					reference: "XX147",
+					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
+					phoneNumber: "0685557844"
+				});
+
+				assert.equal(mat1.getReference(), "AP150", "The reference should be defined (this is a two letters, 3 numbers format reference with an Apple format)");
+				assert.equal(mat2.getReference(), "AN014", "The reference should be defined (this is a two letters, 3 numbers format reference with an Android format)");
+				assert.equal(mat3.getReference(), "XX147", "The reference should be defined (this is a two letters, 3 numbers format reference with an non Android or Apple format)");
 
 				done();
 			});

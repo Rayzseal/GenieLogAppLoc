@@ -1,13 +1,19 @@
 // Fields
-const titleField       = document.querySelector("#title");
-const versionField     = document.querySelector("#version");
-const referenceField   = document.querySelector("#reference");
 const phoneNumberField = document.querySelector("#phoneNumber");
+const referenceField   = document.querySelector("#reference");
+const versionField     = document.querySelector("#version");
+const titleField       = document.querySelector("#title");
+const imageField       = document.querySelector("#image");
+const imagePreview       = document.querySelector("#image_preview");
 
 // Buttons
 const saveButton = document.querySelector("#save");
 
-saveButton.addEventListener("click", (ev) => {
+imageField.addEventListener("change", () => {
+	imagePreview.src = imageField.value;
+});
+
+saveButton.addEventListener("click", () => {
 	setFieldsDisableState(true);
 
 	if (titleField.value.trim() === "") {
@@ -33,7 +39,7 @@ saveButton.addEventListener("click", (ev) => {
 				title: titleField.value,
 				version: versionField.value,
 				reference: referenceField.value,
-				picture: "",
+				picture: imageField.value,
 				phoneNumber: phoneNumberField.value
 			})
 		}
