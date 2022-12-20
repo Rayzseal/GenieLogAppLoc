@@ -1,0 +1,45 @@
+<html lang="fr">
+    <head>
+        <%- include('../included/common.ejs') %>
+        <title>Liste des matériels</title>
+        <link rel="stylesheet" href="/public/styles/material/viewMaterialList.css"/>
+    </head>
+
+    <body>
+        <%- include('../included/menu.ejs') %>
+
+        <main>
+            <h1>Liste des matériels</h1>
+
+            <section>
+                <menu>
+                    <li>
+                        <label>
+                            Filtrer
+                            <input type="text" placeholder="Dell">
+                        </label>
+                    </li>
+                    <li>
+                        <button onclick="window.location.href='/material/create/'" title="Créer un nouveau matériel">Nouveau</button>
+                    </li>
+                </menu>
+
+                <ul>
+                    <p>Utilisez le bouton "nouveau" pour ajouter un matériel</p>
+                    <% for (const material of materialsList) { %>
+                        <li>
+                            <div>
+                                <img src="<%= material.getPicture() ?? "/public/icons/phone.png" %>" alt="Image de l'appareil"/>
+                            </div>
+                            <div>
+                                <p><%= material.getTitle() %></p>
+                                <p><%= material.getVersion() %></p>
+                                <button title="Voir les détails de ce matériel" onclick="window.location.href=`/material/<%= material.getId() %>/`">Consulter</button>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </section>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+main > section {
+	border-radius: var(--box-radius);
+	background-color: var(--white-background);
+	padding: 1em;
+
+	& > menu {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	& > ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+
+		// The empty list message
+		& > p {
+			display: none;
+		}
+		& > p:only-child {
+			height: 50vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		// The standard lit items
+		& > li {
+			margin: 1em;
+			flex-basis: 15%;
+			display: flex;
+			flex-direction: column;
+			background-color: var(--page-background);
+			border-radius: var(--box-radius);
+			align-items: center;
+			padding: 0.5em;
+
+			& > div {
+				width: 100%;
+
+				&:first-child {
+					display: flex;
+					justify-content: center;
+					background-color: white;
+					padding: 0.1em;
+					border-radius: var(--box-radius);
+
+					& > img {
+						border-radius: var(--box-radius);
+						height: 8em;
+					}
+				}
+
+				& > p {
+					color: var(--white-text);
+
+					&:last-of-type {
+						color: var(--subtitle);
+						font-style: italic;
+						font-size: 0.8em;
+						margin-top: 0;
+					}
+				}
+
+				& > button {
+					width: 100%;
+				}
+			}
+
+			&:hover {
+				box-shadow: var(--box-shadow);
+			}
+		}
+	}
+}

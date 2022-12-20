@@ -1,0 +1,50 @@
+<html lang="fr">
+    <head>
+        <%- include('../included/common.ejs') %>
+        <title>Nouveau matériel</title>
+        <link rel="stylesheet" href="/public/styles/material/viewMaterial.css"/>
+    </head>
+
+    <body>
+        <%- include('../included/menu.ejs') %>
+
+        <main>
+            <h1>Nouveau matériel</h1>
+
+            <section>
+                <section>
+                    <img src="/public/icons/material.png" alt="Image du matériel">
+
+                    <div>
+                        <section>
+                            <input type="text" value="IPhone 15" >
+                            <p>#68745</p>
+                            <ul>
+                                <li>
+                                    <button title="Annuler les modifications" onclick="window.location.href='/materials/'">Annuler</button>
+                                </li>
+                                <li>
+                                    <button title="Enregsiter les modifications" onclick="window.location.href='/material/5'">Enregistrer</button>
+                                </li>
+                            </ul>
+                        </section>
+                        <ul>
+                            <li>
+                                <h5>Version</h5>
+                                <input type="text" value="Lorem ipsum">
+                            </li>
+                            <li>
+                                <h5>Référence</h5>
+                                <input type="text" value="Lorem ipsum">
+                            </li>
+                            <li>
+                                <h5>Numéro de téléphone</h5>
+                                <input type="text" value="Lorem ipsum">
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </body>
+</html>

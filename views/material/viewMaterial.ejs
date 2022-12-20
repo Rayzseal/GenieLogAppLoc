@@ -1,0 +1,104 @@
+<html lang="fr">
+    <head>
+        <%- include('../included/common.ejs') %>
+        <title>Consultation d'un matériel</title>
+        <link rel="stylesheet" href="/public/styles/material/viewMaterial.css"/>
+    </head>
+
+    <body>
+        <%- include('../included/menu.ejs') %>
+
+        <main>
+            <h1>Consultation du matériel</h1>
+
+            <section>
+                <section>
+                    <img src="<%= material.getPicture() ?? '/public/icons/phone.png' %>" alt="Image du matériel">
+
+                    <div>
+                        <section>
+                            <h3><%= material.getTitle() %></h3>
+                            <p>#<%= material.getId() %></p>
+                            <ul>
+                                <li>
+                                    <button onclick="window.location.href='/material/<%= material.getId() %>/edit'" title="Modifier le matériel">Modifier</button>
+                                </li>
+                                <li>
+                                    <button title="Supprimer le matériel">Supprimer</button>
+                                </li>
+                            </ul>
+                        </section>
+                        <ul>
+                            <li>
+                                <h5>Version</h5>
+                                <p><%= material.getVersion() %></p>
+                            </li>
+                            <li>
+                                <h5>Référence</h5>
+                                <p><%= material.getReference() %></p>
+                            </li>
+                            <li>
+                                <h5>Numéro de téléphone</h5>
+                                <p><%= material.getPhoneNumber() %></p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Gestion des réservations</h2>
+
+                    <menu>
+                        <li>
+                            <label>
+                                <p>Emprunteur</p>
+                                <select>
+                                    <option value="" selected>Sélectionner un utilisateur</option>
+                                    <option value="">Teddyx</option>
+                                    <option value="">Teddyx 2</option>
+                                </select>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <p>Date de début d'emprunt</p>
+                                <input type="date">
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <p>Date de fin d'emprunt</p>
+                                <input type="date">
+                            </label>
+                        </li>
+                        <li>
+                            <button title="Ajouter une réservation">Ajouter</button>
+                        </li>
+                    </menu>
+
+                    <table>
+                        <tr>
+                            <th>Emprunteur</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th></th>
+                        </tr>
+                        <% let i = 0;
+                                while (i++ < 10) { %>
+                            <tr>
+                                <td>Ada Lovelace</td>
+                                <td>December 10 1814</td>
+                                <td>December 10 1815</td>
+                                <td>
+                                    <button title="Supprimer de l'historique">
+                                        <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </table>
+                </section>
+            </section>
+        </main>
+    </body>
+</html>

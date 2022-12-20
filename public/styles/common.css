@@ -1,0 +1,70 @@
+:root {
+  --subtitle: lightgrey;
+  --black-text: #6c4343;
+  --white-text: #f2f3f4;
+  --accent-color: #e09664;
+  --accent-color2: #6c4343;
+  --page-background: #364968;
+  --overlays-background: #fddf97;
+  --white-background: #f2f3f4;
+  --box-shadow: rgba(255, 255, 255, 0.2) 0 7px 29px 0;
+  --box-radius: 5px;
+}
+
+body {
+  margin: 0;
+  font-family: Helvetica, sans-serif;
+  background-color: var(--page-background);
+}
+
+form {
+  margin: 0;
+  border-radius: var(--box-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1em;
+  background-color: var(--white-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--white-text);
+  text-transform: uppercase;
+}
+
+menu, ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+input, select {
+  border-radius: 5px;
+  background-color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+  color: var(--black-text);
+}
+
+* {
+  color: var(--black-text);
+}
+
+main {
+  padding: 1em;
+}
+
+.input-error{
+  border-color: red;
+  border-width: 0.5em;
+}

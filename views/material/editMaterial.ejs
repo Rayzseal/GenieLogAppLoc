@@ -1,0 +1,50 @@
+<html lang="fr">
+    <head>
+        <%- include('../included/common.ejs') %>
+        <title>Édition d'un matériel</title>
+        <link rel="stylesheet" href="/public/styles/material/viewMaterial.css"/>
+    </head>
+
+    <body>
+        <%- include('../included/menu.ejs') %>
+
+        <main>
+            <h1>Édition du matériel</h1>
+
+            <section>
+                <section>
+                    <img src="<%= material.getPicture() ?? '/public/icons/phone.png' %>" alt="Image du matériel">
+
+                    <div>
+                        <section>
+                            <input type="text" value="<%= material.getTitle() %>" >
+                            <p>#<%= material.getId() %></p>
+                            <ul>
+                                <li>
+                                    <button title="Annuler les modifications" onclick="window.location.href='/material/<%= material.getId() %>'">Annuler</button>
+                                </li>
+                                <li>
+                                    <button title="Enregistrer les modifications" onclick="window.location.href='/material/<%= material.getId() %>'">Enregistrer</button>
+                                </li>
+                            </ul>
+                        </section>
+                        <ul>
+                            <li>
+                                <h5>Version</h5>
+                                <input type="text" value="<%= material.getVersion() %>">
+                            </li>
+                            <li>
+                                <h5>Référence</h5>
+                                <input type="text" value="<%= material.getReference() %>">
+                            </li>
+                            <li>
+                                <h5>Numéro de téléphone</h5>
+                                <input type="text" value="<%= material.getPhoneNumber() %>">
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </body>
+</html>

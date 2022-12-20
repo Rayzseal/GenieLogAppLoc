@@ -1,0 +1,62 @@
+main > section {
+  border-radius: var(--box-radius);
+  background-color: var(--white-background);
+  padding: 1em;
+}
+main > section > menu {
+  display: flex;
+  justify-content: space-between;
+}
+main > section > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+main > section > ul > p {
+  display: none;
+}
+main > section > ul > p:only-child {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main > section > ul > li {
+  margin: 1em;
+  flex-basis: 15%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--page-background);
+  border-radius: var(--box-radius);
+  align-items: center;
+  padding: 0.5em;
+}
+main > section > ul > li > div {
+  width: 100%;
+}
+main > section > ul > li > div:first-child {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 0.1em;
+  border-radius: var(--box-radius);
+}
+main > section > ul > li > div:first-child > img {
+  border-radius: var(--box-radius);
+  height: 8em;
+}
+main > section > ul > li > div > p {
+  color: var(--white-text);
+}
+main > section > ul > li > div > p:last-of-type {
+  color: var(--subtitle);
+  font-style: italic;
+  font-size: 0.8em;
+  margin-top: 0;
+}
+main > section > ul > li > div > button {
+  width: 100%;
+}
+main > section > ul > li:hover {
+  box-shadow: var(--box-shadow);
+}
