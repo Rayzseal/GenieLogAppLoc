@@ -4,6 +4,7 @@
   --white-text: #f2f3f4;
   --accent-color: #e09664;
   --accent-color2: #6c4343;
+  --error-color: #e64c3c;
   --page-background: #364968;
   --overlays-background: #fddf97;
   --white-background: #f2f3f4;
@@ -44,6 +45,9 @@ input, select {
   border-radius: 5px;
   background-color: white;
 }
+input.input-error, select.input-error {
+  border: medium solid var(--error-color);
+}
 
 a {
   text-decoration: none;
@@ -62,9 +66,4 @@ button {
 
 main {
   padding: 1em;
-}
-
-.input-error{
-  border-color: red;
-  border-width: 0.5em;
 }
