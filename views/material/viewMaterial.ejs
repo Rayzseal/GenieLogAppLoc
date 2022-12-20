@@ -13,15 +13,15 @@
 
             <section>
                 <section>
-                    <img src="<%= material.getPicture() ?? '/public/icons/phone.png' %>" alt="Image du matériel">
+                    <img src="<%= material.getPicture() ?? "/public/icons/phone.png" ;%>" alt="Image du matériel">
 
                     <div>
                         <section>
-                            <h3><%= material.getTitle() %></h3>
-                            <p>#<%= material.getId() %></p>
+                            <h3><%= material.getTitle() ;%></h3>
+                            <p>#<%= material.getId() ;%></p>
                             <ul>
                                 <li>
-                                    <button onclick="window.location.href='/material/<%= material.getId() %>/edit'" title="Modifier le matériel">Modifier</button>
+                                    <button onclick="window.location.href='/material/<%= material.getId() ;%>/edit'" title="Modifier le matériel">Modifier</button>
                                 </li>
                                 <li>
                                     <button title="Supprimer le matériel">Supprimer</button>
@@ -31,15 +31,15 @@
                         <ul>
                             <li>
                                 <h5>Version</h5>
-                                <p><%= material.getVersion() %></p>
+                                <p><%= material.getVersion() ;%></p>
                             </li>
                             <li>
                                 <h5>Référence</h5>
-                                <p><%= material.getReference() %></p>
+                                <p><%= material.getReference() ;%></p>
                             </li>
                             <li>
                                 <h5>Numéro de téléphone</h5>
-                                <p><%= material.getPhoneNumber() ?? "Non renseigné" %></p>
+                                <p><%= material.getPhoneNumber() ?? "Non renseigné" ;%></p>
                             </li>
                         </ul>
                     </div>
@@ -83,12 +83,16 @@
                             <th>Date de fin</th>
                             <th></th>
                         </tr>
-                        <% let i = 0;
-                                while (i++ < 10) { %>
+
+                        <tr>
+                            <td colspan="4">Aucune réservation n'a encore été effectuée</td>
+                        </tr>
+
+                        <% for (const rental of rentals) { %>
                             <tr>
-                                <td>Ada Lovelace</td>
-                                <td>December 10 1814</td>
-                                <td>December 10 1815</td>
+                                <td><%= rental.getEmployee() ;%></td>
+                                <td><%= rental.getStartingDate() ;%></td>
+                                <td><%= rental.getEndingDate() ;%></td>
                                 <td>
                                     <button title="Supprimer de l'historique">
                                         <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>

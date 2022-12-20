@@ -74,6 +74,12 @@ main > section > section:nth-child(2) > table {
   border: thin solid var(--subtitle);
   border-radius: var(--box-radius);
 }
+main > section > section:nth-child(2) > table tr:nth-child(2) > td {
+  padding: 1em 0;
+}
+main > section > section:nth-child(2) > table tr:nth-child(2):nth-last-child(2) {
+  display: none;
+}
 main > section > section:nth-child(2) > table th {
   background-color: var(--subtitle);
 }

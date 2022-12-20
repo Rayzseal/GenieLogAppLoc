@@ -1,9 +1,10 @@
-import { Employee } from "./Employee";
-import { Material } from "./Material";
-import { dateInInterval, genUniqueId } from './utils';
+import {Employee} from "./Employee";
+import {Material} from "./Material";
+import {dateInInterval} from './utils';
+import {randomUUID} from "crypto";
 
 export class Rental {
-	private id: string;
+	private readonly id: string;
 	private employee: Employee;
 	private material: Material;
 	private startingDate: Date;
@@ -16,7 +17,7 @@ export class Rental {
 		startingDate: Date,
 		endingDate: Date
 	}) {
-		this.id = genUniqueId();
+		this.id = randomUUID();
 		this.setEmployee(obj.employee);
 		this.setMaterial(obj.material);
 		this.setStartingDate(obj.startingDate);

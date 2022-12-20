@@ -124,6 +124,14 @@ export class Company {
 	}
 
 	/**
+	 * Return the list of rentals for a specific material
+	 * @returns A list of rentals.
+	 */
+	getRentalsForMaterial(materialId: String): ReadonlyArray<Rental> {
+		return this.rentals.filter(rental => rental.getMaterial().getId() === materialId);
+	}
+
+	/**
 	 * Rent a material only if the given material if available during this period.
 	 * @param rental Rent to be added.
 	 */

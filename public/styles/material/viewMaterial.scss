@@ -9,14 +9,17 @@ main > section {
 	}
 
 	& > section {
+		// Material details part
 		&:first-child {
 			display: flex;
 
+			// Material picture preview
 			& > img {
 				height: 15em;
 				border-radius: var(--box-radius);
 			}
 
+			// Material infos
 			& > div {
 				flex: 1;
 				margin-left: 1em;
@@ -58,10 +61,12 @@ main > section {
 			}
 		}
 
+		// Rentals part
 		&:nth-child(2) {
 			border-top: thin solid var(--subtitle);
 			margin-top: 0.5em;
 
+			// New rental creation
 			& > menu {
 				background-color: var(--subtitle);
 				border-radius: var(--box-radius);
@@ -86,11 +91,24 @@ main > section {
 				}
 			}
 
+			// Saved rentals table
 			& > table {
 				width: 100%;
 				margin-top: 1em;
 				border: thin solid var(--subtitle);
 				border-radius: var(--box-radius);
+
+				// The "no rentals" message
+				tr:nth-child(2) {
+					& > td {
+						padding: 1em 0;
+					}
+
+					// When there is rentals displayed in the table
+					&:nth-last-child(2) {
+						display: none;
+					}
+				}
 
 				th {
 					background-color: var(--subtitle);

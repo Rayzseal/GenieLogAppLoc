@@ -169,7 +169,8 @@ app.get("/material/:id/", function (req, res) {
 	const materialId = req.params.id;
 
 	res.render("material/viewMaterial.ejs", {
-		material: database.company.getMaterial(materialId)
+		material: database.company.getMaterial(materialId),
+		rentals: database.company.getRentalsForMaterial(materialId)
 	});
 });
 
