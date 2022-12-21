@@ -1,44 +1,44 @@
 <html lang="fr">
     <head>
         <%- include('../included/common.ejs') %>
-        <title>Création d'un utilisateur</title>
+        <title>Ajout d'un employé</title>
         <link rel="stylesheet" href="/public/styles/employee/viewEmployee.css"/>
     </head>
 
     <body>
         <%- include('../included/menu.ejs') %>
 
-        <div class="page">
-            <div class="global">
-                <h2>Création d'un nouvel utilisateur</h2>
-                <div class="form">
-                    <form action="" method="post" class="">
-                        <div class="form-content">
-                            <label for="name">Entrez votre prénom</label>
-                            <input type="text" name="name" id="name" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="surname">Entrez votre nom de famille</label>
-                            <input type="text" name="surname" id="surname" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="email">Entrez votre email</label>
-                            <input type="email" name="email" id="email" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="mat">Entrez votre matricule</label>
-                            <input type="text" name="mat" id="mat" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="password">Entrez votre mot de passe</label>
-                            <input type="password" name="password" id="password" required>
-                        </div>
-                        <div class="submit">
-                            <input type="submit" value="Créer">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <main>
+            <h1>Ajout d'un nouvel employé</h1>
+
+            <section>
+                <ul>
+                    <li>
+                        <label for="name">Prénom</label>
+                        <input type="text" name="name" id="name">
+                    </li>
+                    <li>
+                        <label for="surname">Nom de famille</label>
+                        <input type="text" name="surname" id="surname">
+                    </li>
+                    <li>
+                        <label for="email">Adresse mail</label>
+                        <input type="email" name="email" id="email">
+                    </li>
+                    <li>
+                        <label for="matricule">Matricule</label>
+                        <input type="text" name="mat" id="matricule">
+                    </li>
+                    <li>
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" id="password">
+                    </li>
+                    <li>
+                        <button title="Abandonner la création">Abandonner</button>
+                        <button title="Ajouter le nouvel utilisateur">Ajouter</button>
+                    </li>
+                </ul>
+            </section>
+        </main>
     </body>
 </html>
