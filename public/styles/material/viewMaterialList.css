@@ -34,14 +34,14 @@ main > section > ul > li {
 main > section > ul > li > div {
   width: 100%;
 }
-main > section > ul > li > div:first-child {
+main > section > ul > li > div:not(div:last-child) {
   display: flex;
   justify-content: center;
   background-color: white;
   padding: 0.1em;
   border-radius: var(--box-radius);
 }
-main > section > ul > li > div:first-child > img {
+main > section > ul > li > div:not(div:last-child) > img {
   border-radius: var(--box-radius);
   height: 8em;
 }

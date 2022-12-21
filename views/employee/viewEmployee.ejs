@@ -1,14 +1,14 @@
 <html lang="fr">
 	<head>
 		<%- include('../included/common.ejs') %>
-		<title>Détails d'un employé</title>
+		<title>Fiche de l'employé <%= employee.getName() %><%= employee.getSurname() %></title>
 	</head>
 
 	<body>
 		<%- include('../included/menu.ejs') %>
 
         <main>
-		    <h1>Vue d'un employé</h1>
+		    <h1>Fiche de l'employé <%= employee.getName() %><%= employee.getSurname() %></h1>
 
 			<section>
 				<%= employee %>
