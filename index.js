@@ -96,11 +96,10 @@ app.post("/employee/create", function (req, res) {
  * @param id {string} The employee id referencing the employee to get details about.
  */
 app.get("/employee/:id/", function (req, res) {
-	res.render("employee/viewemployee.ejs", {
-		name: "Jean",
-		surname: "Lasalle",
-		email: "exemple@mail.com",
-		mat: "1234ABC"
+	const employeeId = req.params.id;
+
+	res.render("employee/viewEmployee.ejs", {
+		employee: database.company.getEmployee(employeeId),
 	});
 });
 

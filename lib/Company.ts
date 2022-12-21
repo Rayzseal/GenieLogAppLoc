@@ -27,6 +27,15 @@ export class Company {
 	}
 
 	/**
+	 * Returns the employee object corresponding to a specified id.
+	 * @param employeeId Id of a employee.
+	 * @returns Specified employee.
+	 */
+	getEmployee(employeeId: String): Employee | undefined {
+		return this.employees.find((employee: Employee) => employee.getId() === employeeId);
+	}
+
+	/**
 	 * Add an employee.
 	 * @param employee Employee to be added.
 	 */
@@ -66,12 +75,12 @@ export class Company {
 	}
 
 	/**
-	 * Returns a materials corresponding to be specified id.
+	 * Returns a material corresponding to the specified id.
 	 * @param materialId Id of a material.
 	 * @returns Specified material.
 	 */
 	getMaterial(materialId: string): Material | undefined {
-		return this.materials.find((material: Material) => material.getId() === materialId)
+		return this.materials.find((material: Material) => material.getId() === materialId);
 	}
 
 	/**
