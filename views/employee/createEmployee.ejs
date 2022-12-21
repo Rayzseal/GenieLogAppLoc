@@ -34,11 +34,19 @@
                         <input type="password" name="password" id="password">
                     </li>
                     <li>
-                        <button title="Abandonner la création">Abandonner</button>
-                        <button title="Ajouter le nouvel utilisateur">Ajouter</button>
+                        <button onclick="window.location.href='/employees/'" title="Abandonner la création">Abandonner</button>
+                        <button title="Ajouter le nouvel utilisateur" id="save">Ajouter</button>
                     </li>
                 </ul>
             </section>
         </main>
     </body>
+
+    <script type="text/javascript">
+		// Set the structure of a toast
+		const toast_structure = `<%- include('../included/toast.ejs'); %>`;
+    </script>
+    <script type="text/javascript" src="/public/scripts/Toast.js"></script>
+    <script type="text/javascript" src="/public/scripts/employee/createEmployee.js"></script>
+
 </html>

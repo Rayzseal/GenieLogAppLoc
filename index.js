@@ -65,12 +65,29 @@ app.get("/employee/create/", function (req, res) {
  * Perform the employee creation into the database
  */
 app.post("/employee/create", function (req, res) {
-	database.company.addEmployee(new Employee({
-		personnalNumber: req.mat,
-		surname: req.name,
-		name: req.name,
-		password: req.password,
-		email: req.email
+
+	let createdEmployee;
+	try {
+		createdEmployee = new Employee({
+			personnalNumber: req.body.matricule,
+			surname: req.body.name,
+			name: req.body.name,
+			password: req.body.password,
+			email: req.body.email
+		});
+
+		database.company.addEmployee(createdEmployee);
+		database.saveToFile();
+	} catch (e) {
+		return res.send(JSON.stringify({
+			success: false,
+			message: e.message
+		}));
+	}
+
+	res.send(JSON.stringify({
+		success: true,
+		employeeId: createdEmployee.getId()
 	}));
 });
 

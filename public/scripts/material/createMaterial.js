@@ -32,7 +32,6 @@ saveButton.addEventListener("click", () => {
 	fetch("/material/create", {
 			method: "POST",
 			headers: {
-				// "Content-Type": "application/x-www-form-urlencoded"
 				"Content-type": "application/json; charset=UTF-8"
 			},
 			body: JSON.stringify({
@@ -46,9 +45,8 @@ saveButton.addEventListener("click", () => {
 	).then(async function (res) {
 		const response = await res.json();
 
-		console.log(response);
 		if (response.success) {
-			toaster.display("La matériel a bien été créé");
+			toaster.display("Le matériel a bien été créé");
 			setTimeout(() => window.location.href = `/material/${response.materialId}`, 1000);
 		} else {
 			toaster.display(response.message, "var(--error-color)");
@@ -61,6 +59,5 @@ saveButton.addEventListener("click", () => {
 });
 
 function setFieldsDisableState(state) {
-	console.log(`Changing disable state to ${state}`);
 	document.querySelectorAll("input, button").forEach(selector => selector.disabled = state);
 }
