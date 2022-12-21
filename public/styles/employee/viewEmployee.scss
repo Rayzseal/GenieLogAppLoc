@@ -5,6 +5,10 @@ main {
 	& > section {
 		width: 50%;
 		align-self: center;
+		border: thin solid black;
+		background-color: var(--white-background);
+		padding: 0.5em;
+		border-radius: var(--box-radius);
 
 		& > ul {
 			display: flex;
