@@ -6,7 +6,6 @@
     </head>
 
     <body>
-        <%- include('included/popup.ejs', {errorText : ''}) %>
         <main>
             <section>
                 <h1>Connexion</h1>
@@ -28,7 +27,11 @@
         </main>
     </body>
 
-    <script type="text/javascript" src="/public/scripts/Popup.js"></script>
+    <script type="text/javascript">
+		// Set the structure of a toast
+		const toast_structure = `<%- include('included/toast.ejs'); %>`;
+    </script>
+    <script type="text/javascript" src="/public/scripts/Toast.js"></script>
     <script type="text/javascript" src="/public/scripts/input.js"></script>
     <script type="text/javascript" src="/public/scripts/login.js"></script>
 </html>
