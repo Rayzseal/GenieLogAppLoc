@@ -21,10 +21,11 @@ app.use("/public/", express.static("public/"));
 // -------------
 app.use(session({
 	secret: crypto.randomBytes(20).toString('hex'),
-	resave : false,
-	saveUninitialized : false,
+	resave : true,
+	saveUninitialized : true,
 	cookie : {
-		secure : true
+		secure : false,
+		httpOnly : false
 	}
 }));
 
@@ -42,6 +43,27 @@ app.get("/", function (req, res) {
  */
 app.post("/login", function (req, res) {
 	console.log(`I perform the login id and password check before creating the session`);
+	const personnalNumber = req.body.matricule;
+	const password = req.body.password;
+
+	try{
+		emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
+		if(emp != undefined && emp.password === password)
+			req.session.current_employe = emp;
+		else
+			throw new Error("Password or Personnal number incorrect");
+	}catch(e){
+		return res.send(JSON.stringify({
+			success: false,
+			message: e.message
+		}));
+	}
+
+	console.log(req.session.current_employe);
+	res.send(JSON.stringify({
+		success: true
+	}));
+	res.end();
 });
 
 app.post("/logout", function (req, res) {
@@ -52,8 +74,9 @@ app.post("/logout", function (req, res) {
  * Display the home page of the application.
  */
 app.get("/home", function (req, res) {
+	console.log(req.session);
 	res.render("home.ejs", {
-		name: "Teddyx"
+		name: req.session.current_employe.surname
 	});
 });
 

@@ -10,7 +10,7 @@ loginButton.addEventListener("click", (ev) => {
 	let result_matricule = checkInput(matricule);
 	let result_password  = checkInput(password);
 	if (result_matricule || result_password) {
-		toaster.display(getErrorFlow(), 'orange');
+		toaster.display(getErrorFlow(), 'var(--error-color)');
 	}
 	else{
 		fetch(
@@ -23,11 +23,15 @@ loginButton.addEventListener("click", (ev) => {
 					password : password.value
 				})
 			}
-		).then(function(res){
-			// If no error, redirect to app
-			document.location.href = '/home';
-		}).catch(function(res){
-			toaster.display('La requête n\'a pas aboutie');
+		).then( async function(res){
+			const response = await res.json()
+			if(response.success === true){
+				document.location.href = '/home';
+			}else{
+				toaster.display(response.message, 'var(--error-color)');
+			}
+		}).catch(e => {
+			toaster.display(e.message, 'var(--error-color)');
 		});
 	}
 });
