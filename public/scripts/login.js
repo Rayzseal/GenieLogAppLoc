@@ -14,18 +14,19 @@ loginButton.addEventListener("click", (ev) => {
 		return errorPopup.open();
 	}
 
-	// fetch(
-	// 	'/login',
-	// 	{
-	// 		method : 'POST',
-	// 		body : JSON.stringify({
-	// 			matricule : matricule.value,
-	// 			password : password.value
-	// 		})
-	// 	}
-	// ).then(function(res){
-	// });
-
-	// If no error, redirect to app
-	document.location.href = "/home";
+	fetch(
+		'/login',
+		{
+			method : 'POST',
+			body : JSON.stringify({
+				matricule : matricule.value,
+				password : password.value
+			})
+		}
+	).then(function(res){
+		// If no error, redirect to app
+		document.location.href = "/home";
+	}).catch(function(res){
+		console.log(res);
+	});
 });
