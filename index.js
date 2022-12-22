@@ -1,4 +1,6 @@
 const express      = require("express");
+const session			 = require("express-session");
+const crypto 			 = require('crypto');
 const app          = express();
 const { Employee } = require("./lib/Employee");
 const { Material } = require("./lib/Material");
@@ -13,6 +15,18 @@ const database = Database.load(); // Retrieve the saved datas
 // -------------
 app.use(express.json());
 app.use("/public/", express.static("public/"));
+
+// -------------	
+// Session Creation
+// -------------
+app.use(session({
+	secret: crypto.randomBytes(20).toString('hex'),
+	resave : false,
+	saveUninitialized : false,
+	cookie : {
+		secure : true
+	}
+}));
 
 // -------------
 // Server global routes
