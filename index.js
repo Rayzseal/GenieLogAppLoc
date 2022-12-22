@@ -43,14 +43,12 @@ app.use((req, res, next) => {
 			personnalNumber: "1234567",
 			role: true
 		})
-		next();
 	}
+	
+	if(!req.session.current_employe && req.path !== "/")
+		return res.redirect("/");
 
-	if (req.session.current_employe || req.path === "/") {
-		next();
-	} else {
-		res.redirect("/");
-	}
+	next();
 });
 
 // -------------
