@@ -2,6 +2,7 @@ const express      = require("express");
 const session			 = require("express-session");
 const crypto 			 = require('crypto');
 const app          = express();
+const { Rental }   = require("./lib/Rental");
 const { Employee } = require("./lib/Employee");
 const { Material } = require("./lib/Material");
 const { Database } = require("./lib/Database");
@@ -46,20 +47,16 @@ app.post("/login", function (req, res) {
 	const personnalNumber = req.body.matricule;
 	const password = req.body.password;
 
-	try{
-		emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
-		if(emp != undefined && emp.password === password)
-			req.session.current_employe = emp;
-		else
-			throw new Error("Password or Personnal number incorrect");
-	}catch(e){
+	let emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
+
+	if (emp && emp.password === password)
+		req.session.current_employe = emp;
+	else
 		return res.send(JSON.stringify({
 			success: false,
-			message: e.message
+			message: "Password or Personnal number incorrect"
 		}));
-	}
 
-	console.log(req.session.current_employe);
 	res.send(JSON.stringify({
 		success: true
 	}));
@@ -136,7 +133,7 @@ app.get("/employee/:id/", function (req, res) {
 	const employeeId = req.params.id;
 
 	res.render("employee/viewEmployee.ejs", {
-		employee: database.company.getEmployee(employeeId),
+		employee: database.company.getEmployee(employeeId)
 	});
 });
 
@@ -222,9 +219,12 @@ app.post("/material/create", function (req, res) {
  */
 app.get("/material/:id/", function (req, res) {
 	const materialId = req.params.id;
+	const material = database.company.getMaterial(materialId);
+	if (!material)
+		return res.redirect('/materials');
 
 	res.render("material/viewMaterial.ejs", {
-		material: database.company.getMaterial(materialId),
+		material: material,
 		rentals: database.company.getRentalsForMaterial(materialId),
 		employees: database.company.getEmployees()
 	});
@@ -242,9 +242,41 @@ app.get("/material/:id/edit/", function (req, res) {
 	});
 });
 
+/**
+ * Create a new rental for a specific material
+ * @param id {string} The material id referencing the material that will be rented.
+ */
+app.post("/material/:id/rental/create", function (req, res) {
+	const materialId = req.params.id;
+	let createdRental;
+	try {
+		createdRental = new Rental({
+			employee: database.company.getEmployee(req.body.employeeId),
+			material: database.company.getMaterial(materialId),
+			startingDate: req.body.startingDate,
+			endingDate: req.body.endingDate
+		});
 
+		database.company.addRental(createdRental);
+		database.saveToFile();
+	} catch (e) {
+		return res.send(JSON.stringify({
+			success: false,
+			message: e.message
+		}));
+	}
+
+	res.send(JSON.stringify({
+		success: true,
+		rental: createdRental
+	}));
+});
+
+
+// -------------
+// Other routes
+// -------------
 app.get("/accessForbidden", function (req, res) {
-
 	res.render("accessForbidden.ejs", {});
 });
 

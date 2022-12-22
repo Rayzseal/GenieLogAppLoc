@@ -11,7 +11,6 @@ export class Rental {
 	private endingDate: Date;
 
 	constructor(obj: {
-		id?: string,
 		employee: Employee,
 		material: Material,
 		startingDate: Date,

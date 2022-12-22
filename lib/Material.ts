@@ -1,4 +1,5 @@
 import {randomUUID} from 'crypto'
+import {isUUIDFormat} from "./utils";
 
 const fieldsSize = {
 	title: {min: 1, max: 30},
@@ -11,7 +12,7 @@ const fieldsSize = {
  * Class to create a material.
  */
 export class Material {
-	private readonly id: string;
+	private id: string;
 	private title: string;
 	private version: string;
 	private reference: string;
@@ -21,6 +22,7 @@ export class Material {
 	/**
 	 * Constructor with parameters of a material.
 	 * @param obj
+	 * @param obj.id The identifier of the material.
 	 * @param obj.title Tile of a material.
 	 * @param obj.version Version of a material.
 	 * @param obj.reference Reference of a material.
@@ -28,13 +30,15 @@ export class Material {
 	 * @param obj.phoneNumber Phone number of a material.
 	 */
 	constructor(obj: {
+		id?: string,
 		title: string;
 		version: string;
 		reference: string;
 		picture?: string;
 		phoneNumber?: string;
 	}) {
-		this.id = randomUUID();
+		// TODO: add tests on id setter format
+		this.setId(obj.id);
 		this.setTitle(obj.title);
 		this.setVersion(obj.version);
 		this.setReference(obj.reference);
@@ -172,5 +176,17 @@ export class Material {
 			this.phoneNumber = phoneNumber;
 		else
 			throw new Error(`PhoneNumber should only contains ${fieldsSize.phoneNumber} numbers`);
+	}
+
+	/**
+	 * Setter on material id.
+	 * @param id the id to give to this material. This is need to respect the uuidv4 format. Otherwise, the material will be given a random uuid.
+	 * @private
+	 */
+	private setId(id: string | undefined) {
+		if (id && isUUIDFormat(id))
+			this.id = id;
+		else
+			this.id = randomUUID();
 	}
 }

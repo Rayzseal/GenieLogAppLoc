@@ -17,12 +17,12 @@ export class Employee {
 	 * @param obj {Object}
 	 * @param obj.name Name of an employee.
 	 * @param obj.surname Surname of an employee.
-	 * @param obj.password Password of an employee.
 	 * @param obj.email Email of an employee.
+	 * @param obj.role Wheter this user is admin or not.
+	 * @param obj.password Password of an employee.
 	 * @param obj.personnalNumber Employee number.
 	 */
 	public constructor(obj: {
-		id?: string,
 		name: string,
 		surname: string,
 		email: string,
@@ -32,6 +32,7 @@ export class Employee {
 	}) {
 		this.id = randomUUID();
 		this.role = obj.role ?? false;
+
 		this.setName(obj.name);
 		this.setSurname(obj.surname);
 		this.setPassword(obj.password);

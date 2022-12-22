@@ -13,23 +13,23 @@ saveButton.addEventListener("click", () => {
 
 	if (nameField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ prénom est requis", "var(--error-color)");
+		return toaster.display("Un prénom est requis", "var(--error-color)");
 	}
 	if (surnameField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ nom de famille est requis", "var(--error-color)");
+		return toaster.display("Un nom de famille est requis", "var(--error-color)");
 	}
 	if (emailField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ adresse email est requis", "var(--error-color)");
+		return toaster.display("Une adresse email est requise", "var(--error-color)");
 	}
 	if (matriculeField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ matricule est requis", "var(--error-color)");
+		return toaster.display("Un matricule est requis", "var(--error-color)");
 	}
 	if (passwordField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ mot de passe est requis", "var(--error-color)");
+		return toaster.display("Un mot de passe est requis", "var(--error-color)");
 	}
 
 	fetch("/employee/create", {

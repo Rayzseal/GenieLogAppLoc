@@ -105,9 +105,13 @@ main > section {
 					}
 
 					// When there is rentals displayed in the table
-					&:nth-last-child(2) {
+					&:nth-last-child(n+2) {
 						display: none;
 					}
+				}
+
+				tr:not(tr:nth-child(2)) > td:first-child {
+					cursor: pointer;
 				}
 
 				th {

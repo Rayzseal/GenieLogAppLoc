@@ -143,10 +143,12 @@ export class Company {
 
 	/**
 	 * Return the list of rentals for a specific material
-	 * @returns A list of rentals.
+	 * @returns A list of rentals sorted by ending date.
 	 */
 	getRentalsForMaterial(materialId: String): ReadonlyArray<Rental> {
-		return this.rentals.filter(rental => rental.getMaterial().getId() === materialId);
+		return this.rentals
+			.filter(rental => rental.getMaterial()?.getId() === materialId)
+			.sort((a: Rental, b: Rental) => new Date(b.getEndingDate()).getTime() - new Date(a.getEndingDate()).getTime());
 	}
 
 	/**
@@ -154,13 +156,11 @@ export class Company {
 	 * @param rental Rent to be added.
 	 */
 	addRental(rental: Rental) {
-		if (!this.employees.find(e => rental.getEmployee() == e)) {
+		if (!this.employees.find(e => rental.getEmployee() == e))
 			throw new Error("Employee doesn't exist in database");
-		}
 
-		if (!this.materials.find(m => rental.getMaterial() == m)) {
+		if (!this.materials.find(m => rental.getMaterial() == m))
 			throw new Error("Material doesn't exist in database");
-		}
 
 		/**
 		 * - The given starting date of rent in argument is not already during the period of rent for the same material of another rent.
@@ -174,7 +174,7 @@ export class Company {
 					|| (dateInInterval(rental.getEndingDate(), r.getStartingDate(), r.getEndingDate()))
 					|| (dateInInterval(r.getStartingDate(), rental.getStartingDate(), rental.getEndingDate()))
 					|| (dateInInterval(r.getEndingDate(), rental.getStartingDate(), rental.getEndingDate())))
-					throw new Error("Could not add rental, someone is already renting this material during this period r : " + r.getStartingDate() + "  rental add : " + rental.getStartingDate() + "-" + rental.getEndingDate());
+					throw new Error("Could not add rental, someone is already renting this material during this period : " + r.getStartingDate() + "  rental add : " + rental.getStartingDate() + "-" + rental.getEndingDate());
 			}
 		});
 
