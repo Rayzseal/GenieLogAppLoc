@@ -36,6 +36,15 @@ export class Company {
 	}
 
 	/**
+	 * Returns the employee object corresponding to a specified PersonnalNumber.
+	 * @param employeePersonnalNumber PersonnalNumber of a employee.
+	 * @returns Specified employee.
+	 */
+	getEmployeeByPersonnalNumber(employeePersonnalNumber: String): Employee | undefined {
+		return this.employees.find((employee: Employee) => employee.getPersonnalNumber() === employeePersonnalNumber);
+	}
+
+	/**
 	 * Add an employee.
 	 * @param employee Employee to be added.
 	 */
