@@ -1,16 +1,12 @@
-require('dotenv').config(); // Used to read the content of the .env file
+require("dotenv").config(); // Used to read the content of the .env file
 const express      = require("express"); // The server
 const session      = require("express-session"); // The sessions managment of the server to know who is logged-in
 const crypto       = require("crypto"); // Generate a session secret
-const { Rental }   = require("./lib/Rental"); // Our classes
+const router       = require("./routes"); // The application routes
 const { Employee } = require("./lib/Employee"); // Our classes
-const { Material } = require("./lib/Material"); // Our classes
-const { Database } = require("./lib/Database"); // Our classes
 
-const database = Database.load(); // Retrieve the saved datas
-const PORT     = 3000;
-const app      = express();
-
+const PORT = 3000;
+const app  = express();
 
 // -------------
 // Server settings
@@ -21,7 +17,7 @@ app.use("/public/", express.static("public/"));
 // -------------	
 // Session settings
 // -------------
-// Session creation
+// Creation
 app.use(session({
 	secret: crypto.randomBytes(20).toString("hex"),
 	resave: true,
@@ -32,276 +28,54 @@ app.use(session({
 	}
 }));
 
-// Session check
+// Check before accessing to each page
 app.use((req, res, next) => {
 	if (process.env.REQUIRE_LOGIN === "false") {
 		req.session.current_employe = new Employee({
 			name: "Account",
 			surname: "Test",
-			email: 'test@account.fr',
+			email: "test@account.fr",
 			password: "testAccount123",
 			personnalNumber: "1234567",
 			role: true
-		})
+		});
 	}
-	
-	if(!req.session.current_employe && req.path !== "/")
+
+	if (!req.session.current_employe && req.path !== "/")
 		return res.redirect("/");
 
 	next();
 });
 
 // -------------
-// Server global routes
+// Routes
 // -------------
-/**
- * Display the login view of the application
- */
-app.get("/", function (req, res) {
-	res.render("login.ejs");
-});
-/**
- * Check the login identifier and password provided in the login view and login the employee if all is good.
- */
-app.post("/login", function (req, res) {
-	const personnalNumber = req.body.matricule;
-	const password        = req.body.password;
+// Global global routes
+app.get("/", router.global.get.slash);
+app.post("/login", router.global.post.login);
+app.post("/logout", router.global.post.logout);
+app.get("/home", router.global.get.home);
+app.get("/accessForbidden", router.global.get.forbidden);
 
-	let emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
+// Employee routes
+app.get("/employees/", router.employee.get.list);
+app.get("/employee/create/", router.employee.get.create);
+app.post("/employee/create", router.employee.post.create);
+app.get("/employee/:id/", router.employee.get.view);
+app.get("/employee/:id/edit", router.employee.get.edit);
 
-	if (emp && emp.password === password)
-		req.session.current_employe = emp;
-	else
-		return res.send(JSON.stringify({
-			success: false,
-			message: "Identifiant ou mot de passe incorrect"
-		}));
+// Material routes
+app.get("/materials/", router.material.get.list);
+app.get("/material/create", router.material.get.create);
+app.post("/material/create", router.material.post.create);
+app.get("/material/:id/", router.material.get.view);
+app.get("/material/:id/edit/", router.material.get.edit);
 
-	res.send(JSON.stringify({
-		success: true
-	}));
-
-	res.end();
-});
-
-app.post("/logout", function (req, res) {
-	console.log(`I perform the session deletion`);
-});
-
-/**
- * Display the home page of the application.
- */
-app.get("/home", function (req, res) {
-	res.render("home.ejs", {
-		name: req.session.current_employe.surname
-	});
-});
+// Rental routes
+app.post("/material/:id/rental/create", router.rental.post.create);
 
 // -------------
-// Server employee routes
-// -------------
-/**
- * Display the view listing all employees of this app
- */
-app.get("/employees/", function (req, res) {
-	res.render("employee/viewEmployeeList.ejs", {
-		employeesList: database.company.getEmployees()
-	});
-});
-
-/**
- * Display the view to create a new employee
- */
-app.get("/employee/create/", function (req, res) {
-	res.render("employee/createEmployee.ejs");
-});
-/**
- * Perform the employee creation into the database
- */
-app.post("/employee/create", function (req, res) {
-
-	let createdEmployee;
-	try {
-		createdEmployee = new Employee({
-			personnalNumber: req.body.matricule,
-			surname: req.body.name,
-			name: req.body.name,
-			password: req.body.password,
-			email: req.body.email
-		});
-
-		database.company.addEmployee(createdEmployee);
-		database.saveToFile();
-	} catch (e) {
-		return res.send(JSON.stringify({
-			success: false,
-			message: e.message
-		}));
-	}
-
-	res.send(JSON.stringify({
-		success: true,
-		employeeId: createdEmployee.getId()
-	}));
-});
-
-/**
- * Display the view showing the details about a specific employee.
- * @param id {string} The employee id referencing the employee to get details about.
- */
-app.get("/employee/:id/", function (req, res) {
-	const employeeId = req.params.id;
-
-	res.render("employee/viewEmployee.ejs", {
-		employee: database.company.getEmployee(employeeId)
-	});
-});
-
-/**
- * Display the view to edit a specific employee.
- * @param id {string} The employee id referencing the employee to edit.
- */
-app.get("/employee/:id/edit", function (req, res) {
-	res.render("employee/editEmployee.ejs", {
-		name: "Jean",
-		surname: "Lasalle",
-		email: "exemple@mail.com",
-		mat: "1234ABC"
-	});
-});
-/**
- * Save the edited datas of a specific employee in the database.
- * @param id {string} The employee id referencing the employee to edit.
- */
-app.post("/employee/:id/edit", function (req, res) {
-	console.log(`I perform the database actions of the edition`);
-});
-
-/**
- * Delete a specifi employee from the database.
- * @param id {string} The employee id referencing the employee to delete.
- */
-app.post("/employee/:id/delete", function (req, res) {
-	console.log(`I perform the database actions of the deletion`);
-});
-
-
-// -------------
-// Server material routes
-// -------------
-/**
- * Display the view to list all the app materials
- */
-app.get("/materials/", function (req, res) {
-	res.render("material/viewMaterialList.ejs", {
-		materialsList: database.company.getMaterials()
-	});
-});
-
-/**
- * Display the view to create a new material.
- */
-app.get("/material/create", function (req, res) {
-	res.render("material/createMaterial.ejs");
-});
-/**
- * Perform the material creation into the database.
- */
-app.post("/material/create", function (req, res) {
-	let createdMaterial;
-	try {
-		createdMaterial = new Material({
-			title: req.body.title,
-			version: req.body.version,
-			reference: req.body.reference,
-			picture: req.body.picture,
-			phoneNumber: req.body.phoneNumber
-		});
-
-		database.company.addMaterial(createdMaterial);
-		database.saveToFile();
-	} catch (e) {
-		return res.send(JSON.stringify({
-			success: false,
-			message: e.message
-		}));
-	}
-
-	res.send(JSON.stringify({
-		success: true,
-		materialId: createdMaterial.getId()
-	}));
-});
-
-/**
- * Display the view showing the details about a specific material.
- * @param id {string} The material id referencing the material to get details about.
- */
-app.get("/material/:id/", function (req, res) {
-	const materialId = req.params.id;
-	const material   = database.company.getMaterial(materialId);
-	if (!material)
-		return res.redirect("/materials");
-
-	res.render("material/viewMaterial.ejs", {
-		material: material,
-		rentals: database.company.getRentalsForMaterial(materialId),
-		employees: database.company.getEmployees()
-	});
-});
-
-/**
- * Display the view to edit the material.
- * @param id {string} The material id referencing the material to edit.
- */
-app.get("/material/:id/edit/", function (req, res) {
-	const materialId = req.params.id;
-
-	res.render("material/editMaterial.ejs", {
-		material: database.company.getMaterial(materialId)
-	});
-});
-
-/**
- * Create a new rental for a specific material
- * @param id {string} The material id referencing the material that will be rented.
- */
-app.post("/material/:id/rental/create", function (req, res) {
-	const materialId = req.params.id;
-	let createdRental;
-	try {
-		createdRental = new Rental({
-			employee: database.company.getEmployee(req.body.employeeId),
-			material: database.company.getMaterial(materialId),
-			startingDate: req.body.startingDate,
-			endingDate: req.body.endingDate
-		});
-
-		database.company.addRental(createdRental);
-		database.saveToFile();
-	} catch (e) {
-		return res.send(JSON.stringify({
-			success: false,
-			message: e.message
-		}));
-	}
-
-	res.send(JSON.stringify({
-		success: true,
-		rental: createdRental
-	}));
-});
-
-
-// -------------
-// Other routes
-// -------------
-app.get("/accessForbidden", function (req, res) {
-	res.render("accessForbidden.ejs", {});
-});
-
-// -------------
-// Server start
+// Server starting
 // -------------
 app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur http://localhost:${PORT}`);
