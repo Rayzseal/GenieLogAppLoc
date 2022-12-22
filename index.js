@@ -30,6 +30,7 @@ app.use(session({
 
 // Check before accessing to each page
 app.use((req, res, next) => {
+	const excluding = ["/", "/login"];
 	if (process.env.REQUIRE_LOGIN === "false") {
 		req.session.current_employe = new Employee({
 			name: "Account",
@@ -41,7 +42,7 @@ app.use((req, res, next) => {
 		});
 	}
 
-	if (!req.session.current_employe && req.path !== "/")
+	if (!req.session.current_employe && !excluding.includes(req.path))
 		return res.redirect("/");
 
 	next();
@@ -53,7 +54,7 @@ app.use((req, res, next) => {
 // Global global routes
 app.get("/", router.global.get.slash);
 app.post("/login", router.global.post.login);
-app.post("/logout", router.global.post.logout);
+app.get("/logout", router.global.post.logout);
 app.get("/home", router.global.get.home);
 app.get("/accessForbidden", router.global.get.forbidden);
 

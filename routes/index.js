@@ -43,16 +43,21 @@ module.exports = {
 						success: false,
 						message: "Identifiant ou mot de passe incorrect"
 					}));
-
+				
 				res.send(JSON.stringify({
 					success: true
 				}));
-
-				res.end();
 			},
 
+			/**
+			 * Destroys the session and redirect to login.
+			 */
 			logout: (req, res) => {
-				console.log(`I perform the session deletion`);
+				// Destroy the session
+				req.session.destroy((err) => {
+					if(err) res.send(err);
+				});
+				res.redirect("/");
 			}
 		}
 	}
