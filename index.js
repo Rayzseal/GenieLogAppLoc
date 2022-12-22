@@ -1,14 +1,15 @@
-const express      = require("express");
-const session			 = require("express-session");
-const crypto 			 = require('crypto');
-const app          = express();
-const { Rental }   = require("./lib/Rental");
-const { Employee } = require("./lib/Employee");
-const { Material } = require("./lib/Material");
-const { Database } = require("./lib/Database");
+require('dotenv').config(); // Used to read the content of the .env file
+const express      = require("express"); // The server
+const session      = require("express-session"); // The sessions managment of the server to know who is logged-in
+const crypto       = require("crypto"); // Generate a session secret
+const { Rental }   = require("./lib/Rental"); // Our classes
+const { Employee } = require("./lib/Employee"); // Our classes
+const { Material } = require("./lib/Material"); // Our classes
+const { Database } = require("./lib/Database"); // Our classes
 
-const PORT     = 3000;
 const database = Database.load(); // Retrieve the saved datas
+const PORT     = 3000;
+const app      = express();
 
 
 // -------------
@@ -18,17 +19,39 @@ app.use(express.json());
 app.use("/public/", express.static("public/"));
 
 // -------------	
-// Session Creation
+// Session settings
 // -------------
+// Session creation
 app.use(session({
-	secret: crypto.randomBytes(20).toString('hex'),
-	resave : true,
-	saveUninitialized : true,
-	cookie : {
-		secure : false,
-		httpOnly : false
+	secret: crypto.randomBytes(20).toString("hex"),
+	resave: true,
+	saveUninitialized: true,
+	cookie: {
+		secure: false,
+		httpOnly: false
 	}
 }));
+
+// Session check
+app.use((req, res, next) => {
+	if (process.env.REQUIRE_LOGIN === "false") {
+		req.session.current_employe = new Employee({
+			name: "Account",
+			surname: "Test",
+			email: 'test@account.fr',
+			password: "testAccount123",
+			personnalNumber: "1234567",
+			role: true
+		})
+		next();
+	}
+
+	if (req.session.current_employe || req.path === "/") {
+		next();
+	} else {
+		res.redirect("/");
+	}
+});
 
 // -------------
 // Server global routes
@@ -43,9 +66,8 @@ app.get("/", function (req, res) {
  * Check the login identifier and password provided in the login view and login the employee if all is good.
  */
 app.post("/login", function (req, res) {
-	console.log(`I perform the login id and password check before creating the session`);
 	const personnalNumber = req.body.matricule;
-	const password = req.body.password;
+	const password        = req.body.password;
 
 	let emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
 
@@ -54,12 +76,13 @@ app.post("/login", function (req, res) {
 	else
 		return res.send(JSON.stringify({
 			success: false,
-			message: "Password or Personnal number incorrect"
+			message: "Identifiant ou mot de passe incorrect"
 		}));
 
 	res.send(JSON.stringify({
 		success: true
 	}));
+
 	res.end();
 });
 
@@ -71,7 +94,6 @@ app.post("/logout", function (req, res) {
  * Display the home page of the application.
  */
 app.get("/home", function (req, res) {
-	console.log(req.session);
 	res.render("home.ejs", {
 		name: req.session.current_employe.surname
 	});
@@ -219,9 +241,9 @@ app.post("/material/create", function (req, res) {
  */
 app.get("/material/:id/", function (req, res) {
 	const materialId = req.params.id;
-	const material = database.company.getMaterial(materialId);
+	const material   = database.company.getMaterial(materialId);
 	if (!material)
-		return res.redirect('/materials');
+		return res.redirect("/materials");
 
 	res.render("material/viewMaterial.ejs", {
 		material: material,
