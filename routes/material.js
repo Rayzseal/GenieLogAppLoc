@@ -73,6 +73,33 @@ module.exports = {
 				success: true,
 				materialId: createdMaterial.getId()
 			}));
+		},
+		/**
+		 * Perform the material edition into the database.
+		 */
+		edit: (req, res) => {
+			const materialId = req.params.id;
+
+			try {
+				let editedMaterial = database.company.getMaterial(materialId);
+				editedMaterial.setTitle(req.body.title);
+				editedMaterial.setVersion(req.body.version);
+				editedMaterial.setReference(req.body.reference);
+				editedMaterial.setPicture(req.body.picture);
+				editedMaterial.setPhoneNumber(req.body.phoneNumber);
+
+				database.saveToFile();
+			} catch (e) {
+				return res.send(JSON.stringify({
+					success: false,
+					message: e.message
+				}));
+			}
+
+			res.send(JSON.stringify({
+				success: true,
+				materialId: materialId
+			}));
 		}
 	}
 };

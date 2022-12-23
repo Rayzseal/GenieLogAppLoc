@@ -1,7 +1,7 @@
 <html lang="fr">
     <head>
         <%- include('../included/common.ejs') %>
-        <title>Édition d'un matériel</title>
+        <title>Édition du matériel <%= material.getTitle() %></title>
         <link rel="stylesheet" href="/public/styles/material/viewMaterial.css"/>
     </head>
 
@@ -9,46 +9,52 @@
         <%- include('../included/menu.ejs') %>
 
         <main>
-            <h1>Édition du matériel</h1>
+            <h1>Édition du matériel <%= material.getTitle() %></h1>
 
             <section>
                 <section>
-                    <img id="image_preview" src="<%= material.getPicture() ?? "/public/icons/no_image.png" ;%>" alt="Image du matériel">
+                    <img id="image_preview" src="<%= material.getPicture() ?? "/public/icons/no_image.png"; %>" alt="Image du matériel">
 
                     <div>
                         <section>
-                            <input id="title" type="text" placeholder="IPhone 15" value="<%= material.getTitle() ;%>">
-                            <p>#<%= material.getId() ;%></p>
+                            <input id="title" type="text" placeholder="IPhone 15" value="<%= material.getTitle(); %>">
+                            <p>#<%= material.getId(); %></p>
                             <ul>
                                 <li>
-                                    <button title="Annuler les modifications" onclick="window.location.href='/material/<%= material.getId() ;%>'">Annuler</button>
+                                    <button title="Annuler les modifications" onclick="window.location.href='/material/<%= material.getId(); %>'">Annuler</button>
                                 </li>
                                 <li>
-                                    <button id="save" title="Enregistrer les modifications" onclick="window.location.href='/material/<%= material.getId() ;%>'">Enregistrer</button>
+                                    <button id="save" title="Enregistrer les modifications">Enregistrer</button>
                                 </li>
                             </ul>
                         </section>
                         <ul>
                             <li>
                                 <h5>Version</h5>
-                                <input id="version" type="text" placeholder="V8.0" value="<%= material.getVersion() ;%>">
+                                <input id="version" type="text" placeholder="V8.0" value="<%= material.getVersion(); %>">
                             </li>
                             <li>
                                 <h5>Image</h5>
-                                <input id="image" type="text" placeholder="https://site/example.png" value="<%= material.getPicture() ;%>">
+                                <input id="image" type="text" placeholder="https://site/example.png" value="<%= material.getPicture(); %>">
                             </li>
                             <li>
                                 <h5>Référence</h5>
-                                <input id="reference" type="text" placeholder="AN150" value="<%= material.getReference() ;%>">
+                                <input id="reference" type="text" placeholder="AN150" value="<%= material.getReference(); %>">
                             </li>
                             <li>
                                 <h5>Numéro de téléphone</h5>
-                                <input id="phoneNumber" type="text" placeholder="0618784858" value="<%= material.getPhoneNumber() ;%>">
+                                <input id="phoneNumber" type="text" placeholder="0618784858" value="<%= material.getPhoneNumber(); %>">
                             </li>
                         </ul>
                     </div>
                 </section>
             </section>
         </main>
+        <script type="text/javascript">
+			// Set the structure of a toast
+			const toast_structure = `<%- include('../included/toast.ejs'); %>`;
+        </script>
+        <script type="text/javascript" src="/public/scripts/Toast.js"></script>
+        <script type="text/javascript" src="/public/scripts/material/editMaterial.js"></script>
     </body>
 </html>

@@ -71,6 +71,7 @@ app.get("/material/create", router.material.get.create);
 app.post("/material/create", router.material.post.create);
 app.get("/material/:id/", router.material.get.view);
 app.get("/material/:id/edit/", router.material.get.edit);
+app.post("/material/:id/edit/", router.material.post.edit);
 
 // Rental routes
 app.post("/material/:id/rental/create", router.rental.post.create);

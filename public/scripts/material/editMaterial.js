@@ -29,7 +29,7 @@ saveButton.addEventListener("click", () => {
 		return toaster.display("Le champ référence est requis", "var(--error-color)");
 	}
 
-	fetch("/material/create", {
+	fetch("edit", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
@@ -46,7 +46,7 @@ saveButton.addEventListener("click", () => {
 		const response = await res.json();
 
 		if (response.success) {
-			toaster.display("Le matériel a bien été créé");
+			toaster.display("Les modifications ont bien été enregistrées");
 			setTimeout(() => window.location.href = `/material/${response.materialId}`, 1000);
 		} else {
 			toaster.display(response.message, "var(--error-color)");

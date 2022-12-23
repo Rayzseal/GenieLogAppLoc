@@ -30,6 +30,9 @@ module.exports = {
 				rental: createdRental
 			}));
 		},
+		/**
+		 * Remove a rental from the databse.
+		 */
 		remove: (req, res) => {
 			database.company.removeRentalById(req.body.rentalId);
 			database.saveToFile();
