@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 			email: "test@account.fr",
 			password: "testAccount123",
 			personnalNumber: "1234567",
-			isAdmin: false
+			isAdmin: true
 		});
 	}
 	// Make the current_employee available in all ejs template pages
