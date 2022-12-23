@@ -105,10 +105,21 @@ module.exports = {
 		 * Perform the material supression into the database.
 		 */
 		remove: (req, res) => {
-			// TODO
+			const materialId = req.params.id;
+
+			try {
+				database.company.removeMaterial(database.company.getMaterial(materialId), req.body.force);
+
+				database.saveToFile();
+			} catch (e) {
+				return res.send(JSON.stringify({
+					success: false,
+					message: e.message
+				}));
+			}
+
 			res.send(JSON.stringify({
-				success: false,
-				message: "Pas encore dévelopé"
+				success: true
 			}));
 		}
 	}

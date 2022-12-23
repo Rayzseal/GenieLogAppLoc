@@ -19,7 +19,6 @@
   align-items: center;
   justify-content: center;
   /* Modal Content/Box */
-  /* The Close Button */
 }
 .popup > div {
   background-color: var(--white-background);
@@ -28,15 +27,25 @@
   border: thin solid var(--page-background);
   width: 50%;
   /* Could be more or less, depending on screen size */
+  /* The Close Button */
 }
-.popup .close {
+.popup > div > span {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
 }
-.popup .close:hover, .popup .close:focus {
+.popup > div > span:hover, .popup > div > span:focus {
   color: black;
   text-decoration: none;
+}
+.popup > div > p:last-of-type {
+  color: grey;
+  font-size: 0.8em;
+}
+.popup > div > ul {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
 }

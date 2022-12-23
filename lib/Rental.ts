@@ -59,23 +59,25 @@ export class Rental {
 		this.material = m;
 	}
 
-	setStartingDate(date: Date) {
-		if (date instanceof String)
+	setStartingDate(date: Date|String) {
+		if (typeof date === "string")
 			date = new Date(date);
 
 		if (this.endingDate != null && date > this.endingDate)
 			throw new Error("Starting date should occurs before ending date");
 
+		// @ts-ignore
 		this.startingDate = date;
 	}
 
-	setEndingDate(date: Date) {
-		if (date instanceof String)
+	setEndingDate(date: Date|String) {
+		if (typeof date === "string")
 			date = new Date(date);
 
 		if (this.endingDate != null && date < this.endingDate)
 			throw new Error("Ending date should occurs after begin date");
 
+		// @ts-ignore
 		this.endingDate = date;
 	}
 }

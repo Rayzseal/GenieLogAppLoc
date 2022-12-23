@@ -6,7 +6,7 @@
  * @returns True if the date is in the interval, false otherwise.
  */
 export function dateInInterval(toBeChecked: Date, beginDate: Date, endDate: Date): boolean {
-	return toBeChecked >= beginDate && toBeChecked <= endDate;
+	return beginDate <= toBeChecked && toBeChecked <= endDate;
 }
 
 export function isUUIDFormat(toCheck: string) {

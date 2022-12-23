@@ -27,7 +27,7 @@
                                 </li>
                                 <li>
                                     <% if (current_employee.getIsAdmin()) { %>
-                                        <button title="Supprimer le matériel">Supprimer</button>
+                                        <button onclick="removeMaterial('<%= material.getId(); %>')" title="Supprimer le matériel">Supprimer</button>
                                     <% } %>
                                 </li>
                             </ul>
@@ -117,10 +117,12 @@
         </main>
     </body>
 
+    <%- include('../included/popup.ejs'); %>
     <script type="text/javascript">
 		// Set the structure of a toast
 		const toast_structure = `<%- include('../included/toast.ejs'); %>`;
     </script>
     <script type="text/javascript" src="/public/scripts/Toast.js"></script>
+    <script type="text/javascript" src="/public/scripts/Popup.js"></script>
     <script type="text/javascript" src="/public/scripts/material/viewMaterial.js"></script>
 </html>

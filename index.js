@@ -55,6 +55,9 @@ app.use((req, res, next) => {
 	// Make the current_employee available in all ejs template pages
 	res.locals.current_employee = req.session.current_employee;
 
+	if (req.method === "GET" && !req.path.endsWith('/'))
+		return res.redirect(301, req.path+'/');
+
 	// The user is not logged-in and the page the person want to visit is ot one which is accessible whithour login
 	if (!req.session.current_employee && !NO_LOGIN_REQUIRED_ROUTES.includes(req.path))
 		return res.redirect("/");

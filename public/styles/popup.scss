@@ -10,7 +10,7 @@
 	overflow: auto; /* Enable scroll if needed */
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 	align-items: center;
-    justify-content: center;
+	justify-content: center;
 
 	/* Modal Content/Box */
 	& > div {
@@ -19,19 +19,30 @@
 		border-radius: var(--box-radius);
 		border: thin solid var(--page-background);
 		width: 50%; /* Could be more or less, depending on screen size */
-	}
 
-	/* The Close Button */
-	.close {
-		color: #aaa;
-		float: right;
-		font-size: 28px;
-		font-weight: bold;
-		cursor: pointer;
+		/* The Close Button */
+		& > span {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
 
-		&:hover, &:focus {
-			color: black;
-			text-decoration: none;
+			&:hover, &:focus {
+				color: black;
+				text-decoration: none;
+			}
+		}
+
+		& > p:last-of-type {
+			color: grey;
+			font-size: 0.8em;
+		}
+
+		& > ul {
+			margin-top: 1em;
+			display: flex;
+			justify-content: space-between;
 		}
 	}
 }
