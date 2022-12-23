@@ -20,12 +20,19 @@
                         </label>
                     </li>
                     <li>
-                        <button onclick="window.location.href='/material/create/'" title="Créer un nouveau matériel">Nouveau</button>
+                        <% if (current_employee.getIsAdmin()) { %>
+                            <button onclick="window.location.href='/material/create/'" title="Créer un nouveau matériel">Nouveau</button>
+                        <% } %>
                     </li>
                 </menu>
 
                 <ul>
-                    <p>Utilisez le bouton "nouveau" pour ajouter un matériel</p>
+                    <% if (current_employee.getIsAdmin()) { %>
+                        <p>Utilisez le bouton "nouveau" pour ajouter un matériel</p>
+                    <% } else { %>
+                        <p>Demandez à un administrateur de créer un premier matériel</p>
+                    <% } %>
+
                     <% for (const material of materialsList) { %>
                         <li>
                             <div>

@@ -8,7 +8,8 @@ const { Employee } = require("./lib/Employee"); // Our classes
 const PORT = 3000;
 const NO_LOGIN_REQUIRED_ROUTES = ["/", "/login"];
 const ADMIN_ONLY_ROUTES = [
-	"employees"
+	"/employees",
+	"/material/create/"
 ];
 const app  = express();
 
@@ -41,7 +42,7 @@ app.use((req, res, next) => {
 			email: "test@account.fr",
 			password: "testAccount123",
 			personnalNumber: "1234567",
-			isAdmin: true
+			isAdmin: false
 		});
 	}
 	// Make the current_employee available in all ejs template pages
@@ -57,7 +58,7 @@ app.use((req, res, next) => {
 	console.log(ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]));
 	console.log(req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]));
 	// The user is logged-in but isn't admin and try to visit an admin page
-	if (req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]))
+	if (req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path))
 		return res.redirect("/home");
 
 	next();
