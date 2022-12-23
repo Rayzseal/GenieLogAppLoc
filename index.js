@@ -6,6 +6,10 @@ const router       = require("./routes"); // The application routes
 const { Employee } = require("./lib/Employee"); // Our classes
 
 const PORT = 3000;
+const NO_LOGIN_REQUIRED_ROUTES = ["/", "/login"];
+const ADMIN_ONLY_ROUTES = [
+	"employees"
+];
 const app  = express();
 
 // -------------
@@ -14,7 +18,7 @@ const app  = express();
 app.use(express.json());
 app.use("/public/", express.static("public/"));
 
-// -------------	
+// -------------
 // Session settings
 // -------------
 // Creation
@@ -30,20 +34,31 @@ app.use(session({
 
 // Check before accessing to each page
 app.use((req, res, next) => {
-	const excluding = ["/", "/login"];
 	if (process.env.REQUIRE_LOGIN === "false") {
-		req.session.current_employe = new Employee({
+		req.session.current_employee = new Employee({
 			name: "Account",
 			surname: "Test",
 			email: "test@account.fr",
 			password: "testAccount123",
 			personnalNumber: "1234567",
-			role: true
+			isAdmin: true
 		});
 	}
+	// Make the current_employee available in all ejs template pages
+	res.locals.current_employee = req.session.current_employee;
 
-	if (!req.session.current_employe && !excluding.includes(req.path))
+	// The user is not logged-in and the page the person want to visit is ot one which is accessible whithour login
+	if (!req.session.current_employee && !NO_LOGIN_REQUIRED_ROUTES.includes(req.path))
 		return res.redirect("/");
+
+	console.log(req.session.current_employee);
+	console.log(!req.session.current_employee.getIsAdmin());
+	console.log(req.path.split('/')[1]);
+	console.log(ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]));
+	console.log(req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]));
+	// The user is logged-in but isn't admin and try to visit an admin page
+	if (req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]))
+		return res.redirect("/home");
 
 	next();
 });
@@ -52,7 +67,7 @@ app.use((req, res, next) => {
 // Routes
 // -------------
 // Global global routes
-app.get("/", router.global.get.slash);
+app.get("/", router.global.get.login);
 app.post("/login", router.global.post.login);
 app.get("/logout", router.global.post.logout);
 app.get("/home", router.global.get.home);

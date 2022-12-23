@@ -10,7 +10,7 @@ module.exports = {
 			/**
 			 * Display the login view of the application
 			 */
-			slash: (req, res) => {
+			login: (req, res) => {
 				res.render("login.ejs");
 			},
 
@@ -19,7 +19,7 @@ module.exports = {
 			 */
 			home: (req, res) => {
 				res.render("home.ejs", {
-					name: req.session.current_employe.surname
+					name: req.session.current_employee.surname
 				});
 			},
 
@@ -37,7 +37,7 @@ module.exports = {
 				let emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
 
 				if (emp && emp.password === password)
-					req.session.current_employe = emp;
+					req.session.current_employee = emp;
 				else
 					return res.send(JSON.stringify({
 						success: false,
@@ -57,6 +57,7 @@ module.exports = {
 				req.session.destroy((err) => {
 					if(err) res.send(err);
 				});
+
 				res.redirect("/");
 			}
 		}

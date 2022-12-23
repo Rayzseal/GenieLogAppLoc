@@ -9,6 +9,7 @@
 		<%- include('included/menu.ejs')%>
 		<main>
 			<h1>Bonjour <%= name %></h1>
+			<h6><%= current_employee.getIsAdmin() ? "(administrateur)" : "(non administrateur)" %></h6>
 
 		</main>
 	</body>

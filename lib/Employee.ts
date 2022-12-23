@@ -9,7 +9,7 @@ export class Employee {
 	private surname: string;
 	private email: string;
 	private password: string;
-	private role: boolean;
+	private isAdmin: boolean;
 	private personnalNumber: string;
 
 	/**
@@ -18,7 +18,7 @@ export class Employee {
 	 * @param obj.name Name of an employee.
 	 * @param obj.surname Surname of an employee.
 	 * @param obj.email Email of an employee.
-	 * @param obj.role Wheter this user is admin or not.
+	 * @param obj.isAdmin Wheter this user is admin or not.
 	 * @param obj.password Password of an employee.
 	 * @param obj.personnalNumber Employee number.
 	 */
@@ -26,12 +26,12 @@ export class Employee {
 		name: string,
 		surname: string,
 		email: string,
-		role?: boolean,
+		isAdmin?: boolean,
 		password: string,
 		personnalNumber: string
 	}) {
 		this.id = randomUUID();
-		this.role = obj.role ?? false;
+		this.isAdmin = obj.isAdmin ?? false;
 
 		this.setName(obj.name);
 		this.setSurname(obj.surname);
@@ -73,11 +73,11 @@ export class Employee {
 	}
 
 	/**
-	 * Getter on role.
-	 * @returns role of user (either 1 for admin or 0 for simple user).
+	 * Getter on isAdmin.
+	 * @returns isAdmin of user (either 1 for admin or 0 for simple user).
 	 */
-	public getRole(): boolean {
-		return this.role;
+	public getIsAdmin(): boolean {
+		return this.isAdmin;
 	}
 
 	/**
@@ -134,11 +134,11 @@ export class Employee {
 	}
 
 	/**
-	 * Setter on role.
-	 * @param role new role.
+	 * Setter on isAdmin.
+	 * @param adminState new admin state.
 	 */
-	public setRole(role: boolean) {
-		this.role = role;
+	public setIsAdmin(adminState: boolean) {
+		this.isAdmin = adminState;
 	}
 
 	/**
