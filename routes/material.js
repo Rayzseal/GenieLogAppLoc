@@ -100,6 +100,16 @@ module.exports = {
 				success: true,
 				materialId: materialId
 			}));
+		},
+		/**
+		 * Perform the material supression into the database.
+		 */
+		remove: (req, res) => {
+			// TODO
+			res.send(JSON.stringify({
+				success: false,
+				message: "Pas encore dévelopé"
+			}));
 		}
 	}
 };

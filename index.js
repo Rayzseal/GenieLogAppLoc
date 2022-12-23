@@ -5,13 +5,19 @@ const crypto       = require("crypto"); // Generate a session secret
 const router       = require("./routes"); // The application routes
 const { Employee } = require("./lib/Employee"); // Our classes
 
-const PORT = 3000;
+const PORT                     = 3000;
+const app                      = express();
 const NO_LOGIN_REQUIRED_ROUTES = ["/", "/login"];
-const ADMIN_ONLY_ROUTES = [
-	"/employees",
-	"/material/create/"
+const ADMIN_ONLY_ROUTES        = [
+	"/employees/",
+	"/employee/create/",
+	"/employee/:id/",
+	"/employee/:id/edit/",
+	"/material/create/",
+	"/material/:id/edit/",
+	"/material/:id/remove/",
+	"/material/:id/rental/remove/"
 ];
-const app  = express();
 
 // -------------
 // Server settings
@@ -35,6 +41,7 @@ app.use(session({
 
 // Check before accessing to each page
 app.use((req, res, next) => {
+	console.log(getRouteFromPath(req.path));
 	if (process.env.REQUIRE_LOGIN === "false") {
 		req.session.current_employee = new Employee({
 			name: "Account",
@@ -52,46 +59,57 @@ app.use((req, res, next) => {
 	if (!req.session.current_employee && !NO_LOGIN_REQUIRED_ROUTES.includes(req.path))
 		return res.redirect("/");
 
-	console.log(req.session.current_employee);
-	console.log(!req.session.current_employee.getIsAdmin());
-	console.log(req.path.split('/')[1]);
-	console.log(ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]));
-	console.log(req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path.split('/')[1]));
 	// The user is logged-in but isn't admin and try to visit an admin page
-	if (req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(req.path))
-		return res.redirect("/home");
+	if (req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(getRouteFromPath(req.path))) {
+		if (req.method === "GET") // It's a view someone try to reach
+			return res.redirect("/home");
+		else
+			return res.send({
+				success: false,
+				message: "Vous devez être administrateur pour effectuer cette opération"
+			});
+	}
 
 	next();
 });
+
+function getRouteFromPath(path) {
+	const stack = app._router.stack;
+	for (let i = 0; i < stack.length; i++) {
+		if (stack[i].route && stack[i].match(path))
+			return stack[i].route.path;
+	}
+}
 
 // -------------
 // Routes
 // -------------
 // Global global routes
 app.get("/", router.global.get.login);
-app.post("/login", router.global.post.login);
-app.get("/logout", router.global.post.logout);
-app.get("/home", router.global.get.home);
-app.get("/accessForbidden", router.global.get.forbidden);
+app.post("/login/", router.global.post.login);
+app.get("/logou/t", router.global.post.logout);
+app.get("/home/", router.global.get.home);
+app.get("/accessForbidden/", router.global.get.forbidden);
 
 // Employee routes
 app.get("/employees/", router.employee.get.list);
 app.get("/employee/create/", router.employee.get.create);
-app.post("/employee/create", router.employee.post.create);
+app.post("/employee/create/", router.employee.post.create);
 app.get("/employee/:id/", router.employee.get.view);
-app.get("/employee/:id/edit", router.employee.get.edit);
+app.get("/employee/:id/edit/", router.employee.get.edit);
 
 // Material routes
 app.get("/materials/", router.material.get.list);
-app.get("/material/create", router.material.get.create);
-app.post("/material/create", router.material.post.create);
+app.get("/material/create/", router.material.get.create);
+app.post("/material/create/", router.material.post.create);
 app.get("/material/:id/", router.material.get.view);
 app.get("/material/:id/edit/", router.material.get.edit);
 app.post("/material/:id/edit/", router.material.post.edit);
+app.post("/material/:id/remove/", router.material.post.remove);
 
 // Rental routes
-app.post("/material/:id/rental/create", router.rental.post.create);
-app.post("/material/:id/rental/remove", router.rental.post.remove);
+app.post("/material/:id/rental/create/", router.rental.post.create);
+app.post("/material/:id/rental/remove/", router.rental.post.remove);
 
 // -------------
 // Server starting
