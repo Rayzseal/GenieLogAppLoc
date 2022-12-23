@@ -24,7 +24,7 @@ module.exports = {
 			},
 
 			forbidden: (req, res) => {
-				res.render("accessForbidden.ejs", {});
+				res.render("accessForbidden.ejs");
 			}
 		}, post: {
 			/**
@@ -50,7 +50,7 @@ module.exports = {
 			},
 
 			/**
-			 * Destroys the session and redirect to login.
+			 * Destroys the session and redirect to log in page.
 			 */
 			logout: (req, res) => {
 				// Destroy the session

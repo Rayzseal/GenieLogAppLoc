@@ -13,7 +13,7 @@
 
             <section>
                 <section>
-                    <img src="<%= material.getPicture() ?? "/public/icons/phone.png" ;%>" alt="Image du matériel">
+                    <img src="<%= material.getPicture() ?? "/public/icons/no_image.png" ;%>" alt="Image du matériel">
 
                     <div>
                         <section>
@@ -96,7 +96,7 @@
                                     <td><%= rental.getStartingDate() ;%></td>
                                     <td><%= rental.getEndingDate() ;%></td>
                                     <td>
-                                        <button title="Supprimer de l'historique">
+                                        <button title="Supprimer de l'historique" onclick="removeRental(this, '<%= rental.getId() %>');">
                                             <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
                                         </button>
                                     </td>

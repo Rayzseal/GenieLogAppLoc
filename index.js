@@ -74,30 +74,11 @@ app.get("/material/:id/edit/", router.material.get.edit);
 
 // Rental routes
 app.post("/material/:id/rental/create", router.rental.post.create);
+app.post("/material/:id/rental/remove", router.rental.post.remove);
 
 // -------------
 // Server starting
 // -------------
 app.listen(PORT, () => {
 	console.log(`Le serv est lancé sur http://localhost:${PORT}`);
-
-	//database.company.getEmployees().forEach(e => console.log(e.getPersonnalNumber()));
-
-	// Database test additon
-	// database.company.addEmployee(new Employee({
-	// 	personnalNumber: "123ABCD",
-	// 	surname: "Intel",
-	// 	name: "letnI",
-	// 	password: "Zemodepasse123",
-	// 	email: "truc@truc.fr",
-	// }));
-
-	// database.company.addMaterial(new Material({
-	// 	title: "Samsung Galaxy fold",
-	// 	version: "v2458-7",
-	// 	reference: "AN001",
-	// 	phoneNumber: "0685557844"
-	// }));
-
-	// database.saveToFile();
 });

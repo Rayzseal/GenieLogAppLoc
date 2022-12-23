@@ -29,6 +29,14 @@ module.exports = {
 				success: true,
 				rental: createdRental
 			}));
+		},
+		remove: (req, res) => {
+			database.company.removeRentalById(req.body.rentalId);
+			database.saveToFile();
+
+			res.send(JSON.stringify({
+				success: true
+			}));
 		}
 	}
 };

@@ -186,7 +186,15 @@ export class Company {
 	 * @param rental Rental to be deleted.
 	 */
 	removeRental(rental: Rental) {
-		this.rentals = this.rentals.filter(l => l == rental);
+		this.rentals = this.rentals.filter(r => r !== rental);
+	}
+
+	/**
+	 * Remove a rental from a list.
+	 * @param rentalId The rental id to be deleted.
+	 */
+	removeRentalById(rentalId: string) {
+		this.rentals = this.rentals.filter(rental => rental.getId() !== rentalId);
 	}
 
 	/**
