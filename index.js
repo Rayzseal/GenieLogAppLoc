@@ -13,10 +13,11 @@ const ADMIN_ONLY_ROUTES        = [
 	"/employee/create/",
 	"/employee/:id/",
 	"/employee/:id/edit/",
+	"/employee/:id/remove/",
 	"/material/create/",
 	"/material/:id/edit/",
 	"/material/:id/remove/",
-	"/material/:id/rental/remove/"
+	"/rental/remove/"
 ];
 
 // -------------
@@ -117,7 +118,7 @@ app.post("/rental/create/", router.rental.post.create);
 app.post("/rental/remove/", router.rental.post.remove);
 
 // Last route if no previous one used (equivalent of 404 route)
-app.use((req, res) => res.redirect("/"));
+app.use((req, res) => res.redirect("/home"));
 
 
 // -------------

@@ -49,6 +49,15 @@ export class Company {
 	 * @param employee Employee to be added.
 	 */
 	addEmployee(employee: Employee) {
+		if (this.employees.find((emp: Employee) => emp.getId() === employee.getId()))
+			throw new Error("This employee is already in the company.");
+
+		if (this.employees.find((emp: Employee) => emp.getEmail() === employee.getEmail()))
+			throw new Error("This employee has not a unique email : another employee in the company already has this email.");
+
+		if (this.employees.find((emp: Employee) => emp.getPersonnalNumber() === employee.getPersonnalNumber()))
+			throw new Error("This employee has not a unique personnal number : another employee in the company already has this personnal number (matricule).");
+
 		this.employees.push(employee);
 	}
 
