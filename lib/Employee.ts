@@ -93,10 +93,10 @@ export class Employee {
 	 * @param name new name.
 	 */
 	public setName(name: string) {
-		if (/^[A-Za-z0-9 -]{1,30}$/.test(name))
+		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(name))
 			this.name = name;
 		else
-			throw new Error("Name is not alphanumeric");
+			throw new Error("Name is not alphanumeric (accentuation authorized)");
 	}
 
 	/**
@@ -104,10 +104,10 @@ export class Employee {
 	 * @param surname new surname.
 	 */
 	public setSurname(surname: string) {
-		if (/^[A-Za-z0-9 -]{1,30}$/.test(surname))
+		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(surname))
 			this.surname = surname;
 		else
-			throw new Error("Surname is not alphanumeric");
+			throw new Error("Surname is not alphanumeric (accentuation authorized)");
 	}
 
 	/**

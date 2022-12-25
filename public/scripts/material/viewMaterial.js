@@ -17,13 +17,14 @@ addRentalButton.addEventListener("click", () => {
 	if (endingDateField.value.trim() === "")
 		return toaster.display("Une date de fin d'emprunt est requise", "var(--error-color)");
 
-	fetch("rental/create", {
+	fetch("/rental/create", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
 			},
 			body: JSON.stringify({
 				employeeId: employeeIdField.value,
+				materialId: document.location.pathname.split('/')[2],
 				startingDate: startingDateField.value,
 				endingDate: endingDateField.value
 			})
@@ -54,32 +55,8 @@ addRentalButton.addEventListener("click", () => {
 	});
 });
 
-function removeRental(button, rentalId) {
-	fetch("rental/remove", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json; charset=UTF-8"
-			},
-			body: JSON.stringify({
-				rentalId: rentalId
-			})
-		}
-	).then(async function (res) {
-		const response = await res.json();
-
-		if (!response.success)
-			return toaster.display(response.message, "var(--error-color)");
-
-		toaster.display("La réservation a bien été supprimée");
-
-		button.parentNode.parentNode.remove(); // Remove the line
-	}).catch(e => {
-		toaster.display(e.message, "var(--error-color)");
-	});
-}
-
-async function removeMaterial(materialId) {
-	const popup = new Popup("Voulez-vous vraiment supprimer ce matériel ?", "Toutes les réservations (en cours et terminées) seront supprimées");
+async function removeMaterial() {
+	const popup = new Popup("Voulez-vous vraiment supprimer ce matériel ?", "Toutes les réservations (en cours et terminées) seront supprimées également");
 	if (await popup.ask()) {
 		fetch("remove", {
 				method: "POST",

@@ -134,7 +134,7 @@ export class Company {
 	}
 
 	/**
-	 * List of rentals.
+	 * Get the rentals list of this company.
 	 * @returns A list of rentals.
 	 */
 	getRentals(): ReadonlyArray<Rental> {
@@ -142,12 +142,24 @@ export class Company {
 	}
 
 	/**
-	 * Return the list of rentals for a specific material
+	 * Return the list of rentals for a specific material.
+	 * @param materialId The material identifier of wich we want to retrieve the rentals
 	 * @returns A list of rentals sorted by ending date.
 	 */
 	getRentalsForMaterial(materialId: String): ReadonlyArray<Rental> {
 		return this.rentals
 			.filter(rental => rental.getMaterial()?.getId() === materialId)
+			.sort((a: Rental, b: Rental) => new Date(b.getEndingDate()).getTime() - new Date(a.getEndingDate()).getTime());
+	}
+
+	/**
+	 * Return the list of rentals for a specific employee.
+	 * @param employeeId The employee identifier of wich we want to retrieve the rentals
+	 * @returns A list of rentals sorted by ending date.
+	 */
+	getRentalsForEmployee(employeeId: String): ReadonlyArray<Rental> {
+		return this.rentals
+			.filter(rental => rental.getEmployee()?.getId() === employeeId)
 			.sort((a: Rental, b: Rental) => new Date(b.getEndingDate()).getTime() - new Date(a.getEndingDate()).getTime());
 	}
 

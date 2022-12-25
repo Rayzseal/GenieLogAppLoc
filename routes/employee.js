@@ -23,9 +23,14 @@ module.exports = {
 		 */
 		view: (req, res) => {
 			const employeeId = req.params.id;
+			const employee = database.company.getEmployee(employeeId);
+
+			if (!employee)
+				return res.redirect('/employees/');
 
 			res.render("employee/viewEmployee.ejs", {
-				employee: database.company.getEmployee(employeeId)
+				employee: employee,
+				rentals: database.company.getRentalsForEmployee(employeeId)
 			});
 		},
 
@@ -51,7 +56,7 @@ module.exports = {
 			try {
 				createdEmployee = new Employee({
 					personnalNumber: req.body.matricule,
-					surname: req.body.name,
+					surname: req.body.surname,
 					name: req.body.name,
 					password: req.body.password,
 					email: req.body.email
@@ -69,6 +74,27 @@ module.exports = {
 			res.send(JSON.stringify({
 				success: true,
 				employeeId: createdEmployee.getId()
+			}));
+		},
+		/**
+		 * Perform the employee supression into the database.
+		 */
+		remove: (req, res) => {
+			const employeeId = req.params.id;
+
+			try {
+				database.company.removeEmployee(database.company.getEmployee(employeeId), req.body.force);
+
+				database.saveToFile();
+			} catch (e) {
+				return res.send(JSON.stringify({
+					success: false,
+					message: e.message
+				}));
+			}
+
+			res.send(JSON.stringify({
+				success: true
 			}));
 		}
 	}

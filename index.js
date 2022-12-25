@@ -55,10 +55,11 @@ app.use((req, res, next) => {
 	// Make the current_employee available in all ejs template pages
 	res.locals.current_employee = req.session.current_employee;
 
+	// Add a / at the end of each route when trying to visit a view
 	if (req.method === "GET" && !req.path.endsWith('/'))
 		return res.redirect(301, req.path+'/');
 
-	// The user is not logged-in and the page the person want to visit is ot one which is accessible whithour login
+	// The user is not logged-in and the page he wants to visit is not one which is accessible whithout login
 	if (!req.session.current_employee && !NO_LOGIN_REQUIRED_ROUTES.includes(req.path))
 		return res.redirect("/");
 
@@ -100,6 +101,7 @@ app.get("/employee/create/", router.employee.get.create);
 app.post("/employee/create/", router.employee.post.create);
 app.get("/employee/:id/", router.employee.get.view);
 app.get("/employee/:id/edit/", router.employee.get.edit);
+app.post("/employee/:id/remove/", router.employee.post.remove);
 
 // Material routes
 app.get("/materials/", router.material.get.list);
@@ -111,8 +113,12 @@ app.post("/material/:id/edit/", router.material.post.edit);
 app.post("/material/:id/remove/", router.material.post.remove);
 
 // Rental routes
-app.post("/material/:id/rental/create/", router.rental.post.create);
-app.post("/material/:id/rental/remove/", router.rental.post.remove);
+app.post("/rental/create/", router.rental.post.create);
+app.post("/rental/remove/", router.rental.post.remove);
+
+// Last route if no previous one used (equivalent of 404 route)
+app.use((req, res) => res.redirect("/"));
+
 
 // -------------
 // Server starting

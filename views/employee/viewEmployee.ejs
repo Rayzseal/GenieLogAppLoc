@@ -1,18 +1,97 @@
 <html lang="fr">
-	<head>
-		<%- include('../included/common.ejs') %>
-		<title>Fiche de l'employé <%= employee.getName() %><%= employee.getSurname() %></title>
-	</head>
+    <head>
+        <%- include('../included/common.ejs') %>
+        <title>Fiche de l'employé <%= employee.getName(); %></title>
+        <link rel="stylesheet" href="/public/styles/material/viewMaterial.css"/>
+    </head>
 
-	<body>
-		<%- include('../included/menu.ejs') %>
+    <body>
+        <%- include('../included/menu.ejs') %>
 
         <main>
-		    <h1>Fiche de l'employé <%= employee.getName() %><%= employee.getSurname() %></h1>
+            <h1>Fiche de l'employé <%= employee.getName(); %></h1>
 
-			<section>
-				<%= employee %>
-			</section>
+            <section>
+                <section>
+                    <img src="/public/icons/account.png" alt="Image de l'employé">
+
+                    <div>
+                        <section>
+                            <h3><%= employee.getName(); %> <%= employee.getSurname(); %></h3>
+                            <p>#<%= employee.getId(); %></p>
+                            <ul>
+                                <li>
+                                    <% if (current_employee.getIsAdmin()) { %>
+                                        <button onclick="window.location.href='/employee/<%= employee.getId(); %>/edit'" title="Modifier l'employé">Modifier</button>
+                                    <% } %>
+                                </li>
+                                <li>
+                                    <% if (current_employee.getIsAdmin()) { %>
+                                        <button onclick="removeEmployee('<%= employee.getId(); %>')" title="Supprimer l'employé">Supprimer</button>
+                                    <% } %>
+                                </li>
+                            </ul>
+                        </section>
+                        <ul>
+                            <li>
+                                <h5>Email</h5>
+                                <p><%= employee.getEmail(); %></p>
+                            </li>
+                            <li>
+                                <h5>Rôle</h5>
+                                <p><%= employee.getIsAdmin() ? "Administrateur" : "Emprunteur"; %></p>
+                            </li>
+                            <li>
+                                <h5>Matricule</h5>
+                                <p><%= employee.getPersonnalNumber(); %></p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Gestion des réservations</h2>
+
+                    <table>
+                        <tbody id="rentals">
+                        <tr>
+                            <th>Matériel</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th></th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4">Aucune réservation n'a encore été effectuée</td>
+                        </tr>
+
+                        <% for (const rental of rentals) { %>
+                            <tr>
+                                <td onclick="document.location.href='/material/<%= rental.getMaterial().getId() %>'"><%= rental.getMaterial().getTitle(); %></td>
+                                <td><%= rental.getStartingDate().toLocaleDateString(); %></td>
+                                <td><%= rental.getEndingDate().toLocaleDateString(); %></td>
+                                <td>
+                                    <button title="Supprimer de l'historique" onclick="removeRental(this, '<%= rental.getId() %>');">
+                                        <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
         </main>
-	</body>
+    </body>
+
+    <%- include('../included/popup.ejs'); %>
+    <script type="text/javascript">
+		// Set the structure of a toast
+		const toast_structure = `<%- include('../included/toast.ejs'); %>`;
+    </script>
+    <script type="text/javascript" src="/public/scripts/Toast.js"></script>
+    <script type="text/javascript" src="/public/scripts/Popup.js"></script>
+    <script type="text/javascript" src="/public/scripts/employee/viewEmployee.js"></script>
+    <script type="text/javascript" src="/public/scripts/rentals/removeRental.js"></script>
+
 </html>

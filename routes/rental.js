@@ -6,12 +6,11 @@ module.exports = {
 		 * Create a new rental for a specific material
 		 */
 		create: (req, res) => {
-			const materialId = req.params.id;
 			let createdRental;
 			try {
 				createdRental = new Rental({
 					employee: database.company.getEmployee(req.body.employeeId),
-					material: database.company.getMaterial(materialId),
+					material: database.company.getMaterial(req.body.materialId),
 					startingDate: req.body.startingDate,
 					endingDate: req.body.endingDate
 				});

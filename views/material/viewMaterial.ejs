@@ -27,7 +27,7 @@
                                 </li>
                                 <li>
                                     <% if (current_employee.getIsAdmin()) { %>
-                                        <button onclick="removeMaterial('<%= material.getId(); %>')" title="Supprimer le matériel">Supprimer</button>
+                                        <button onclick="removeMaterial()" title="Supprimer le matériel">Supprimer</button>
                                     <% } %>
                                 </li>
                             </ul>
@@ -101,8 +101,8 @@
                         <% for (const rental of rentals) { %>
                             <tr>
                                 <td onclick="document.location.href='/employee/<%= rental.getEmployee().getId() %>'"><%= rental.getEmployee().getName(); %></td>
-                                <td><%= rental.getStartingDate(); %></td>
-                                <td><%= rental.getEndingDate(); %></td>
+                                <td><%= rental.getStartingDate().toLocaleDateString(); %></td>
+                                <td><%= rental.getEndingDate().toLocaleDateString(); %></td>
                                 <td>
                                     <button title="Supprimer de l'historique" onclick="removeRental(this, '<%= rental.getId() %>');">
                                         <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
@@ -125,4 +125,5 @@
     <script type="text/javascript" src="/public/scripts/Toast.js"></script>
     <script type="text/javascript" src="/public/scripts/Popup.js"></script>
     <script type="text/javascript" src="/public/scripts/material/viewMaterial.js"></script>
+    <script type="text/javascript" src="/public/scripts/rentals/removeRental.js"></script>
 </html>
