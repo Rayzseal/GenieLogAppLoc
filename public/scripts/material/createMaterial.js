@@ -18,15 +18,15 @@ saveButton.addEventListener("click", () => {
 
 	if (titleField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ titre est requis", "var(--error-color)");
+		return toaster.display("Un titre est requis", "var(--error-color)");
 	}
 	if (versionField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ version est requis", "var(--error-color)");
+		return toaster.display("Une version est requise", "var(--error-color)");
 	}
 	if (referenceField.value.trim() === "") {
 		setFieldsDisableState(false);
-		return toaster.display("Le champ référence est requis", "var(--error-color)");
+		return toaster.display("Une référence est requise", "var(--error-color)");
 	}
 
 	fetch("/material/create", {

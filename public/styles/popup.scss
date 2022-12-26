@@ -40,9 +40,22 @@
 		}
 
 		& > ul {
-			margin-top: 1em;
 			display: flex;
 			justify-content: space-between;
+		}
+
+		& > ol {
+			margin: 1em 0;
+			font-size: 0.8em;
+
+			& > li {
+				display: flex;
+				flex-direction: column;
+
+				& > label {
+					margin-bottom: 0.5em;
+				}
+			}
 		}
 	}
 }

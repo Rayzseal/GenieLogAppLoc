@@ -54,7 +54,6 @@ module.exports = {
 		 * Perform the employee creation into the database
 		 */
 		create: (req, res) => {
-
 			let createdEmployee;
 			try {
 				createdEmployee = new Employee({
@@ -117,8 +116,37 @@ module.exports = {
 		remove: (req, res) => {
 			const employeeId = req.params.id;
 
+			// If the logged-in user delete its own profile, then return an error
+			if (employeeId === req.session.current_employee.id)
+				return res.send(JSON.stringify({
+					success: false,
+					message: "Vous ne pouvez pas supprimer ce compte auquel vous êtes connecté"
+				}));
+
 			try {
 				database.company.removeEmployee(database.company.getEmployee(employeeId), req.body.force);
+
+				database.saveToFile();
+			} catch (e) {
+				return res.send(JSON.stringify({
+					success: false,
+					message: e.message
+				}));
+			}
+
+			res.send(JSON.stringify({
+				success: true
+			}));
+		},
+		/**
+		 * Perform the employee password reset into the database.
+		 */
+		resetPassword: (req, res) => {
+			const employeeId = req.params.id;
+
+			try {
+				const employee = database.company.getEmployee(employeeId);
+				employee.setPassword(req.body.password);
 
 				database.saveToFile();
 			} catch (e) {

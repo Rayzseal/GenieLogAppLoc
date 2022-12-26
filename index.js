@@ -14,6 +14,7 @@ const ADMIN_ONLY_ROUTES        = [
 	"/employee/:id/",
 	"/employee/:id/edit/",
 	"/employee/:id/remove/",
+	"/employee/:id/resetPassword/",
 	"/material/create/",
 	"/material/:id/edit/",
 	"/material/:id/remove/",
@@ -104,6 +105,7 @@ app.get("/employee/:id/", router.employee.get.view);
 app.get("/employee/:id/edit/", router.employee.get.edit);
 app.post("/employee/:id/edit/", router.employee.post.edit);
 app.post("/employee/:id/remove/", router.employee.post.remove);
+app.post("/employee/:id/resetPassword/", router.employee.post.resetPassword);
 
 // Material routes
 app.get("/materials/", router.material.get.list);

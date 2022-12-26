@@ -24,6 +24,41 @@ async function removeEmployee() {
 	}
 }
 
-function editPassword() {
-	// todo: open a popup asking for a new password to set for this employee
+async function editPassword() {
+	const popup  = new Popup("Veuillez saisir le nouveau mot de passe", "Ce mot de passe remplacera l'ancien qui deviendra ainsi inutilisable.");
+	const answer = await popup.ask({
+		inputs: [
+			{ label: "Nouveau mot de passe", type: "password", id: "password" }
+		]
+	});
+
+	if (!answer)
+		return;
+	console.log(answer);
+
+	const newPassword = answer[0];
+	if (newPassword.trim() === "")
+		return toaster.display("Un nouveau mot de passe est requis", "var(--error-color)");
+
+	if (newPassword) {
+		fetch("resetPassword/", {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8"
+				},
+				body: JSON.stringify({
+					password: newPassword
+				})
+			}
+		).then(async function (res) {
+			const response = await res.json();
+
+			if (!response.success)
+				return toaster.display(response.message, "var(--error-color)");
+
+			toaster.display("Le mot de passe a bien été mis à jour");
+		}).catch(e => {
+			toaster.display(e.message, "var(--error-color)");
+		});
+	}
 }

@@ -5,6 +5,7 @@
 	text-align: center;
 	transition: transform 1s;
 	transform: translateY(-5em);
+	z-index: 2;
 	top: 0;
 
 	& > p {
