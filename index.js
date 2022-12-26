@@ -42,7 +42,7 @@ app.use(session({
 
 // Check before accessing to each page
 app.use((req, res, next) => {
-	console.log(getRouteFromPath(req.path));
+	console.log(req.method, getRouteFromPath(req.path), `(${req.path})`);
 	if (process.env.REQUIRE_LOGIN === "false") {
 		req.session.current_employee = new Employee({
 			name: "Account",
@@ -102,6 +102,7 @@ app.get("/employee/create/", router.employee.get.create);
 app.post("/employee/create/", router.employee.post.create);
 app.get("/employee/:id/", router.employee.get.view);
 app.get("/employee/:id/edit/", router.employee.get.edit);
+app.post("/employee/:id/edit/", router.employee.post.edit);
 app.post("/employee/:id/remove/", router.employee.post.remove);
 
 // Material routes

@@ -23,10 +23,10 @@ module.exports = {
 		 */
 		view: (req, res) => {
 			const employeeId = req.params.id;
-			const employee = database.company.getEmployee(employeeId);
+			const employee   = database.company.getEmployee(employeeId);
 
 			if (!employee)
-				return res.redirect('/employees/');
+				return res.redirect("/employees/");
 
 			res.render("employee/viewEmployee.ejs", {
 				employee: employee,
@@ -38,11 +38,14 @@ module.exports = {
 		 * Display the view to edit a specific employee.
 		 */
 		edit: (req, res) => {
+			const employeeId = req.params.id;
+			const employee   = database.company.getEmployee(employeeId);
+
+			if (!employee)
+				return res.redirect("/employees/");
+
 			res.render("employee/editEmployee.ejs", {
-				name: "Jean",
-				surname: "Lasalle",
-				email: "exemple@mail.com",
-				mat: "1234ABC"
+				employee: employee
 			});
 		}
 	},
@@ -75,6 +78,37 @@ module.exports = {
 			res.send(JSON.stringify({
 				success: true,
 				employeeId: createdEmployee.getId()
+			}));
+		},
+		/**
+		 * Perform the employee edition into the database.
+		 */
+		edit: (req, res) => {
+			const employeeId = req.params.id;
+
+			try {
+				let editedEmployee = database.company.getEmployee(employeeId);
+				editedEmployee.setName(req.body.name);
+				editedEmployee.setSurname(req.body.surname);
+				editedEmployee.setEmail(req.body.email);
+				editedEmployee.setPersonnalNumber(req.body.matricule);
+				editedEmployee.setIsAdmin(req.body.isAdmin);
+
+				// If the logged-in user modify its own profile, then update the session
+				if (editedEmployee.getId() === req.session.current_employee.id)
+					req.session.current_employee = editedEmployee;
+
+				database.saveToFile();
+			} catch (e) {
+				return res.send(JSON.stringify({
+					success: false,
+					message: e.message
+				}));
+			}
+
+			res.send(JSON.stringify({
+				success: true,
+				employeeId: employeeId
 			}));
 		},
 		/**

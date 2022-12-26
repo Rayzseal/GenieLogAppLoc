@@ -39,9 +39,13 @@ module.exports = {
 		 */
 		edit: (req, res) => {
 			const materialId = req.params.id;
+			const material   = database.company.getMaterial(materialId);
+
+			if (!material)
+				return res.redirect("/materials");
 
 			res.render("material/editMaterial.ejs", {
-				material: database.company.getMaterial(materialId)
+				material: material
 			});
 		}
 	},

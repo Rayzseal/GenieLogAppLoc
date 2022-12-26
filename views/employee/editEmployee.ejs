@@ -1,49 +1,55 @@
 <html lang="fr">
     <head>
         <%- include('../included/common.ejs') %>
-        <title>Création d'un employé</title>
+        <title>Modification de l'employé <%= employee.getName()%> <%= employee.getSurname()%></title>
         <link rel="stylesheet" href="/public/styles/employee/viewEmployee.css"/>
     </head>
 
     <body>
         <%- include('../included/menu.ejs') %>
 
-        <div class="page">
-            <div class="global">
-                <h2>Modifiez l'employé <%= name %> <%= surname %></h2>
-                <div class="form">
-                    <form action="" method="post" class="">
-                        <div class="form-content">
-                            <label for="name">Modifiez prénom</label>
-                            <input type="text" name="name" id="name" value="<%= name %>" required>
+        <main>
+            <h1>Modification de l'employé <%= employee.getName()%> <%= employee.getSurname()%></h1>
+
+            <section>
+                <ul>
+                    <li>
+                        <label for="name">Prénom</label>
+                        <input type="text" name="name" id="name" value="<%= employee.getName()%>">
+                    </li>
+                    <li>
+                        <label for="surname">Nom de famille</label>
+                        <input type="text" name="surname" id="surname" value="<%= employee.getSurname()%>">
+                    </li>
+                    <li>
+                        <label for="email">Adresse mail</label>
+                        <input type="email" name="email" id="email" value="<%= employee.getEmail()%>">
+                    </li>
+                    <li>
+                        <label for="matricule">Matricule</label>
+                        <input type="text" name="mat" id="matricule" value="<%= employee.getPersonnalNumber()%>">
+                    </li>
+                    <li>
+                        <label for="role">Rôle sur la plateforme</label>
+                        <div class="switch">
+                            <input type="checkbox" id="role" <%= employee.getIsAdmin() ? "checked" : "" %>>
+                            <label for="role"></label>
                         </div>
-                        <div class="form-content">
-                            <label for="surname">Modifiez name</label>
-                            <input type="text" name="surname" id="surname" value="<%= surname %>" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="email">Modifiez email</label>
-                            <input type="email" name="email" id="email" value="<%= email %>" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="mat">Modifiez matricule</label>
-                            <input type="text" name="mat" id="mat" value="<%= mat %>" required>
-                        </div>
-                        <div class="form-content">
-                            <label for="rights">Modifiez droits</label>
-                            <div class="rights">
-                                <p>Utilisateur</p>
-                                <input type="radio" name="rights" id="rights" required checked="checked">
-                                <p>Administrateur</p>
-                                <input type="radio" name="rights" id="rights" required>
-                            </div>
-                        </div>
-                        <div class="submit">
-                            <input type="submit" value="Modifier">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                        <p><%= employee.getIsAdmin() ? "Administrateur" : "Emprunteur" %></p>
+                    </li>
+                    <li>
+                        <button onclick="window.location.href='/employee/<%= employee.getId() %>'" title="Abandonner les changements">Abandonner</button>
+                        <button title="Enregistrer les changements" id="save">Enregistrer</button>
+                    </li>
+                </ul>
+            </section>
+        </main>
     </body>
+
+    <script type="text/javascript">
+		// Set the structure of a toast
+		const toast_structure = `<%- include('../included/toast.ejs'); %>`;
+    </script>
+    <script type="text/javascript" src="/public/scripts/Toast.js"></script>
+    <script type="text/javascript" src="/public/scripts/employee/editEmployee.js"></script>
 </html>
