@@ -29,7 +29,8 @@ saveButton.addEventListener("click", () => {
 		return toaster.display("Le champ référence est requis", "var(--error-color)");
 	}
 
-	fetch("edit", {
+	// No url specified because it is the same url with a POST method
+	fetch("", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"

@@ -84,13 +84,21 @@ module.exports = {
 		edit: (req, res) => {
 			const materialId = req.params.id;
 
+
 			try {
-				let editedMaterial = database.company.getMaterial(materialId);
-				editedMaterial.setTitle(req.body.title);
-				editedMaterial.setVersion(req.body.version);
-				editedMaterial.setReference(req.body.reference);
-				editedMaterial.setPicture(req.body.picture);
-				editedMaterial.setPhoneNumber(req.body.phoneNumber);
+				let toEditMaterial            = database.company.getMaterial(materialId);
+				const alreadyExistingMaterial = database.company.getMaterialByReference(req.body.reference);
+				if (alreadyExistingMaterial.getId() !== toEditMaterial.getId())
+					return res.send(JSON.stringify({
+						success: false,
+						message: `Cette référence est déjà utilisé par un matériel : "${alreadyExistingMaterial.getTitle()}"`
+					}));
+
+				toEditMaterial.setTitle(req.body.title);
+				toEditMaterial.setVersion(req.body.version);
+				toEditMaterial.setReference(req.body.reference);
+				toEditMaterial.setPicture(req.body.picture);
+				toEditMaterial.setPhoneNumber(req.body.phoneNumber);
 
 				database.saveToFile();
 			} catch (e) {

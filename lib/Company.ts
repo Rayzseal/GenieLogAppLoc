@@ -102,6 +102,15 @@ export class Company {
 	}
 
 	/**
+	 * Returns a material corresponding to the specified reference.
+	 * @param reference The unique reference of the material to find.
+	 * @returns Specified material.
+	 */
+	getMaterialByReference(reference: string): Material | undefined {
+		return this.materials.find((material: Material) => material.getReference() === reference);
+	}
+
+	/**
 	 * Add a material.
 	 * @param material Material to be added.
 	 */
