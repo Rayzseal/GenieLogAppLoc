@@ -6,7 +6,18 @@ const matriculeField = document.querySelector("#matricule");
 const passwordField  = document.querySelector("#password");
 
 // Buttons
-const saveButton = document.querySelector("#save");
+const saveButton    = document.querySelector("#save");
+const isAdminButton = document.querySelector("#role");
+
+// Paragraph
+const adminStatus = document.querySelector(".switch + p");
+
+isAdminButton.addEventListener("change", (ev) => {
+	if(isAdminButton.checked)
+		adminStatus.innerHTML = "Administrateur";
+	else
+		adminStatus.innerHTML = "Emprunteur";
+});
 
 saveButton.addEventListener("click", () => {
 	setFieldsDisableState(true);
@@ -42,7 +53,8 @@ saveButton.addEventListener("click", () => {
 				surname: surnameField.value,
 				email: emailField.value,
 				matricule: matriculeField.value,
-				password: passwordField.value
+				password: passwordField.value,
+				isAdmin: isAdminButton.checked
 			})
 		}
 	).then(async function (res) {

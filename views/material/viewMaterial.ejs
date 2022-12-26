@@ -21,12 +21,12 @@
                             <p>#<%= material.getId(); %></p>
                             <ul>
                                 <li>
-                                    <% if (current_employee.getIsAdmin()) { %>
+                                    <% if (current_employee.isAdmin) { %>
                                         <button onclick="window.location.href='/material/<%= material.getId(); %>/edit'" title="Modifier le matériel">Modifier</button>
                                     <% } %>
                                 </li>
                                 <li>
-                                    <% if (current_employee.getIsAdmin()) { %>
+                                    <% if (current_employee.isAdmin) { %>
                                         <button onclick="removeMaterial()" title="Supprimer le matériel">Supprimer</button>
                                     <% } %>
                                 </li>
@@ -57,7 +57,7 @@
                             <label>
                                 <p>Emprunteur</p>
                                 <select id="employeeId">
-                                    <% if (current_employee.getIsAdmin()) { %>
+                                    <% if (current_employee.isAdmin) { %>
                                         <option value="" selected>Sélectionner un utilisateur</option>
                                         <% for (const employee of employees) { %>
                                             <option value="<%= employee.getId() %>"><%= employee.getName() %></option>

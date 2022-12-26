@@ -59,7 +59,8 @@ module.exports = {
 					surname: req.body.surname,
 					name: req.body.name,
 					password: req.body.password,
-					email: req.body.email
+					email: req.body.email,
+					isAdmin: req.body.isAdmin
 				});
 
 				database.company.addEmployee(createdEmployee);

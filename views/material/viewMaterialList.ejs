@@ -21,14 +21,14 @@
                         </label>
                     </li>
                     <li>
-                        <% if (current_employee.getIsAdmin()) { %>
+                        <% if (current_employee.isAdmin) { %>
                             <button onclick="window.location.href='/material/create/'" title="Créer un nouveau matériel">Nouveau</button>
                         <% } %>
                     </li>
                 </menu>
 
                 <ul>
-                    <% if (current_employee.getIsAdmin()) { %>
+                    <% if (current_employee.isAdmin) { %>
                         <p>Utilisez le bouton "nouveau" pour ajouter un matériel</p>
                     <% } else { %>
                         <p>Demandez à un administrateur de créer un premier matériel</p>

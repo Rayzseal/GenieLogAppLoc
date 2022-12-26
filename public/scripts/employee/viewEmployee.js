@@ -23,3 +23,7 @@ async function removeEmployee() {
 		});
 	}
 }
+
+function editPassword() {
+	// todo: open a popup asking for a new password to set for this employee
+}

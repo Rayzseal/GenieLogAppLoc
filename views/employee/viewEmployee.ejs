@@ -21,14 +21,13 @@
                             <p>#<%= employee.getId(); %></p>
                             <ul>
                                 <li>
-                                    <% if (current_employee.getIsAdmin()) { %>
-                                        <button onclick="window.location.href='/employee/<%= employee.getId(); %>/edit'" title="Modifier l'employé">Modifier</button>
-                                    <% } %>
+                                    <button onclick="editPassword()" title="Changer le mot de passe de l'employé">Réinitialiser le mot de passe</button>
                                 </li>
                                 <li>
-                                    <% if (current_employee.getIsAdmin()) { %>
-                                        <button onclick="removeEmployee('<%= employee.getId(); %>')" title="Supprimer l'employé">Supprimer</button>
-                                    <% } %>
+                                    <button onclick="window.location.href='/employee/<%= employee.getId(); %>/edit'" title="Modifier l'employé">Modifier</button>
+                                </li>
+                                <li>
+                                    <button onclick="removeEmployee()" title="Supprimer l'employé">Supprimer</button>
                                 </li>
                             </ul>
                         </section>

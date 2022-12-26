@@ -6,7 +6,7 @@
   	<menu>
 	   	<li><a href="/home">Accueil</a></li>
        	<li><a href="/materials">Matériels</a></li>
-		<% if (current_employee.getIsAdmin()) { %>
+		<% if (current_employee.isAdmin) { %>
        		<li><a href="/employees">Employés</a></li>
 		<% } %>
     	<li><a href="/logout">Déconnexion</a></li>

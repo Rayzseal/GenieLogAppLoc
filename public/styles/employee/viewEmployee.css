@@ -20,9 +20,20 @@ main > section > ul > li {
 main > section > ul > li > label {
   margin-bottom: 0.2em;
 }
-main > section > ul > li:not(li:last-child) {
+main > section > ul > li:not(li:nth-last-child(-n+2)) {
   flex-direction: column;
   margin: 1em 0;
+}
+main > section > ul > li:nth-last-child(2) {
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 1em 0;
+}
+main > section > ul > li:nth-last-child(2) > label {
+  flex-basis: 100%;
+}
+main > section > ul > li:nth-last-child(2) > p {
+  font-size: 0.8em;
 }
 main > section > ul > li:last-child {
   justify-content: space-between;

@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 		return res.redirect("/");
 
 	// The user is logged-in but isn't admin and try to visit an admin page
-	if (req.session.current_employee && !req.session.current_employee.getIsAdmin() && ADMIN_ONLY_ROUTES.includes(getRouteFromPath(req.path))) {
+	if (req.session.current_employee && !req.session.current_employee.isAdmin && ADMIN_ONLY_ROUTES.includes(getRouteFromPath(req.path))) {
 		if (req.method === "GET") // It's a view someone try to reach
 			return res.redirect("/home");
 		else
@@ -92,7 +92,7 @@ function getRouteFromPath(path) {
 // Global global routes
 app.get("/", router.global.get.login);
 app.post("/login/", router.global.post.login);
-app.get("/logou/t", router.global.post.logout);
+app.get("/logout", router.global.post.logout);
 app.get("/home/", router.global.get.home);
 app.get("/accessForbidden/", router.global.get.forbidden);
 

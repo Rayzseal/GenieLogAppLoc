@@ -28,7 +28,7 @@ export class Company {
 
 	/**
 	 * Returns the employee object corresponding to a specified id.
-	 * @param employeeId Id of a employee.
+	 * @param employeeId Id of an employee.
 	 * @returns Specified employee.
 	 */
 	getEmployee(employeeId: String): Employee | undefined {
@@ -37,7 +37,7 @@ export class Company {
 
 	/**
 	 * Returns the employee object corresponding to a specified PersonnalNumber.
-	 * @param employeePersonnalNumber PersonnalNumber of a employee.
+	 * @param employeePersonnalNumber PersonnalNumber of an employee.
 	 * @returns Specified employee.
 	 */
 	getEmployeeByPersonnalNumber(employeePersonnalNumber: String): Employee | undefined {
@@ -186,8 +186,8 @@ export class Company {
 		/**
 		 * - The given starting date of rent in argument is not already during the period of rent for the same material of another rent.
 		 * - The given ending date of rent in argument is not already during the period of rent for the same material of another rent.
-		 * - Check if in all the rents already added to the list, if a rent have a starting date that will occurs between the interval of the rent to be added.
-		 * - Check if in all the rents already added to the list, if a rent have a ending date that will occurs between the interval of the rent to be added.
+		 * - Check if in all the rents already added to the list, if a rent have a starting date that will occur between the interval of the rent to be added.
+		 * - Check if in all the rents already added to the list, if a rent have an ending date that will occur between the interval of the rent to be added.
 		 */
 		this.rentals.forEach(r => {
 			if (r.getMaterial() == rental.getMaterial()) {

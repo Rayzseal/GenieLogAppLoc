@@ -68,3 +68,58 @@ button {
 main {
   padding: 1em;
 }
+
+.switch {
+  margin-right: 1em;
+  display: inline-block;
+  position: relative;
+  width: 3em;
+  height: 1.5em;
+  cursor: pointer;
+  overflow: hidden;
+  border: thin solid black;
+  border-radius: 15px;
+}
+.switch input {
+  position: absolute;
+  top: -30px;
+  width: 0;
+  height: 0;
+}
+.switch input + label {
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--overlays-background);
+  border-radius: 15px;
+}
+.switch input + label:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 0.15em;
+  width: 1.2em;
+  height: 1.2em;
+  background: white;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: all 0.5s;
+}
+.switch input + label:before {
+  background: url("../icons/shield_cross.gif");
+  background-size: contain;
+}
+.switch input:checked + label {
+  background: var(--success-color);
+}
+.switch input:checked + label:before {
+  left: 1.6em;
+}
+.switch input:checked + label:before {
+  background: url("../icons/shield_tick.gif");
+  background-size: contain;
+}

@@ -21,9 +21,23 @@ main {
 					margin-bottom: 0.2em;
 				}
 
-				&:not(li:last-child) {
+				&:not(li:nth-last-child(-n + 2)) {
 					flex-direction: column;
 					margin: 1em 0;
+				}
+
+				&:nth-last-child(2) {
+					flex-wrap: wrap;
+					align-items: center;
+					margin: 1em 0;
+
+					& > label {
+						flex-basis: 100%;
+					}
+
+					& > p {
+						font-size: 0.8em;
+					}
 				}
 
 				&:last-child {
