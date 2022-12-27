@@ -63,6 +63,9 @@ export class Rental {
 		if (typeof date === "string")
 			date = new Date(date);
 
+		if (date < new Date())
+			throw new Error("Begin date should be before today's date");
+
 		if (this.endingDate && date > this.endingDate)
 			throw new Error("Starting date should occurs before ending date");
 

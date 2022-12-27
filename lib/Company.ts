@@ -169,6 +169,15 @@ export class Company {
 	}
 
 	/**
+	 * Returns a rental corresponding to the specified id.
+	 * @param rentalId Id of a rental.
+	 * @returns Specified rental.
+	 */
+	getRental(rentalId: string): Rental | undefined {
+		return this.rentals.find((rental: Rental) => rental.getId() === rentalId);
+	}
+
+	/**
 	 * Return the list of rentals for a specific material.
 	 * @param materialId The material identifier of wich we want to retrieve the rentals
 	 * @returns A list of rentals sorted by ending date.
