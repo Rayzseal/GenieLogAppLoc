@@ -1,10 +1,11 @@
 import {randomUUID} from "crypto";
+import {isUUIDFormat} from "./utils";
 
 /**
  * Class to create an employee. 
  */
 export class Employee {
-	private readonly id: string;
+	private id: string;
 	private name: string;
 	private surname: string;
 	private email: string;
@@ -23,6 +24,7 @@ export class Employee {
 	 * @param obj.personnalNumber Employee number.
 	 */
 	public constructor(obj: {
+		id?: string,
 		name: string,
 		surname: string,
 		email: string,
@@ -30,9 +32,10 @@ export class Employee {
 		password: string,
 		personnalNumber: string
 	}) {
-		this.id = randomUUID();
 		this.isAdmin = obj.isAdmin ?? false;
 
+		// TODO: add tests on id setter format
+		this.setId(obj.id);
 		this.setName(obj.name);
 		this.setSurname(obj.surname);
 		this.setPassword(obj.password);
@@ -150,5 +153,17 @@ export class Employee {
 			this.personnalNumber = personnalNumber;
 		else
 			throw new Error("Personnal number is not alphanumeric or 7 characters long. : "+personnalNumber);
+	}
+
+	/**
+	 * Setter on employee id.
+	 * @param id the id to give to this material. This is need to respect the uuidv4 format. Otherwise, the material will be given a random uuid.
+	 * @private
+	 */
+	private setId(id: string | undefined) {
+		if (id && isUUIDFormat(id))
+			this.id = id;
+		else
+			this.id = randomUUID();
 	}
 }

@@ -36,12 +36,21 @@ export class Company {
 	}
 
 	/**
-	 * Returns the employee object corresponding to a specified PersonnalNumber.
+	 * Returns the employee object corresponding to a specified personnal number.
 	 * @param employeePersonnalNumber PersonnalNumber of an employee.
 	 * @returns Specified employee.
 	 */
 	getEmployeeByPersonnalNumber(employeePersonnalNumber: String): Employee | undefined {
 		return this.employees.find((employee: Employee) => employee.getPersonnalNumber() === employeePersonnalNumber);
+	}
+
+	/**
+	 * Returns the employee object corresponding to a specified email.
+	 * @param employeeEmail Email of an employee.
+	 * @returns Specified employee.
+	 */
+	getEmployeeByEmail(employeeEmail: String): Employee | undefined {
+		return this.employees.find((employee: Employee) => employee.getEmail() === employeeEmail);
 	}
 
 	/**

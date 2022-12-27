@@ -49,7 +49,7 @@ class Popup {
 				resolve(true);
 			};
 		}).then(res => {
-			const inputValues = options.inputs.map(input => document.querySelector(`#${input.id}`)?.value);
+			const inputValues = options.inputs?.map(input => document.querySelector(`#${input.id}`)?.value);
 
 			this.close();
 

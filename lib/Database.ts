@@ -27,6 +27,6 @@ export class Database {
 	}
 
 	saveToFile(path: string = DB_FILE) {
-		writeFileSync(path, JSON.stringify(this.company));
+		writeFileSync(path, JSON.stringify(this.company, null, 4));
 	}
 }

@@ -88,10 +88,10 @@ module.exports = {
 			try {
 				let toEditMaterial            = database.company.getMaterial(materialId);
 				const alreadyExistingMaterial = database.company.getMaterialByReference(req.body.reference);
-				if (alreadyExistingMaterial.getId() !== toEditMaterial.getId())
+				if (alreadyExistingMaterial && alreadyExistingMaterial.getId() !== toEditMaterial.getId())
 					return res.send(JSON.stringify({
 						success: false,
-						message: `Cette référence est déjà utilisé par un matériel : "${alreadyExistingMaterial.getTitle()}"`
+						message: `Cette référence est déjà utilisé par un matériel (#${alreadyExistingMaterial.getId()})`
 					}));
 
 				toEditMaterial.setTitle(req.body.title);

@@ -87,6 +87,31 @@ module.exports = {
 
 			try {
 				let editedEmployee = database.company.getEmployee(employeeId);
+
+				// The employee is an admin from who we want to remove its administrator rights, but he is the last admin of the platform
+				if (editedEmployee.getIsAdmin() && !req.body.isAdmin && database.company.getEmployees().filter(e => e.getIsAdmin()).length === 1)
+					return res.send(JSON.stringify({
+						success: false,
+						message: "Impossible de retirer les droits d'administration de ce compte : veuillez créer un autre compte administrateur auparavant"
+					}));
+
+				// The personnal number we try to edit is already associated to another employee
+				const employeeByPersonnalNumber = database.company.getEmployeeByPersonnalNumber(req.body.matricule);
+				if (employeeByPersonnalNumber && employeeByPersonnalNumber.getId() !== editedEmployee.getId())
+					return res.send(JSON.stringify({
+						success: false,
+						message: `Ce matricule est déjà utilisé par un employé (#${employeeByPersonnalNumber.getId()})`
+					}));
+
+				// The email we try to edit is already associated to another employee
+				const employeeByEmail = database.company.getEmployeeByEmail(req.body.email);
+				if (employeeByEmail && employeeByEmail.getId() !== editedEmployee.getId())
+					return res.send(JSON.stringify({
+						success: false,
+						message: `Cet email est déjà utilisé par un employé (#${employeeByEmail.getId()})`
+					}));
+
+				// Perform the edition
 				editedEmployee.setName(req.body.name);
 				editedEmployee.setSurname(req.body.surname);
 				editedEmployee.setEmail(req.body.email);
@@ -124,7 +149,17 @@ module.exports = {
 				}));
 
 			try {
-				database.company.removeEmployee(database.company.getEmployee(employeeId), req.body.force);
+				const employeeToDelete = database.company.getEmployee(employeeId);
+
+				// The employee is the last admin of the platform
+				if (employeeToDelete.getIsAdmin() && database.company.getEmployees().filter(e => e.getIsAdmin()).length === 1)
+					return res.send(JSON.stringify({
+						success: false,
+						message: "Impossible de supprimer ce compte : veuillez créer un autre compte administrateur auparavant"
+					}));
+
+				// Perform the deletion
+				database.company.removeEmployee(employeeToDelete, req.body.force);
 
 				database.saveToFile();
 			} catch (e) {
