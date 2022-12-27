@@ -333,5 +333,202 @@ describe("Employee", () => {
             });
         });
 
+        describe("Password tests", () => {
+            // Creating an employee
+            it("Should create the employee with a correct password", (done) => {
+                const emp1 = new Employee({
+                    name: "Nicolas",
+                    surname: "Martin",
+                    email: "nicolas.martin@mail.com",
+                    password: "Azertyuiop1234",
+                    personnalNumber: "ABCD123"
+                });
+
+                assert.equal(typeof(emp1), "object", "Should be an object.");
+
+                done();
+            });
+
+            it("Should throw an error : employee with an incorrect password (missing characters)", (done) => {
+                assert.throws(() => {
+                    new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martinmail.com",
+                        password: "azertyuiop1234",
+                        personnalNumber: "ABCD123"
+                    });
+                }, Error, "The employee is being created with an incorrect format of password : missing uppercase letter");
+
+                assert.throws(() => {
+                    new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martinmail.com",
+                        password: "Azertyuiop",
+                        personnalNumber: "ABCD123"
+                    });
+                }, Error, "The employee is being created with an incorrect format of password : missing numbers");
+
+                assert.throws(() => {
+                    new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martinmail.com",
+                        password: "Azer12",
+                        personnalNumber: "ABCD123"
+                    });
+                }, Error, "The employee is being created with an incorrect format of password : too short");
+
+                done();
+            });
+
+        });
+
+        describe("PersonnalNumber tests", () => {
+            // Creating an employee
+            it("Should create the employee with a correct personnal number", (done) => {
+                const emp1 = new Employee({
+                    name: "Nicolas",
+                    surname: "Martin",
+                    email: "nicolas.martin@mail.com",
+                    password: "Azertyuiop1234",
+                    personnalNumber: "ABCD123"
+                });
+
+                assert.equal(typeof emp1.getPersonnalNumber(), "string", "The personnal number must be a String.");
+
+                done();
+            });
+
+            it("Should throw an error : employee with an incorrect personnal number (format)", (done) => {
+                assert.throws(() => {
+                    new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martin@mail.com",
+                        password: "Azertyuiop1234",
+                        personnalNumber: "AB/D123"
+                    });
+                }, Error, "The employee is being created with an incorrect format of personnal number : special characters");
+
+                done();
+            });
+
+            it("Should throw an error : employee with an incorrect personnal number (size)", (done) => {
+                assert.throws(() => {
+                    new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martin@mail.com",
+                        password: "Azertyuiop1234",
+                        personnalNumber: "ABC123"
+                    });
+                }, Error, "The employee is being created with an incorrect format of personnal number : too short");
+
+                assert.throws(() => {
+                    new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martin@mail.com",
+                        password: "Azertyuiop1234",
+                        personnalNumber: "ABCD1234"
+                    });
+                }, Error, "The employee is being created with an incorrect format of personnal number : too long");
+
+                done();
+            });
+
+        });
+
+    });
+
+    describe("Database insertion", () => {
+        const emp1 = new Employee({
+            name: "Nicolas",
+            surname: "Martin",
+            email: "nicolas.martin@mail.com",
+            password: "Azertyuiop1234",
+            personnalNumber: "ABCD123"
+        });
+        const database = new Database(new Company()); // Retrieve the saved data
+
+        // Add an employee in the company
+        before(() => database.company.addEmployee(emp1));
+
+        describe("Retrieve tests", () => {
+            // Can retrieve the added employee
+            it("Should return the employee added", (done) => {
+                const retrievedEmployee = database.company.getEmployee(emp1.getId());
+
+                assert.equal(retrievedEmployee, emp1, "An added employee is returned by the getter");
+
+                done();
+            });
+        });
+
+        describe("Unicity tests", () => {
+            // Strict copy added
+            it("Should not add a employee already in the database", (done) => {
+                // Exact same object (same id)
+                assert.throws(() => {
+                    database.company.addEmployee(emp1);
+                }, Error, "A same employee is being added several times in the database");
+
+                // Same reference but different id
+                assert.throws(() => {
+                    const sameReferenceDifferentId = new Employee(emp1);
+                    database.company.addEmployee(sameReferenceDifferentId);
+                }, Error, "An employee is being added in the database with an already added employee id");
+
+                assert.throws(() => {
+                    const emp2 = new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: "nicolas.martin@mail.com",
+                        password: "Azertyuiop1234",
+                        personnalNumber: emp1.getPersonnalNumber()
+                    });
+                    database.company.addEmployee(emp2);
+                }, Error, "An employee with an already used personnal number is being added to the company");
+
+                assert.throws(() => {
+                    const emp3 = new Employee({
+                        name: "Nicolas",
+                        surname: "Martin",
+                        email: emp1.getEmail(),
+                        password: "Azertyuiop1234",
+                        personnalNumber: "12345AB"
+                    });
+                    database.company.addEmployee(emp3);
+                }, Error, "An employee with an already used email is being added to the company");
+
+                done();
+            });
+        });
+    });
+
+    describe("Database deletion", () => {
+        const emp1 = new Employee({
+            name: "Nicolas",
+            surname: "Martin",
+            email: "nicolas.martin@mail.com",
+            password: "Azertyuiop1234",
+            personnalNumber: "12345AC"
+        });
+        const database = new Database(new Company()); // Retrieve the saved data
+
+        // Add a material in the company
+        before(() => database.company.addEmployee(emp1));
+
+        describe("Retrieve tests", () => {
+            // Cannot retrieve the deleted employee
+            it("Should not return the deleted material", (done) => {
+                database.company.removeEmployee(emp1);
+
+                assert.equal(database.company.getEmployee(emp1.getId()), undefined, "The employee is not removed from the database when called for being deleted.");
+                done();
+            });
+        });
     });
 });
