@@ -152,7 +152,7 @@ describe("Rental", () => {
             it("Should return the rental added", (done) => {
                 const retrievedRental = database.company.getRentals(rent1.getId());
 
-                assert.equal(retrievedRental.at(0), rent1, "An added rental is returned by the getter");
+                assert.equal(database.company.getRental(rent1.getId()), rent1, "An added rental is returned by the getter");
 
                 done();
             });
