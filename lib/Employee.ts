@@ -96,6 +96,9 @@ export class Employee {
 	 * @param name new name.
 	 */
 	public setName(name: string) {
+		if(/^(\s+)?$/.test(name))
+			throw new Error("Name is empty");
+
 		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(name))
 			this.name = name;
 		else
@@ -107,6 +110,9 @@ export class Employee {
 	 * @param surname new surname.
 	 */
 	public setSurname(surname: string) {
+		if(/^(\s+)?$/.test(surname))
+			throw new Error("Surname is empty");
+
 		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(surname))
 			this.surname = surname;
 		else
