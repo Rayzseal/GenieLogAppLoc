@@ -71,13 +71,13 @@
                         <li>
                             <label>
                                 <p>Date de début d'emprunt</p>
-                                <input id="startingDate" type="date">
+                                <input id="startingDate" type="date" min="<%= new Date().toISOString().split('T')[0] %>">
                             </label>
                         </li>
                         <li>
                             <label>
                                 <p>Date de fin d'emprunt</p>
-                                <input id="endingDate" type="date">
+                                <input id="endingDate" type="date" min="<%= new Date().toISOString().split('T')[0] %>">
                             </label>
                         </li>
                         <li>

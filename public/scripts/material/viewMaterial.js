@@ -35,14 +35,16 @@ addRentalButton.addEventListener("click", () => {
 		if (!response.success)
 			return toaster.display(response.message, "var(--error-color)");
 
-		toaster.display("La location a bien été enregistrée");
+		toaster.display("La réservation a bien été enregistrée");
 
 		console.log(response.rental);
 		const newRow     = document.createElement("tr");
+		console.log(new Date(response.rental.endingDate));
+
 		newRow.innerHTML = `<tr>
                                 <td onclick="document.location.href='/employee/${response.rental.employee.id}'">${response.rental.employee.name}</td>
-                                <td>${response.rental.startingDate}</td>
-                                <td>${response.rental.endingDate}</td>
+                                <td>${new Date(response.rental.startingDate).toLocaleDateString()}</td>
+                                <td>${new Date(response.rental.endingDate).toLocaleDateString()}</td>
                                 <td>
                                     <button title="Supprimer de l'historique" onclick="removeRental(this, '${response.rental.id}');">
                                         <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
