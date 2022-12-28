@@ -13,7 +13,6 @@ module.exports = {
 			login: (req, res) => {
 				res.render("login.ejs");
 			},
-
 			/**
 			 * Display the home page of the application.
 			 */
@@ -22,7 +21,9 @@ module.exports = {
 					name: req.session.current_employee.surname
 				});
 			},
-
+			/**
+			 * TODO; The description
+			 */
 			forbidden: (req, res) => {
 				res.render("accessForbidden.ejs");
 			}
@@ -31,31 +32,28 @@ module.exports = {
 			 * Check the login identifier and password provided in the login view and login the employee if all is good.
 			 */
 			login: (req, res) => {
-				const personnalNumber = req.body.matricule;
-				const password        = req.body.password;
+				const emp = database.company.getEmployeeByPersonnalNumber(req.body.matricule);
 
-				let emp = database.company.getEmployeeByPersonnalNumber(personnalNumber);
-
-				if (emp && emp.password === password)
+				if (emp && emp.hasPassword(req.body.password))
 					req.session.current_employee = emp;
 				else
 					return res.send(JSON.stringify({
 						success: false,
 						message: "Identifiant ou mot de passe incorrect"
 					}));
-				
+
 				res.send(JSON.stringify({
 					success: true
 				}));
 			},
-
 			/**
 			 * Destroys the session and redirect to log in page.
 			 */
 			logout: (req, res) => {
 				// Destroy the session
 				req.session.destroy((err) => {
-					if(err) res.send(err);
+					if (err)
+						res.send(err);
 				});
 
 				res.redirect("/");

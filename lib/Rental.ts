@@ -10,17 +10,33 @@ export class Rental {
 	private startingDate: Date;
 	private endingDate: Date;
 
+	/**
+	 * Constructor with parameters of a rental.
+	 * @param obj
+	 * @param obj.employee The employee that is renting/has rented a specific material
+	 * @param obj.material The material rented by an employee for a certain duration.
+	 * @param obj.startingDate The rental strarting date.
+	 * @param obj.endingDate The rental ending date.
+	 * @param databaseRemapMode=false If this object is a remap performed by the database.
+	 * When true, it allows the creation to avoid certain constraints like those for the starting and ending rental dates that require a date not to be in the past while th databse have to store rentals even if those started in the past : the database restore could have caused problems .
+	 */
 	constructor(obj: {
 		employee: Employee,
 		material: Material,
-		startingDate: Date,
-		endingDate: Date
-	}) {
+		startingDate: Date | string,
+		endingDate: Date | string
+	}, databaseRemapMode: boolean = false) {
 		this.id = randomUUID();
 		this.setEmployee(obj.employee);
 		this.setMaterial(obj.material);
-		this.setStartingDate(obj.startingDate);
-		this.setEndingDate(obj.endingDate);
+
+		if (databaseRemapMode) {
+			this.startingDate = typeof obj.startingDate === "string" ? new Date(obj.startingDate) : obj.startingDate;
+			this.endingDate = typeof obj.endingDate === "string" ? new Date(obj.endingDate) : obj.endingDate;
+		} else {
+			this.setStartingDate(obj.startingDate);
+			this.setEndingDate(obj.endingDate);
+		}
 	}
 
 	/**
@@ -59,28 +75,29 @@ export class Rental {
 		this.material = m;
 	}
 
-	setStartingDate(date: Date | String) {
+	setStartingDate(date: Date | string) {
 		if (typeof date === "string")
 			date = new Date(date);
 
 		if (date < new Date())
-			throw new Error("Begin date should be before today's date");
+			throw new Error("You cannot create a rental starting in the past");
 
 		if (this.endingDate && date > this.endingDate)
 			throw new Error("Starting date should occurs before ending date");
 
-		// @ts-ignore
 		this.startingDate = date;
 	}
 
-	setEndingDate(date: Date | String) {
+	setEndingDate(date: Date | string) {
 		if (typeof date === "string")
 			date = new Date(date);
+
+		if (date < new Date())
+			throw new Error("You cannot create a rental ending in the past");
 
 		if (this.startingDate && date < this.startingDate)
 			throw new Error("Ending date should occurs after begin date");
 
-		// @ts-ignore
 		this.endingDate = date;
 	}
 }

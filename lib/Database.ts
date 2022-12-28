@@ -12,10 +12,7 @@ export class Database {
 
 	static load(path: string = DB_FILE) {
 		try {
-			let content = readFileSync(path);
-			let company: Company = JSON.parse(content.toString());
-			company = Object.assign(new Company(), company);
-
+			const company = Object.assign(new Company(), JSON.parse(readFileSync(path).toString()));
 			company.remapClasses();
 
 			return new Database(company);
@@ -26,6 +23,10 @@ export class Database {
 		}
 	}
 
+	/**
+	 * Write the application datas into a file in order to keep those even when the app is turned off.
+	 * @param path A specific path where to write the file to.
+	 */
 	saveToFile(path: string = DB_FILE) {
 		writeFileSync(path, JSON.stringify(this.company, null, 4));
 	}

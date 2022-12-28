@@ -37,7 +37,6 @@ export class Material {
 		picture?: string;
 		phoneNumber?: string;
 	}) {
-		// TODO: add tests on id setter format
 		this.setId(obj.id);
 		this.setTitle(obj.title);
 		this.setVersion(obj.version);

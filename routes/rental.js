@@ -8,21 +8,6 @@ module.exports = {
 		create: (req, res) => {
 			let createdRental;
 			try {
-				const startingDate = new Date(req.body.startingDate);
-				const endingDate   = new Date(req.body.endingDate);
-
-				if (startingDate < new Date())
-					return res.send(JSON.stringify({
-						success: false,
-						message: "You cannot create a rental starting in the past"
-					}));
-
-				if (endingDate < new Date())
-					return res.send(JSON.stringify({
-						success: false,
-						message: "You cannot create a rental ending in the past"
-					}));
-
 				createdRental = new Rental({
 					employee: database.company.getEmployee(req.body.employeeId),
 					material: database.company.getMaterial(req.body.materialId),

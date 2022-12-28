@@ -268,10 +268,11 @@ export class Company {
 		}
 	}
 
+	/**
+	 * Remaps each database saved Object into its corresponding class instance.
+	 */
 	remapClasses() {
-		// This method basically remaps each Object into its corresponding class instance.
-
-		this.employees = this.employees.map((e: any) => new Employee(e));
+		this.employees = this.employees.map((e: any) => new Employee(e, true));
 		this.materials = this.materials.map((m: any) => new Material(m));
 
 		// Deduplicate and fix each rental.employee/material references.
@@ -279,7 +280,7 @@ export class Company {
 			r.employee = this.employees.find(e => e.getPersonnalNumber() == r.employee.personnalNumber);
 			r.material = this.materials.find(m => m.getId() == r.material.id);
 
-			return new Rental(r);
+			return new Rental(r, true);
 		});
 	}
 }
