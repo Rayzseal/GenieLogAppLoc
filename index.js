@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 	if (req.method === "GET" && !req.path.endsWith('/'))
 		return res.redirect(301, req.path+'/');
 
-	// The user is not logged-in and the page he wants to visit is not one which is accessible whithout login
+	// The user is not logged-in and the page he wants to visit is not one which is accessible without login
 	if (!req.session.current_employee && !NO_LOGIN_REQUIRED_ROUTES.includes(req.path))
 		return res.redirect("/");
 

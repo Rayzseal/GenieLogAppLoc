@@ -11,8 +11,8 @@ module.exports = {
 				createdRental = new Rental({
 					employee: database.company.getEmployee(req.body.employeeId),
 					material: database.company.getMaterial(req.body.materialId),
-					startingDate: startingDate,
-					endingDate: endingDate
+					startingDate: req.body.startingDate,
+					endingDate: req.body.endingDate
 				});
 
 				database.company.addRental(createdRental);

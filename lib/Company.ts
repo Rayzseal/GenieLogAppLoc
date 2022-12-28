@@ -86,7 +86,7 @@ export class Company {
 	removeEmployee(employee: Employee, force: boolean = false) {
 		// Can't remove employee with an active rental.
 		if (!force && this.hasActiveRental(employee)) {
-			throw "Can't delete the employe while a rental is active";
+			throw new Error("Can't delete the employe while a rental is active");
 		}
 
 		this.removeEmployeeCascade(employee);
