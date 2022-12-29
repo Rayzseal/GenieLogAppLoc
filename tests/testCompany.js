@@ -179,7 +179,7 @@ describe("Company", () => {
 			});
 		});
 
-		describe("Deleting elements to a company", () => {
+		describe("Deleting elements from a company", () => {
 
 			it("Deleting rentals (not active)", (done) => {
 
@@ -463,7 +463,7 @@ describe("Company", () => {
 
 				assert.equal(comp.getEmployees().length, 3, "The list of employees must contains 3 elements.");
 				assert.equal(comp.getMaterials().length, 3, "The list of materials must contains 3 elements.");
-				assert.equal(comp.getRentals().length, 3, "The list of materials must contains 3 elements.");
+				assert.equal(comp.getRentals().length, 3, "The list of rentals must contains 3 elements.");
 
 				comp.removeMaterial(mat1, true);
 
@@ -480,6 +480,116 @@ describe("Company", () => {
 				assert.equal(comp.getRentals().length, 0, "The list of rentals must contains no element.");
 
 				done();
+			});
+		});
+	});
+
+	describe("Database tests", () => {
+		describe("Database insertion", () => {
+			const mat1 = new Material({
+				title: "Samsung galaxy s7",
+				version: "v24587",
+				reference: "AN001"
+			});
+
+			const mat2 = new Material({
+				title: "Samsung galaxy s8",
+				version: "v123",
+				reference: "AN002"
+			});
+
+			const mat3 = new Material({
+				title: "Samsung galaxy s9",
+				version: "v-48",
+				reference: "AN003"
+			});
+
+			const emp1 = new Employee({
+				name: "Nicolas",
+				surname: "Martin",
+				email: "nicolas.martin@mail.com",
+				password: "Azertyuiop1234",
+				personnalNumber: "ABCD123"
+			});
+
+			const emp2 = new Employee({
+				name: "Robert",
+				surname: "Durant",
+				email: "robert.durant@mail.com",
+				password: "Azertyuiop1234",
+				personnalNumber: "ABC4567"
+			});
+
+			const emp3 = new Employee({
+				name: "Jean",
+				surname: "Valjean",
+				email: "jean.valjean@mail.com",
+				password: "Azertyuiop1234",
+				personnalNumber: "VBN1234"
+			});
+
+			const rent1 = new Rental({
+				employee: emp1,
+				material: mat1,
+				startingDate: new Date("2025-03-01"),
+				endingDate: new Date("2026-03-01")
+			});
+
+			const rent2 = new Rental({
+				employee: emp2,
+				material: mat2,
+				startingDate: new Date("2026-04-01"),
+				endingDate: new Date("2027-03-01")
+			});
+
+			const rent3 = new Rental({
+				employee: emp3,
+				material: mat3,
+				startingDate: new Date("2029-03-01"),
+				endingDate: new Date("2030-03-01")
+			});
+
+			const database = new Database(new Company()); // Retrieve the saved data
+
+
+			// Add an employee in the company
+			database.company.addEmployee(emp1);
+			database.company.addEmployee(emp2);
+			database.company.addEmployee(emp3);
+
+			// Add a material in the company
+			database.company.addMaterial(mat1);
+			database.company.addMaterial(mat2);
+			database.company.addMaterial(mat3);
+
+			// Add rents in the company
+			database.company.addRental(rent1);
+			database.company.addRental(rent2);
+			database.company.addRental(rent3);
+
+			describe("Retrieve tests", () => {
+				// Can retrieve the added employee
+				it("Should return the corrects number of elements added", (done) => {
+					assert.equal(database.company.getEmployees().length, 3, "The list of employees must contains 3 elements.");
+					assert.equal(database.company.getMaterials().length, 3, "The list of materials must contains 3 elements.");
+					assert.equal(database.company.getRentals().length, 3, "The list of rentals must contains 3 elements.");
+
+					done();
+				});
+			});
+			describe("Deletion tests", () => {
+				// Can retrieve the added employee
+				it("Should return the corrects number of elements after we deleted some", (done) => {
+					database.company.removeRental(rent1);
+					database.company.removeEmployee(emp2); //--> deletes rent refereced by emp2
+					database.company.removeMaterial(mat3); //--> deletes rent refereced by mat3
+
+					assert.equal(database.company.getEmployees().length, 2, "The list of employees must contains 2 elements.");
+					assert.equal(database.company.getMaterials().length, 2, "The list of materials must contains 2 elements.");
+					assert.equal(database.company.getRentals().length, 0, "The list of rentals must contains no element.");
+
+					done();
+				});
 			});
 		});
 	});
