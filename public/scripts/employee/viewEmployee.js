@@ -34,7 +34,6 @@ async function editPassword() {
 
 	if (!answer)
 		return;
-	console.log(answer);
 
 	const newPassword = answer[0];
 	if (newPassword.trim() === "")

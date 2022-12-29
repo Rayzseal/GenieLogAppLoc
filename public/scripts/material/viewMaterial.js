@@ -24,7 +24,7 @@ addRentalButton.addEventListener("click", () => {
 			},
 			body: JSON.stringify({
 				employeeId: employeeIdField.value,
-				materialId: document.location.pathname.split('/')[2],
+				materialId: document.location.pathname.split("/")[2],
 				startingDate: startingDateField.value,
 				endingDate: endingDateField.value
 			})
@@ -37,18 +37,18 @@ addRentalButton.addEventListener("click", () => {
 
 		toaster.display("La réservation a bien été enregistrée");
 
-		console.log(response.rental);
-		const newRow     = document.createElement("tr");
-		console.log(new Date(response.rental.endingDate));
+		const newRow = document.createElement("tr");
+		rentalsList.push(response.rental); // Add the new rental to the list in order to be able to supress it later
 
 		newRow.innerHTML = `<tr>
                                 <td onclick="document.location.href='/employee/${response.rental.employee.id}'">${response.rental.employee.name}</td>
                                 <td>${new Date(response.rental.startingDate).toLocaleDateString()}</td>
                                 <td>${new Date(response.rental.endingDate).toLocaleDateString()}</td>
                                 <td>
+                                    ${response.rental.employee.isAdmin ? `
                                     <button title="Supprimer de l'historique" onclick="removeRental(this, '${response.rental.id}');">
                                         <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
-                                    </button>
+                                    </button>` : ""}
                                 </td>
                             </tr>`;
 		rentalsTable.appendChild(newRow);

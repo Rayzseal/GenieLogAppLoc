@@ -185,7 +185,7 @@ export class Company {
 	getRentalsForMaterial(materialId: String): ReadonlyArray<Rental> {
 		return this.rentals
 			.filter(rental => rental.getMaterial()?.getId() === materialId)
-			.sort((a: Rental, b: Rental) => new Date(b.getEndingDate()).getTime() - new Date(a.getEndingDate()).getTime());
+			.sort((a: Rental, b: Rental) => new Date(a.getEndingDate()).getTime() - new Date(b.getEndingDate()).getTime());
 	}
 
 	/**
@@ -196,7 +196,7 @@ export class Company {
 	getRentalsForEmployee(employeeId: String): ReadonlyArray<Rental> {
 		return this.rentals
 			.filter(rental => rental.getEmployee()?.getId() === employeeId)
-			.sort((a: Rental, b: Rental) => new Date(b.getEndingDate()).getTime() - new Date(a.getEndingDate()).getTime());
+			.sort((a: Rental, b: Rental) => new Date(a.getEndingDate()).getTime() - new Date(b.getEndingDate()).getTime());
 	}
 
 	/**
@@ -222,7 +222,7 @@ export class Company {
 					|| (dateInInterval(rental.getEndingDate(), r.getStartingDate(), r.getEndingDate()))
 					|| (dateInInterval(r.getStartingDate(), rental.getStartingDate(), rental.getEndingDate()))
 					|| (dateInInterval(r.getEndingDate(), rental.getStartingDate(), rental.getEndingDate())))
-					throw new Error("Could not add rental, someone is already renting this material during this period : " + r.getStartingDate() + "  rental add : " + rental.getStartingDate() + "-" + rental.getEndingDate());
+					throw new Error(`This material is already rented from ${r.getStartingDate().toLocaleDateString()} to ${r.getEndingDate().toLocaleDateString()} (#${r.getId()})`);
 			}
 		});
 
@@ -235,18 +235,23 @@ export class Company {
 	 * @param rental Rental to be deleted.
 	 * @param force Force the removal of the rental, even if this rental is active.
 	 */
-	removeRental(rental: Rental , force: boolean = false) {
+	removeRental(rental: Rental | undefined, force: boolean = false) {
+		if (!rental)
+			return ;
+
 		if (rental.isActive() && !force)
-			throw new Error("Can't remove material with an active location.");
-		this.rentals = this.rentals.filter(r => r !== rental);
+			throw new Error("This rental cannot be removed because it is still ongoing");
+
+		this.rentals = this.rentals.filter(r => r.getId() !== rental.getId());
 	}
 
 	/**
 	 * Remove a rental from a list.
 	 * @param rentalId The rental id to be deleted.
+	 * @param force Force the removal of the rental, even if this rental is active.
 	 */
-	removeRentalById(rentalId: string) {
-		this.rentals = this.rentals.filter(rental => rental.getId() !== rentalId);
+	removeRentalById(rentalId: string, force: boolean = false) {
+		this.removeRental(this.getRental(rentalId), force);
 	}
 
 	/**

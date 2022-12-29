@@ -24,12 +24,17 @@ module.exports = {
 		view: (req, res) => {
 			const materialId = req.params.id;
 			const material   = database.company.getMaterial(materialId);
+			let rentalsList  = database.company.getRentalsForMaterial(materialId);
+
 			if (!material)
 				return res.redirect("/materials");
 
+			if (!req.session.current_employee.isAdmin)
+				rentalsList = rentalsList.filter(rental => rental.getEmployee().getId() === req.session.current_employee.id);
+
 			res.render("material/viewMaterial.ejs", {
 				material: material,
-				rentals: database.company.getRentalsForMaterial(materialId),
+				rentals: rentalsList,
 				employees: database.company.getEmployees()
 			});
 		},

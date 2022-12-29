@@ -33,8 +33,15 @@ module.exports = {
 		 * Remove a rental from the databse.
 		 */
 		remove: (req, res) => {
-			database.company.removeRentalById(req.body.rentalId);
-			database.saveToFile();
+			try {
+				database.company.removeRentalById(req.body.rentalId, true);
+				database.saveToFile();
+			} catch (e) {
+				return res.send(JSON.stringify({
+					success: false,
+					message: e.message
+				}));
+			}
 
 			res.send(JSON.stringify({
 				success: true

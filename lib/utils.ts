@@ -6,7 +6,8 @@
  * @returns True if the date is in the interval, false otherwise.
  */
 export function dateInInterval(toBeChecked: Date, beginDate: Date, endDate: Date): boolean {
-	return beginDate <= toBeChecked && toBeChecked <= endDate;
+	const toBeCheckedDate = toBeChecked.setHours(1, 0, 0, 0); // reset the time
+	return beginDate.getTime() <= toBeCheckedDate && toBeCheckedDate <= endDate.getTime();
 }
 
 export function isUUIDFormat(toCheck: string) {

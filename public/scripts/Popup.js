@@ -60,7 +60,6 @@ class Popup {
 	}
 
 	close() {
-		console.log("close");
 		this.popup.style.display  = "none";
 		this.inputsList.innerHTML = "";
 		this.buttons.forEach(button => {

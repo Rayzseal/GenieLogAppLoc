@@ -63,7 +63,7 @@
                                             <option value="<%= employee.getId() %>"><%= employee.getName() %></option>
                                         <% } %>
                                     <% } else { %>
-                                        <option value="<%= current_employee.getId() %>" selected><%= current_employee.getName() %></option>
+                                        <option value="<%= current_employee.id %>" selected><%= current_employee.name %></option>
                                     <% } %>
                                 </select>
                             </label>
@@ -100,13 +100,15 @@
 
                         <% for (const rental of rentals) { %>
                             <tr>
-                                <td onclick="document.location.href='/employee/<%= rental.getEmployee().getId() %>'"><%= rental.getEmployee().getName(); %></td>
+                                <td title="Voir la fiche de l'employé" onclick="document.location.href='/employee/<%= rental.getEmployee().getId() %>'"><%= rental.getEmployee().getName(); %></td>
                                 <td><%= rental.getStartingDate().toLocaleDateString(); %></td>
                                 <td><%= rental.getEndingDate().toLocaleDateString(); %></td>
                                 <td>
-                                    <button title="Supprimer de l'historique" onclick="removeRental(this, '<%= rental.getId() %>');">
-                                        <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
-                                    </button>
+                                    <% if (current_employee.isAdmin) { %>
+                                        <button title="Supprimer de l'historique" onclick="removeRental(this, '<%= rental.getId() %>');">
+                                            <img src="/public/icons/trash.png" alt="Icone de poubelle pour supprimer une réservation de l'historique"/>
+                                        </button>
+                                    <% } %>
                                 </td>
                             </tr>
                         <% } %>
@@ -121,6 +123,7 @@
     <script type="text/javascript">
 		// Set the structure of a toast
 		const toast_structure = `<%- include('../included/toast.ejs'); %>`;
+		const rentalsList = JSON.parse('<%- JSON.stringify(rentals) %>');
     </script>
     <script type="text/javascript" src="/public/scripts/Toast.js"></script>
     <script type="text/javascript" src="/public/scripts/Popup.js"></script>
