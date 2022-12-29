@@ -132,14 +132,6 @@ describe("Material", () => {
 
 			// Wrong value problem
 			it("Should not create the material with a wrong version value", (done) => {
-				assert.throws(() => {
-					new Material({
-						title: "Samsung galaxy s7",
-						version: "v245-87",
-						reference: "AN001",
-						phoneNumber: "0685557844"
-					});
-				}, Error, "The material is being created whith a version field containing non alphanumerical character");
 
 				assert.throws(() => {
 					new Material({
@@ -221,8 +213,26 @@ describe("Material", () => {
 					phoneNumber: "0685557844"
 				});
 
+				const mat3 = new Material({
+					title: "Samsung galaxy s7",
+					version: "V1-3",
+					reference: "AP150",
+					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
+					phoneNumber: "0685557844"
+				});
+
+				const mat4 = new Material({
+					title: "Samsung galaxy s7",
+					version: "V1.3",
+					reference: "AP150",
+					picture: "https://i.ytimg.com/vi/9XgYGNSXkLk/maxresdefault.png",
+					phoneNumber: "0685557844"
+				});
+
 				assert.equal(mat1.getVersion(), "V 10", "The version should be defined (contains a space)");
 				assert.equal(mat2.getVersion(), "IOS157", "The version should be defined (no spaces, letters and numbers)");
+				assert.equal(mat3.getVersion(), "V1-3", "The version should be defined (contains a - )");
+				assert.equal(mat4.getVersion(), "V1.3", "The version should be defined (contains a . )");
 
 				done();
 			});
