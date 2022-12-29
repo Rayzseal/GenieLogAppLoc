@@ -79,7 +79,7 @@ export class Rental {
 		if (typeof date === "string")
 			date = new Date(date);
 
-		if (date < new Date())
+		if (date.getTime() < new Date().setHours(1, 0, 0, 0))
 			throw new Error("You cannot create a rental starting in the past");
 
 		if (this.endingDate && date > this.endingDate)
@@ -92,7 +92,7 @@ export class Rental {
 		if (typeof date === "string")
 			date = new Date(date);
 
-		if (date < new Date())
+		if (date.getTime() < new Date().setHours(1, 0, 0, 0))
 			throw new Error("You cannot create a rental ending in the past");
 
 		if (this.startingDate && date < this.startingDate)
