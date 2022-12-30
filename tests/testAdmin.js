@@ -1,62 +1,181 @@
 const webdriver = require("selenium-webdriver");
 const assert       = require("assert").strict;
+const { Builder, By, Key } = require("selenium-webdriver");
+//var driver;
 
-var driver;
+describe("Home page", function () {
 
-describe('Display home page', function () {
+    it ("Verify title home page", async function() {
+        //open Chrome browser
+        let driver = await new webdriver.Builder().forBrowser("chrome").build();
+        try {
+            //open the website
+            await driver.get("http://localhost:3000");
 
-    beforeEach(function (done) {
+            //get the title of the page
+            let titlePage = await driver
+                .getTitle();
 
-        this.timeout(30000);
-        driver  = new webdriver.Builder().forBrowser('chrome').build();
-        driver.get('http://localhost:3000');
-        driver.getTitle().then(function(pageTitle) {
-            console.log("The title is " + pageTitle);
+            //assert that the title page's text is the same as the text "Page de connexion"
+            assert.equal(titlePage, "Page de connexion");
+        } finally {
+            //close the browser
+            await driver.quit();
+        }
+    });
+
+    it("Admin connection", async function () {
+        //open Chrome browser
+        let driver = await new webdriver.Builder().forBrowser("chrome").build();
+
+        try {
+            //open the website
+            await driver.get("http://localhost:3000");
+
+            //find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("OCB1234", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath('//*[@id="password"]'))
+                .sendKeys("Azertyuiop1234", Key.RETURN);
+
+
+            //find the input password box
+            let note = await driver
+                .findElement(By.xpath('//html/body/main/h6'))
+                .getText();
+
+
+
+            //assert that the title page's text is the same as the text "(ADMINISTRATEUR)"
+            assert.equal(note, "(ADMINISTRATEUR)");
+        } finally {
+            //close the browser
+            await driver.quit();
+        }
+    });
+
+    it("Simple user connection", async function () {
+        //open Chrome browser
+        let driver = await new webdriver.Builder().forBrowser("chrome").build();
+
+        try {
+            //open the website
+            await driver.get("http://localhost:3000");
+
+            //find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("JDZ5391", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath('//*[@id="password"]'))
+                .sendKeys("Azertyuiop1234", Key.RETURN);
+
+
+            //find the input password box
+            let note = await driver
+                .findElement(By.xpath('//html/body/main/h6'))
+                .getText();
+
+
+
+            //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
+            assert.equal(note, "(NON ADMINISTRATEUR)");
+        } finally {
+            //close the browser
+            await driver.quit();
+        }
+    });
+});
+
+describe("Admin home page", function () {
+    describe ("Employees", function() {
+
+        let driver
+
+        beforeEach( async  function() {
+            //open Chrome browser
+            driver = await new webdriver.Builder().forBrowser("chrome").build();
+
+
+            //open the website
+            await driver.get("http://localhost:3000");
+
+            //find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("OCB1234", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath('//*[@id="password"]'))
+                .sendKeys("Azertyuiop1234", Key.RETURN);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
         });
 
-       done();
-    });
-
-    afterEach(function (done) {
-       //driver.quit();
-       done();
-    });
-
-    it("I open the  website", function(done) {
-        driver.get("http:/localhost:3000");
-        done();
-    });
-
-    it("The title is 'Page de connexion'", function(done) {
-        // Since we want the title from the page, we need to manually handle the Promise
-        driver.getTitle().then(function(title) {
-            assert.equal(title, "Page de connexion");
-        });
-        done();
-    });
-
-    it('Test if tile page is corresponding to home page',function (done) {
-
-        driver.get("http://localhost:3000").then(function() {
-            return driver.findElement(By.id("matricule"));
-        }).then(function(u) {
-            return u.sendKeys("OCB1234");
-        }).then(function() {
-            return driver.findElement(By.id("password"));
-        }).then(function(p) {
-            return p.sendKeys("Azertyuiop1234");
-        }).then(function() {
-            return driver.findElement(By.id("loginButton"));
-        }).then(function(loginBtn) {
-            return loginBtn.click();
+        afterEach(async function ( ) {
+            await driver.quit();
         });
 
-        driver.getTitle().then(function(pageTitle) {
-            console.log("The title is " + pageTitle);
+        it("Number of employees", async function ( ) {
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
+            assert.equal(count,3);
+
         });
 
-       done();
+        it("Add a new employee", async function () {
+
+
+        });
+
+        it("Add an admin employee", async function () {
+
+
+        });
+
+
+        it("Modify an employee", async function () {
+
+
+        });
+
+        it("Modify an employee --> employee is now an admin", async function () {
+
+
+        });
+
+        it("Deleting an employee", async function () {
+
+
+        });
+
+        it("Deleting admin employee", async function () {
+
+
+        });
+
+        it("Deleting last admin employee", async function () {
+
+
+        });
+
     });
+    describe ("Materials", function() {
 
-
+    });
 });
