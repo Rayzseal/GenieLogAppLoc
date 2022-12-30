@@ -1,16 +1,34 @@
-const webdriver = require("selenium-webdriver");
-const assert       = require("assert").strict;
+const assert = require("assert").strict;
 const { Builder, By, Key } = require("selenium-webdriver");
+const { Database } = require("../lib/Database")
+const { copyFileSync } = require("fs");
+const { setTimeout } = require("timers/promises");
 //var driver;
 
 describe("Home page", function () {
+    // Setup server
+    before("Start the test server", async function () {
+        // HACK: Due to the way the server is made, there is no clean way to start a custom server for the tests.
+        //       But what we can do is to start the server while overriding some values, and hope that it works.
+        process.env.PORT = "5555";
 
-    it ("Verify title home page", async function() {
+        // Start server
+        require("../index")
+
+        // Override server database with the test one.
+        copyFileSync("tests/db_original.json", "tests/db.json");
+        global.database = Database.load("tests/db.json");
+
+        // Wait, to make "almost" sure that the socket is bound.
+        await setTimeout(1000);
+    })
+
+    it("Verify title home page", async function () {
         //open Chrome browser
-        let driver = await new webdriver.Builder().forBrowser("chrome").build();
+        let driver = await new Builder().forBrowser("chrome").build();
         try {
             //open the website
-            await driver.get("http://localhost:3000");
+            await driver.get("http://localhost:5555");
 
             //get the title of the page
             let titlePage = await driver
@@ -26,11 +44,11 @@ describe("Home page", function () {
 
     it("Admin connection", async function () {
         //open Chrome browser
-        let driver = await new webdriver.Builder().forBrowser("chrome").build();
+        let driver = await new Builder().forBrowser("chrome").build();
 
         try {
             //open the website
-            await driver.get("http://localhost:3000");
+            await driver.get("http://localhost:5555");
 
             //find the input matricule box
             await driver
@@ -60,11 +78,11 @@ describe("Home page", function () {
 
     it("Simple user connection", async function () {
         //open Chrome browser
-        let driver = await new webdriver.Builder().forBrowser("chrome").build();
+        let driver = await new Builder().forBrowser("chrome").build();
 
         try {
             //open the website
-            await driver.get("http://localhost:3000");
+            await driver.get("http://localhost:5555");
 
             //find the input matricule box
             await driver
@@ -94,17 +112,17 @@ describe("Home page", function () {
 });
 
 describe("Admin home page", function () {
-    describe ("Employees", function() {
+    describe("Employees", function () {
 
         let driver
 
-        beforeEach( async  function() {
+        beforeEach(async function () {
             //open Chrome browser
-            driver = await new webdriver.Builder().forBrowser("chrome").build();
+            driver = await new Builder().forBrowser("chrome").build();
 
 
             //open the website
-            await driver.get("http://localhost:3000");
+            await driver.get("http://localhost:5555");
 
             //find the input matricule box
             await driver
@@ -122,11 +140,11 @@ describe("Admin home page", function () {
 
         });
 
-        afterEach(async function ( ) {
+        afterEach(async function () {
             await driver.quit();
         });
 
-        it("Number of employees", async function ( ) {
+        it("Number of employees", async function () {
 
             let count = 0;
             count = await driver
@@ -134,7 +152,7 @@ describe("Admin home page", function () {
                 .then(elements => elements.length);
 
             //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
-            assert.equal(count,3);
+            assert.equal(count, 3);
 
         });
 
@@ -175,7 +193,12 @@ describe("Admin home page", function () {
         });
 
     });
-    describe ("Materials", function() {
+    describe("Materials", function () {
 
     });
+
+    this.afterAll(function () {
+        // Make sure that the server doesn't outlive tests.
+        global.serverHandle.close();
+    })
 });

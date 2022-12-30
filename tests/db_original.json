@@ -1,0 +1,185 @@
+{
+  "employees": [
+      {
+          "id": "17ae8655-0a1a-473c-9bfa-0cc4bf7cc997",
+          "name": "Jean-Charles",
+          "surname": "Martin",
+          "email": "jeancharles.martin@mail.com",
+          "personnalNumber": "123ABCD",
+          "isAdmin": false,
+          "password": "Zemodepasse123"
+      },
+      {
+          "id": "8a46c88e-c449-457d-a408-1b5ace7ff16e",
+          "name": "Sabrina",
+          "surname": "Durant",
+          "email": "sabrina.durant@mail.com",
+          "personnalNumber": "OCB1234",
+          "isAdmin": true,
+          "password": "c1f28f10235264c26d5b85ea011ef1e1b13a9add532049b9eafa2e415ca8fa88cd29bb0325f6aa8d75a4a006993fa1397b1bbd1579d6ae302fc17b4cc3b1632c"
+      },
+      {
+          "id": "a3e66e8e-7b90-48f8-8392-1afe8eed706f",
+          "name": "Robert",
+          "surname": "Richard",
+          "email": "robert.richard@mail.com",
+          "personnalNumber": "JDZ5391",
+          "isAdmin": false,
+          "password": "c1f28f10235264c26d5b85ea011ef1e1b13a9add532049b9eafa2e415ca8fa88cd29bb0325f6aa8d75a4a006993fa1397b1bbd1579d6ae302fc17b4cc3b1632c"
+      }
+  ],
+  "materials": [
+      {
+          "id": "9a37697c-b4ad-4d60-94b0-d14015f81da9",
+          "title": "Iphone 14",
+          "version": "V1.0",
+          "reference": "AP001",
+          "picture": "https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_SL1500_.jpg",
+          "phoneNumber": "0792846510"
+      },
+      {
+          "id": "4c70719c-98d5-4243-91c1-a7413df057e8",
+          "title": "Iphone 12",
+          "version": "V1.0",
+          "reference": "AP158",
+          "picture": "https://www.ecofone.fr/pub/media/catalog/product/cache/f520f9973cc1eb679da7901a7a50bed4/_/i/_image_ei124sble.jpg"
+      },
+      {
+          "id": "6da39360-9620-4e5c-9a57-4ac6408b7ec3",
+          "title": "IPhone 13",
+          "version": "V1.0",
+          "reference": "AP144",
+          "picture": "https://cdn.laredoute.com/products/1/2/7/127635ed4c326a7861ec3e2332b55aa5.jpg"
+      }
+  ],
+  "rentals": [
+      {
+          "id": "84a43708-349a-4eb7-a608-af5ec5e3c19f",
+          "employee": {
+              "id": "17ae8655-0a1a-473c-9bfa-0cc4bf7cc997",
+              "name": "Jean-Charles",
+              "surname": "Martin",
+              "email": "jeancharles.martin@mail.com",
+              "personnalNumber": "123ABCD",
+              "isAdmin": false,
+              "password": "Zemodepasse123"
+          },
+          "material": {
+              "id": "9a37697c-b4ad-4d60-94b0-d14015f81da9",
+              "title": "Iphone 14",
+              "version": "V1.0",
+              "reference": "AP001",
+              "picture": "https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_SL1500_.jpg",
+              "phoneNumber": "0792846510"
+          },
+          "startingDate": "2023-02-20T00:00:00.000Z",
+          "endingDate": "2023-03-24T00:00:00.000Z"
+      },
+      {
+          "id": "b5f4fa69-1038-4eb4-b116-4c3104c76cd3",
+          "employee": {
+              "id": "8a46c88e-c449-457d-a408-1b5ace7ff16e",
+              "name": "Sabrina",
+              "surname": "Durant",
+              "email": "sabrina.durant@mail.com",
+              "personnalNumber": "OCB1234",
+              "isAdmin": true,
+              "password": "c1f28f10235264c26d5b85ea011ef1e1b13a9add532049b9eafa2e415ca8fa88cd29bb0325f6aa8d75a4a006993fa1397b1bbd1579d6ae302fc17b4cc3b1632c"
+          },
+          "material": {
+              "id": "9a37697c-b4ad-4d60-94b0-d14015f81da9",
+              "title": "Iphone 14",
+              "version": "V1.0",
+              "reference": "AP001",
+              "picture": "https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_SL1500_.jpg",
+              "phoneNumber": "0792846510"
+          },
+          "startingDate": "2023-03-26T00:00:00.000Z",
+          "endingDate": "2023-04-26T23:00:00.000Z"
+      },
+      {
+          "id": "34831895-b2ac-475a-8ee5-b62043fb5892",
+          "employee": {
+              "id": "a3e66e8e-7b90-48f8-8392-1afe8eed706f",
+              "name": "Robert",
+              "surname": "Richard",
+              "email": "robert.richard@mail.com",
+              "personnalNumber": "JDZ5391",
+              "isAdmin": false,
+              "password": "c1f28f10235264c26d5b85ea011ef1e1b13a9add532049b9eafa2e415ca8fa88cd29bb0325f6aa8d75a4a006993fa1397b1bbd1579d6ae302fc17b4cc3b1632c"
+          },
+          "material": {
+              "id": "4c70719c-98d5-4243-91c1-a7413df057e8",
+              "title": "Iphone 12",
+              "version": "V1.0",
+              "reference": "AP158",
+              "picture": "https://www.ecofone.fr/pub/media/catalog/product/cache/f520f9973cc1eb679da7901a7a50bed4/_/i/_image_ei124sble.jpg"
+          },
+          "startingDate": "2023-04-19T23:00:00.000Z",
+          "endingDate": "2023-05-24T23:00:00.000Z"
+      },
+      {
+          "id": "d2efce8b-8079-4cb7-ad5d-5e7be6858432",
+          "employee": {
+              "id": "8a46c88e-c449-457d-a408-1b5ace7ff16e",
+              "name": "Sabrina",
+              "surname": "Durant",
+              "email": "sabrina.durant@mail.com",
+              "personnalNumber": "OCB1234",
+              "isAdmin": true,
+              "password": "c1f28f10235264c26d5b85ea011ef1e1b13a9add532049b9eafa2e415ca8fa88cd29bb0325f6aa8d75a4a006993fa1397b1bbd1579d6ae302fc17b4cc3b1632c"
+          },
+          "material": {
+              "id": "4c70719c-98d5-4243-91c1-a7413df057e8",
+              "title": "Iphone 12",
+              "version": "V1.0",
+              "reference": "AP158",
+              "picture": "https://www.ecofone.fr/pub/media/catalog/product/cache/f520f9973cc1eb679da7901a7a50bed4/_/i/_image_ei124sble.jpg"
+          },
+          "startingDate": "2023-03-01T00:00:00.000Z",
+          "endingDate": "2023-03-20T00:00:00.000Z"
+      },
+      {
+          "id": "25331c19-27f0-4775-badd-794425fe218c",
+          "employee": {
+              "id": "17ae8655-0a1a-473c-9bfa-0cc4bf7cc997",
+              "name": "Jean-Charles",
+              "surname": "Martin",
+              "email": "jeancharles.martin@mail.com",
+              "personnalNumber": "123ABCD",
+              "isAdmin": false,
+              "password": "Zemodepasse123"
+          },
+          "material": {
+              "id": "6da39360-9620-4e5c-9a57-4ac6408b7ec3",
+              "title": "IPhone 13",
+              "version": "V1.0",
+              "reference": "AP144",
+              "picture": "https://cdn.laredoute.com/products/1/2/7/127635ed4c326a7861ec3e2332b55aa5.jpg"
+          },
+          "startingDate": "2023-02-24T00:00:00.000Z",
+          "endingDate": "2023-03-01T00:00:00.000Z"
+      },
+      {
+          "id": "b8732652-cc25-473d-8e92-af1e6b39c613",
+          "employee": {
+              "id": "8a46c88e-c449-457d-a408-1b5ace7ff16e",
+              "name": "Sabrina",
+              "surname": "Durant",
+              "email": "sabrina.durant@mail.com",
+              "personnalNumber": "OCB1234",
+              "isAdmin": true,
+              "password": "c1f28f10235264c26d5b85ea011ef1e1b13a9add532049b9eafa2e415ca8fa88cd29bb0325f6aa8d75a4a006993fa1397b1bbd1579d6ae302fc17b4cc3b1632c"
+          },
+          "material": {
+              "id": "6da39360-9620-4e5c-9a57-4ac6408b7ec3",
+              "title": "IPhone 13",
+              "version": "V1.0",
+              "reference": "AP144",
+              "picture": "https://cdn.laredoute.com/products/1/2/7/127635ed4c326a7861ec3e2332b55aa5.jpg"
+          },
+          "startingDate": "2023-03-05T00:00:00.000Z",
+          "endingDate": "2023-03-20T00:00:00.000Z"
+      }
+  ]
+}
