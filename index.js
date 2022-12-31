@@ -5,7 +5,7 @@ const crypto       = require("crypto"); // Generate a session secret
 const router       = require("./routes"); // The application routes
 const { Employee } = require("./lib/Employee"); // Our classes
 
-const PORT                     = parseInt(process.env.PORT) ?? 3000;
+const PORT                     = parseInt(process.env.PORT ?? "3000")
 const app                      = express();
 const NO_LOGIN_REQUIRED_ROUTES = ["/", "/login"];
 const ADMIN_ONLY_ROUTES        = [

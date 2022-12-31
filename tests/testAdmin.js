@@ -158,37 +158,286 @@ describe("Admin home page", function () {
 
         it("Add a new employee", async function () {
 
+            //Go to create a new employee page
+            await driver
+                .findElement(By.xpath('//main/section/menu/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //find the input name box
+            await driver
+                .findElement(By.xpath('//*[@id="name"]'))
+                .sendKeys("Nicolas", Key.RETURN);
+
+            //find the input surname box
+            await driver
+                .findElement(By.xpath('//*[@id="surname"]'))
+                .sendKeys("Machin", Key.RETURN);
+
+            //find the input email box
+            await driver
+                .findElement(By.xpath('//*[@id="email"]'))
+                .sendKeys("nicole.machin@mail.com", Key.RETURN);
+
+            //find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("POIU426", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath('//*[@id="password"]'))
+                .sendKeys("Azertyuiop1234", Key.RETURN);
+
+            //Add a new employee
+            await driver
+                .findElement(By.xpath('//*[@id="save"]'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there is 4 employees
+            assert.equal(count,4);
+
 
         });
 
         it("Add an admin employee", async function () {
+            //Go to create a new employee page
+            await driver
+                .findElement(By.xpath('//main/section/menu/li[2]/button'))
+                .sendKeys("", Key.ENTER);
 
+            //find the input name box
+            await driver
+                .findElement(By.xpath('//*[@id="name"]'))
+                .sendKeys("Patrice", Key.RETURN);
+
+            //find the input surname box
+            await driver
+                .findElement(By.xpath('//*[@id="surname"]'))
+                .sendKeys("Truc", Key.RETURN);
+
+            //find the input email box
+            await driver
+                .findElement(By.xpath('//*[@id="email"]'))
+                .sendKeys("patrice.truc@mail.com", Key.RETURN);
+
+            //find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("PATU653", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath('//*[@id="password"]'))
+                .sendKeys("Azertyuiop1234", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath("//label[text()='Rôle sur la plateforme']")).click()
+
+            //Add a new employee
+            await driver
+                .findElement(By.xpath('//*[@id="save"]'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there are 5 employees
+            assert.equal(count,5);
 
         });
 
 
         it("Modify an employee", async function () {
 
+            //Click on the employee to modify
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on modify button
+            await driver
+                .findElement(By.xpath('//main/section/section/div/section/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .clear();
+
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("NEW6352", Key.RETURN);
+
+            //Modify the new employee
+            await driver
+                .findElement(By.xpath('//*[@id="save"]'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Get the text content of the employee's "matricule"
+            let text = await driver
+                .findElement(By.xpath('//html/body/main/section/section/div/ul/li[3]/p'))
+                .getText();
+
+
+            //assert that the title page's text is the same as the text "NEW6352"
+            assert.equal(text,"NEW6352");
 
         });
 
         it("Modify an employee --> employee is now an admin", async function () {
 
+            //Click on the employee to modify
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on modify button
+            await driver
+                .findElement(By.xpath('//main/section/section/div/section/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Change the role of the employee to admin
+            await driver
+                .findElement(By.xpath("//label[text()='Rôle sur la plateforme']")).click()
+
+            //Modify the new employee
+            await driver
+                .findElement(By.xpath('//*[@id="save"]'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Get the text -- should be equal to 'administrateur'
+            let text = await driver
+                .findElement(By.xpath('//html/body/main/section/section/div/ul/li[2]/p'))
+                .getText();
+
+
+            //assert that the title page's text is the same as the text "Administrateur"
+            assert.equal(text,"Administrateur");
 
         });
 
         it("Deleting an employee", async function () {
 
+            //Click on the employee to delete
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on delete button
+            await driver
+                .findElement(By.xpath('//main/section/section/div/section/ul/li[3]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on confirm button
+            await driver
+                .findElement(By.xpath('//body/div/div/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there is 4 employees
+            assert.equal(count,4);
 
         });
 
         it("Deleting admin employee", async function () {
 
+            //Click on the employee to delete
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on delete button
+            await driver
+                .findElement(By.xpath('//main/section/section/div/section/ul/li[3]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on confirm button
+            await driver
+                .findElement(By.xpath('//body/div/div/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there is 3 employees
+            assert.equal(count,3);
 
         });
 
         it("Deleting last admin employee", async function () {
 
+            //Click on the employee to delete
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[2]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on delete button
+            await driver
+                .findElement(By.xpath('//main/section/section/div/section/ul/li[3]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on confirm button
+            await driver
+                .findElement(By.xpath('//body/div/div/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there is 3 employees -- Since it's the last admin, it should not be deleted, so we should still has 3 employees as before
+            assert.equal(count,3);
 
         });
 
