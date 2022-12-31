@@ -151,7 +151,7 @@ describe("Admin home page", function () {
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
+            //assert that the number of employees is equal to 3.
             assert.equal(count, 3);
 
         });
@@ -443,6 +443,128 @@ describe("Admin home page", function () {
 
     });
     describe("Materials", function () {
+        let driver
+
+        beforeEach(async function () {
+            //open Chrome browser
+            driver = await new Builder().forBrowser("chrome").build();
+
+
+            //open the website
+            await driver.get("http://localhost:5555");
+
+            //find the input matricule box
+            await driver
+                .findElement(By.xpath('//*[@id="matricule"]'))
+                .sendKeys("OCB1234", Key.RETURN);
+
+            //find the input password box
+            await driver
+                .findElement(By.xpath('//*[@id="password"]'))
+                .sendKeys("Azertyuiop1234", Key.RETURN);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[2]/a'))
+                .sendKeys("", Key.ENTER);
+
+        });
+
+        afterEach(async function () {
+            await driver.quit();
+        });
+
+        it("Number of material", async function () {
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
+            assert.equal(count, 3);
+        });
+
+        it("Adding a material", async function () {
+
+            //Go to create a new material page
+            await driver
+                .findElement(By.xpath('//main/section/menu/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //find the input title box
+            await driver
+                .findElement(By.xpath('//*[@id="title"]'))
+                .sendKeys("Iphone10", Key.RETURN);
+
+            //find the input version box
+            await driver
+                .findElement(By.xpath('//*[@id="version"]'))
+                .sendKeys("V1.0", Key.RETURN);
+
+            //find the input image box
+            await driver
+                .findElement(By.xpath('//*[@id="image"]'))
+                .sendKeys("https://www.shutterstock.com/image-photo/new-york-usa-may-302018-260nw-1105180928.jpg", Key.RETURN);
+
+            //find the input reference box
+            await driver
+                .findElement(By.xpath('//*[@id="reference"]'))
+                .sendKeys("AP004", Key.RETURN);
+
+            //find the input phone number box
+            await driver
+                .findElement(By.xpath('//*[@id="phoneNumber"]'))
+                .sendKeys("0299765387", Key.RETURN);
+
+            //Add a new material
+            await driver
+                .findElement(By.xpath('//*[@id="save"]'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[2]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there is 4 materials
+            assert.equal(count,4);
+
+        });
+
+        it("Deleting a material", async function () {
+
+            //Click on the material to delete
+            await driver
+                .findElement(By.xpath('//main/section/ul/li[4]/div[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on delete button
+            await driver
+                .findElement(By.xpath('//main/section/section/div/section/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            //Click on confirm button
+            await driver
+                .findElement(By.xpath('//body/div/div/ul/li[2]/button'))
+                .sendKeys("", Key.ENTER);
+
+            await driver
+                .findElement(By.xpath('//html/body/header/menu/li[2]/a'))
+                .sendKeys("", Key.ENTER);
+
+            let count = 0;
+            count = await driver
+                .findElements(By.xpath('//html/body/main/section/ul/li'))
+                .then(elements => elements.length);
+
+            //assert that there is 3 materials
+            assert.equal(count,3);
+
+        });
 
     });
 
