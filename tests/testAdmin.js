@@ -4,8 +4,8 @@ const { Database }         = require("../lib/Database");
 const { copyFileSync }     = require("fs");
 const { setTimeout }       = require("timers/promises");
 
-// const TEST_BROWSER = "chrome";
-const TEST_BROWSER = "firefox";
+ const TEST_BROWSER = "chrome";
+//const TEST_BROWSER = "firefox";
 
 describe("Selenium tests", () => {
 	describe("Home page", function () {
