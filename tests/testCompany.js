@@ -372,7 +372,7 @@ describe("Company", () => {
 			});
 
 			it("Deleting employees, materials & rents (active)", (done) => {
-                const today = new Date(new Date().setHours(1, 0, 0, 0));
+				const today = new Date(new Date().setHours(1, 0, 0, 0));
 
 				const mat1 = new Material({
 					title: "Samsung galaxy s7",
