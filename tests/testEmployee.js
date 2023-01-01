@@ -83,20 +83,6 @@ describe("Employee", () => {
 				done();
 			});
 
-			it("Should not create an employee with an incorrect type of name", (done) => {
-				const emp1 = new Employee({
-					name: 41,
-					surname: "Martin",
-					email: "nicolas.martin@mail.com",
-					password: "Azertyuiop1234",
-					personnalNumber: "ABCD123"
-				});
-
-				assert.equal(typeof emp1.getName(), "number", "The name must be a of type number.");
-
-				done();
-			});
-
 			it("Should throw an error : employee with an incorrect name (format)", (done) => {
 				assert.throws(() => {
 					new Employee({
@@ -120,13 +106,23 @@ describe("Employee", () => {
 
 				assert.throws(() => {
 					new Employee({
+						name: "1234",
+						surname: "Martin",
+						email: "nicolas.martin@mail.com",
+						password: "Azertyuiop1234",
+						personnalNumber: "ABCD123"
+					});
+				}, Error, "The employee is being created with an incorrect format of name (contains only numbers)");
+
+				assert.throws(() => {
+					new Employee({
 						name: " ",
 						surname: "Martin",
 						email: "nicolas.martin@mail.com",
 						password: "Azertyuiop1234",
 						personnalNumber: "ABCD123"
 					});
-				}, Error, "The employee is being created with an incorrect format of name");
+				}, Error, "The employee is being created with an incorrect format of name (only spaces)");
 
 				done();
 			});
@@ -205,20 +201,6 @@ describe("Employee", () => {
 				done();
 			});
 
-			it("Should not create an employee with an incorrect type of name", (done) => {
-				const emp1 = new Employee({
-					name: "Nicolas",
-					surname: 41,
-					email: "nicolas.martin@mail.com",
-					password: "Azertyuiop1234",
-					personnalNumber: "ABCD123"
-				});
-
-				assert.equal(typeof emp1.getSurname(), "number", "The surname must be a of type number.");
-
-				done();
-			});
-
 			it("Should throw an error : employee with an incorrect surname (format)", (done) => {
 				assert.throws(() => {
 					new Employee({
@@ -238,7 +220,17 @@ describe("Employee", () => {
 						password: "Azertyuiop1234",
 						personnalNumber: "ABCD123"
 					});
-				}, Error, "The employee is being created with an incorrect format of surname");
+				}, Error, "The employee is being created with an incorrect format of surname (empty surname)");
+
+				assert.throws(() => {
+					new Employee({
+						name: "Nicolas",
+						surname: "1234",
+						email: "nicolas.martin@mail.com",
+						password: "Azertyuiop1234",
+						personnalNumber: "ABCD123"
+					});
+				}, Error, "The employee is being created with an incorrect format of surname (composed only of numbers)");
 
 				assert.throws(() => {
 					new Employee({
@@ -248,7 +240,7 @@ describe("Employee", () => {
 						password: "Azertyuiop1234",
 						personnalNumber: "ABCD123"
 					});
-				}, Error, "The employee is being created with an incorrect format of surname");
+				}, Error, "The employee is being created with an incorrect format of surname (only spaces)");
 
 				done();
 			});

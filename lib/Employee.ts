@@ -104,6 +104,9 @@ export class Employee {
 		if (/^(\s+)?$/.test(name))
 			throw new Error("Name is empty");
 
+		if (/^(\d)+$/.test(name))
+			throw new Error("Name can not be composed of just numbers");
+
 		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(name))
 			this.name = name;
 		else
@@ -117,6 +120,9 @@ export class Employee {
 	public setSurname(surname: string) {
 		if (/^(\s+)?$/.test(surname))
 			throw new Error("Surname is empty");
+
+		if (/^(\d)+$/.test(surname))
+			throw new Error("Surname can not be composed of just numbers");
 
 		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(surname))
 			this.surname = surname;

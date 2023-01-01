@@ -3,9 +3,9 @@ const { Builder, By, Key } = require("selenium-webdriver");
 const { Database } = require("../lib/Database")
 const { copyFileSync } = require("fs");
 const { setTimeout } = require("timers/promises");
-//var driver;
 
 describe("Home page", function () {
+    this.timeout(10000);
     // Setup server
     before("Start the test server", async function () {
         // HACK: Due to the way the server is made, there is no clean way to start a custom server for the tests.
@@ -24,6 +24,7 @@ describe("Home page", function () {
     })
 
     it("Verify title home page", async function () {
+
         //open Chrome browser
         let driver = await new Builder().forBrowser("chrome").build();
         try {
@@ -37,7 +38,7 @@ describe("Home page", function () {
             //assert that the title page's text is the same as the text "Page de connexion"
             assert.equal(titlePage, "Page de connexion");
         } finally {
-            //close the browser
+            //closes the browser
             await driver.quit();
         }
     });
@@ -71,7 +72,7 @@ describe("Home page", function () {
             //assert that the title page's text is the same as the text "(ADMINISTRATEUR)"
             assert.equal(note, "(ADMINISTRATEUR)");
         } finally {
-            //close the browser
+            //closes the browser
             await driver.quit();
         }
     });
@@ -105,7 +106,7 @@ describe("Home page", function () {
             //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
             assert.equal(note, "(NON ADMINISTRATEUR)");
         } finally {
-            //close the browser
+            //closes the browser
             await driver.quit();
         }
     });
@@ -146,6 +147,7 @@ describe("Admin home page", function () {
 
         it("Number of employees", async function () {
 
+            //count employees
             let count = 0;
             count = await driver
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
@@ -197,12 +199,13 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
                 .sendKeys("", Key.ENTER);
 
+            //count the number of employees
             let count = 0;
             count = await driver
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that there is 4 employees
+            //assert that there are 4 employees
             assert.equal(count,4);
 
 
@@ -252,6 +255,7 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
                 .sendKeys("", Key.ENTER);
 
+            //count the number of employees
             let count = 0;
             count = await driver
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
@@ -369,12 +373,13 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
                 .sendKeys("", Key.ENTER);
 
+            //count the number of employees
             let count = 0;
             count = await driver
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that there is 4 employees
+            //assert that there are 4 employees
             assert.equal(count,4);
 
         });
@@ -400,12 +405,13 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
                 .sendKeys("", Key.ENTER);
 
+            //count the number of employees
             let count = 0;
             count = await driver
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that there is 3 employees
+            //assert that there are 3 employees
             assert.equal(count,3);
 
         });
@@ -431,20 +437,23 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//html/body/header/menu/li[3]/a'))
                 .sendKeys("", Key.ENTER);
 
+            //count the number of employees
             let count = 0;
             count = await driver
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that there is 3 employees -- Since it's the last admin, it should not be deleted, so we should still has 3 employees as before
+            //assert that there are 3 employees -- Since it's the last admin, it should not be deleted, so we should still have 3 employees as before
             assert.equal(count,3);
 
         });
 
     });
     describe("Materials", function () {
-        let driver
+        let driver;
 
+
+        //open a Chrome web browser before each test, go to the material section
         beforeEach(async function () {
             //open Chrome browser
             driver = await new Builder().forBrowser("chrome").build();
@@ -469,6 +478,7 @@ describe("Admin home page", function () {
 
         });
 
+        //closes the driver (chrome) after each test
         afterEach(async function () {
             await driver.quit();
         });
@@ -480,7 +490,7 @@ describe("Admin home page", function () {
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that the title page's text is the same as the text "(NON ADMINISTRATEUR)"
+            //assert that there are 3 materials
             assert.equal(count, 3);
         });
 
@@ -521,6 +531,7 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//*[@id="save"]'))
                 .sendKeys("", Key.ENTER);
 
+            //count the number of elements
             await driver
                 .findElement(By.xpath('//html/body/header/menu/li[2]/a'))
                 .sendKeys("", Key.ENTER);
@@ -530,7 +541,7 @@ describe("Admin home page", function () {
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that there is 4 materials
+            //assert that there are 4 materials
             assert.equal(count,4);
 
         });
@@ -552,6 +563,7 @@ describe("Admin home page", function () {
                 .findElement(By.xpath('//body/div/div/ul/li[2]/button'))
                 .sendKeys("", Key.ENTER);
 
+            //Count the new number of materials
             await driver
                 .findElement(By.xpath('//html/body/header/menu/li[2]/a'))
                 .sendKeys("", Key.ENTER);
@@ -561,7 +573,7 @@ describe("Admin home page", function () {
                 .findElements(By.xpath('//html/body/main/section/ul/li'))
                 .then(elements => elements.length);
 
-            //assert that there is 3 materials
+            //assert that there are 3 materials
             assert.equal(count,3);
 
         });
