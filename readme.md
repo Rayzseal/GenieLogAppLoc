@@ -42,7 +42,7 @@ Depuis la racine, voici l'organisation du projet suivant un modèle MVC (modèle
 - `package.json` Fichier contenant tous les modules dont l'application a besoin afin de fonctionner. 
 
 
-### Comment lancer le projet
+### Comment lancer le projet et se connecter
 Vous pouvez lancer ce projet sous Windows tout comme sous Linux.
 Pour cela, il faut posséder une version de Node.js v17.0.1 ou supérieur.
 Une fois Node.js installé, le gestionnaire de paquets `npm` associé à Node.js doit être installé par défaut.
@@ -57,4 +57,14 @@ node index.js
 
 # Pour lancer les tests
 npm run test 
+```
+
+Une fois l'application lancée, un compte administrateur est à votre disposition pour faire des tests :
+Matricule : 1234567
+Mot de passe : SuperPassword123
+
+Si vous rencontrez un problème de compte, vous pouvez utiliser le mode de test de l'application qui vous permet d'utiliser un compte administrateur automatiquement.
+Pour cela, vous devez ajouter un fichier nommé `.env` à la racine du projet et y placer le contenu suivant :
+```dotenv
+REQUIRE_LOGIN=false
 ```
