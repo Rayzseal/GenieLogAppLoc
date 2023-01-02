@@ -35,6 +35,7 @@ Depuis la racine, voici l'organisation du projet suivant un modèle MVC (modèle
 - `routes/` Dossier contenant les fonctions exécutées par le serveur en fonction de chaque route (url) de l'application sur laquelle se rend une personne via l'interace web.
 - `tests/` Dossier contenant tous les fichiers Javascripts permettant l'exécution des tests sur les classes que nous avons créées, mais aussi sur l'interface web grâce à selenium.
 - `tests/report/` Dossier contenant le rapport de test au format html.
+- `translations/` Dossier contenant les traductions des messages d'erreurs pour les langues Français et Anglais.
 - `views/` Dossier contenant les diffférentes vues correspondantes à différentes routes de l'application.
 - `db.jdon` Fichier contenant les données de l'application de façon persistante de sorte que les données utilisées par l'application ne soient pas perdues une fois celle-ci fermée.
 - `index.js` Fichier principal de l'application permettant le lancement du serveur et ainsi le fonctionnement des routes web.

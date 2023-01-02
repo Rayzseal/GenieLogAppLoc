@@ -2,8 +2,8 @@ import {Employee} from "./Employee";
 import {Material} from "./Material";
 import {dateInInterval} from './utils';
 import {randomUUID} from "crypto";
-import frMsg from "../errorMessagesTranslations/fr.json";
-import * as enMsg from "../errorMessagesTranslations/en.json";
+import frMsg from "../translations/fr.json";
+import * as enMsg from "../translations/en.json";
 const err = frMsg;
 
 
