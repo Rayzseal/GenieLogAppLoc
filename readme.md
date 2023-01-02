@@ -25,8 +25,8 @@ Pour que l'affichage soit agréable à observer et à utiliser, nous avons inté
 De même, pour rendre l'utilisation de nos pages dynamique et ne pas avoit à recharger la page courante à chaque utilisation d'un bouton, nous avons intégré des scripts "Javacript" dans les pages.
 ##### Tests
 Pour s'assurer du bon fonctionnement de notre application, nous avons utilisé les méthodes fournits par le paquet "assert" de base de Node.js.
-À cela, nous avons rajouté l'utilisation du paquet "Mocka" qui nous permet de tester nos classes, structures de données.
-En ce qui concerne le test de nos interfaces, nous nous sommes tournés vers le paquet "Sélémnium".
+À cela, nous avons rajouté l'utilisation du paquet "Mocha" qui nous permet de tester nos classes, structures de données.
+En ce qui concerne le test de nos interfaces, nous nous sommes tournés vers le paquet "Sélénium".
 
 ### Organisation du projet
 Depuis la racine, voici l'organisation du projet suivant un modèle MVC (modèles, vues, controlleurs):
@@ -35,13 +35,14 @@ Depuis la racine, voici l'organisation du projet suivant un modèle MVC (modèle
 - `routes/` Dossier contenant les fonctions exécutées par le serveur en fonction de chaque route (url) de l'application sur laquelle se rend une personne via l'interace web.
 - `tests/` Dossier contenant tous les fichiers Javascripts permettant l'exécution des tests sur les classes que nous avons créées, mais aussi sur l'interface web grâce à selenium.
 - `tests/report/` Dossier contenant le rapport de test au format html.
+- `translations/` Dossier contenant les traductions des messages d'erreurs pour les langues Français et Anglais.
 - `views/` Dossier contenant les diffférentes vues correspondantes à différentes routes de l'application.
 - `db.jdon` Fichier contenant les données de l'application de façon persistante de sorte que les données utilisées par l'application ne soient pas perdues une fois celle-ci fermée.
 - `index.js` Fichier principal de l'application permettant le lancement du serveur et ainsi le fonctionnement des routes web.
 - `package.json` Fichier contenant tous les modules dont l'application a besoin afin de fonctionner. 
 
 
-### Comment lancer le projet
+### Comment lancer le projet et se connecter
 Vous pouvez lancer ce projet sous Windows tout comme sous Linux.
 Pour cela, il faut posséder une version de Node.js v17.0.1 ou supérieur.
 Une fois Node.js installé, le gestionnaire de paquets `npm` associé à Node.js doit être installé par défaut.
@@ -56,4 +57,14 @@ node index.js
 
 # Pour lancer les tests
 npm run test 
+```
+
+Une fois l'application lancée, un compte administrateur est à votre disposition pour faire des tests :
+Matricule : 1234567
+Mot de passe : SuperPassword123
+
+Si vous rencontrez un problème de compte, vous pouvez utiliser le mode de test de l'application qui vous permet d'utiliser un compte administrateur automatiquement.
+Pour cela, vous devez ajouter un fichier nommé `.env` à la racine du projet et y placer le contenu suivant :
+```dotenv
+REQUIRE_LOGIN=false
 ```

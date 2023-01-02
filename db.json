@@ -1,0 +1,30 @@
+{
+    "employees": [
+        {
+            "id": "ece47b82-695a-49c1-be7d-4d5cf10318a6",
+            "name": "Jonathan",
+            "surname": "Drisant",
+            "email": "super@mail.com",
+            "personnalNumber": "1234567",
+            "isAdmin": true,
+            "password": "9a15d63a478832b4c139a9a8ac1fb8cb0db570e08265a71458a3aa748cd60b34ceb6584673a0acc5cf3286371da90c069ce975113406c16ebb7a561d34ecb50b"
+        }
+    ],
+    "materials": [
+        {
+            "id": "c8b40216-2aa1-40a8-bcea-0dd46e8dd77f",
+            "title": "IPhone 11",
+            "version": "Professionelle",
+            "reference": "AN150",
+            "picture": "https://cell4pets.com/wp-content/uploads/2020/10/20201027_173759_resized-e1603836095404-600x750.jpg"
+        },
+        {
+            "id": "573e2635-bf50-47e1-b8d0-3e353e6e26b4",
+            "title": "Iphone 16",
+            "version": "Basique",
+            "reference": "AN149",
+            "picture": "https://electronics360.globalspec.com/images/assets/732/7732/Image_1.jpg"
+        }
+    ],
+    "rentals": []
+}
