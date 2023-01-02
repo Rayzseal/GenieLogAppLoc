@@ -25,8 +25,8 @@ Pour que l'affichage soit agréable à observer et à utiliser, nous avons inté
 De même, pour rendre l'utilisation de nos pages dynamique et ne pas avoit à recharger la page courante à chaque utilisation d'un bouton, nous avons intégré des scripts "Javacript" dans les pages.
 ##### Tests
 Pour s'assurer du bon fonctionnement de notre application, nous avons utilisé les méthodes fournits par le paquet "assert" de base de Node.js.
-À cela, nous avons rajouté l'utilisation du paquet "Mocka" qui nous permet de tester nos classes, structures de données.
-En ce qui concerne le test de nos interfaces, nous nous sommes tournés vers le paquet "Sélémnium".
+À cela, nous avons rajouté l'utilisation du paquet "Mocha" qui nous permet de tester nos classes, structures de données.
+En ce qui concerne le test de nos interfaces, nous nous sommes tournés vers le paquet "Sélénium".
 
 ### Organisation du projet
 Depuis la racine, voici l'organisation du projet suivant un modèle MVC (modèles, vues, controlleurs):
