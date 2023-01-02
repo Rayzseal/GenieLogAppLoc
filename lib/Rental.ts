@@ -2,6 +2,10 @@ import {Employee} from "./Employee";
 import {Material} from "./Material";
 import {dateInInterval} from './utils';
 import {randomUUID} from "crypto";
+import frMsg from "../errorMessagesTranslations/fr.json";
+import * as enMsg from "../errorMessagesTranslations/en.json";
+const err = frMsg;
+
 
 export class Rental {
 	private readonly id: string;
@@ -80,10 +84,10 @@ export class Rental {
 			date = new Date(date);
 
 		if (date.getTime() < new Date().setHours(1, 0, 0, 0))
-			throw new Error("You cannot create a rental starting in the past");
+			throw new Error(err.rental_st_past);
 
 		if (this.endingDate && date > this.endingDate)
-			throw new Error("Starting date should occurs before ending date");
+			throw new Error(err.rental_stbfen);
 
 		this.startingDate = date;
 	}
@@ -93,10 +97,10 @@ export class Rental {
 			date = new Date(date);
 
 		if (date.getTime() < new Date().setHours(1, 0, 0, 0))
-			throw new Error("You cannot create a rental ending in the past");
+			throw new Error(err.rental_en_past);
 
 		if (this.startingDate && date < this.startingDate)
-			throw new Error("Ending date should occurs after begin date");
+			throw new Error(err.rental_enafst);
 
 		this.endingDate = date;
 	}

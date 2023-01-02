@@ -1,5 +1,8 @@
 import {randomUUID} from 'crypto'
 import {isUUIDFormat} from "./utils";
+import frMsg from "../errorMessagesTranslations/fr.json";
+import * as enMsg from "../errorMessagesTranslations/en.json";
+const err = frMsg;
 
 const fieldsSize = {
 	title: {min: 1, max: 30},
@@ -100,15 +103,15 @@ export class Material {
 	public setTitle(title: string = "") {
 		title = title.trim();
 		if (!title || title === "")
-			throw new Error("Title should not be empty");
+			throw new Error(err.material_title_empty);
 
 		if (title.length < fieldsSize.title.min || title.length > fieldsSize.title.max)
-			throw new Error(`Title field length is not between ${fieldsSize.title.min} and ${fieldsSize.title.max} characters : size is ${title.length}`);
+			throw new Error(err.material_title_size+`${title.length}`);
 
 		if (!new RegExp(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g).test(title))
 			this.title = title;
 		else
-			throw new Error("Title is not alphanumeric");
+			throw new Error(err.material_title_format);
 	}
 
 	/**
@@ -118,15 +121,15 @@ export class Material {
 	public setVersion(version: string = "") {
 		version = version.trim();
 		if (!version || version === "")
-			throw new Error("Version should not be empty");
+			throw new Error(err.material_version_empty);
 
 		if (version.length < fieldsSize.version.min || version.length > fieldsSize.version.max)
-			throw new Error(`Version field length is not between ${fieldsSize.version.min} and ${fieldsSize.version.max} characters : size is ${version.length}`);
+			throw new Error(err.material_version_size+`${version.length}`);
 
 		if (!new RegExp(/[^a-zA-Z\d\s:.\-\u00C0-\u00FF]/g).test(version))
 			this.version = version;
 		else
-			throw new Error("Version is not alphanumeric");
+			throw new Error(err.material_version_format);
 	}
 
 	/**
@@ -136,12 +139,12 @@ export class Material {
 	public setReference(reference: string = "") {
 		reference = reference.trim();
 		if (reference.length !== fieldsSize.reference)
-			throw new Error(`"Reference" field size is different from ${fieldsSize.reference} : current size is ${reference.length}`);
+			throw new Error(err.material_reference_size+`${reference.length}`);
 
 			if (/^(AN|AP|XX)(\d){3}$/.test(reference))
 			this.reference = reference;
 		else
-			throw new Error("Reference should start by either AN for android or AP for apple or XX for other and end with 3 numbers");
+			throw new Error(err.material_reference_format);
 	}
 
 	/**
@@ -156,7 +159,7 @@ export class Material {
 		if (new RegExp('^(http://|https://)[A-Za-z0-9-_./]*(\.jpg|\.png)$').test(picture))
 			this.picture = picture;
 		else
-			throw new Error("A link should begin with either http:// or https:// and finish .jpg or .png");
+			throw new Error(err.material_picture_format);
 	}
 
 	/**
@@ -169,12 +172,12 @@ export class Material {
 
 		phoneNumber = phoneNumber.trim();
 		if (phoneNumber.length !== fieldsSize.phoneNumber)
-			throw new Error(`Phone number field size is different of ${fieldsSize.phoneNumber} : size is ${phoneNumber.length}`);
+			throw new Error(err.material_phoneNumber_size);
 
 		if (/^[0-9]/.test(phoneNumber))
 			this.phoneNumber = phoneNumber;
 		else
-			throw new Error(`PhoneNumber should only contains ${fieldsSize.phoneNumber} numbers`);
+			throw new Error(err.material_phoneNumber_size);
 	}
 
 	/**

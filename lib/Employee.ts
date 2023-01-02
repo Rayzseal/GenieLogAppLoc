@@ -1,5 +1,8 @@
 import crypto from "crypto";
 import {isUUIDFormat} from "./utils";
+import frMsg from "../errorMessagesTranslations/fr.json";
+import * as enMsg from "../errorMessagesTranslations/en.json";
+const err = frMsg;
 
 /**
  * Class to create an employee.
@@ -102,15 +105,15 @@ export class Employee {
 	 */
 	public setName(name: string) {
 		if (/^(\s+)?$/.test(name))
-			throw new Error("Name is empty");
+			throw new Error(err.employee_name_empty);
 
 		if (/^(\d)+$/.test(name))
-			throw new Error("Name can not be composed of just numbers");
+			throw new Error(err.employee_name_numbers);
 
 		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(name))
 			this.name = name;
 		else
-			throw new Error("Name is not alphanumeric (accentuation authorized)");
+			throw new Error(err.employee_name_format);
 	}
 
 	/**
@@ -119,15 +122,15 @@ export class Employee {
 	 */
 	public setSurname(surname: string) {
 		if (/^(\s+)?$/.test(surname))
-			throw new Error("Surname is empty");
+			throw new Error(err.employee_surname_empty);
 
 		if (/^(\d)+$/.test(surname))
-			throw new Error("Surname can not be composed of just numbers");
+			throw new Error(err.employee_surname_numbers);
 
 		if (/^[A-Za-z0-9À-ÿ -]{1,30}$/.test(surname))
 			this.surname = surname;
 		else
-			throw new Error("Surname is not alphanumeric (accentuation authorized)");
+			throw new Error(err.employee_surname_format);
 	}
 
 	/**
@@ -138,7 +141,7 @@ export class Employee {
 		if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password))
 			this.password = this.hashPassword(password);
 		else
-			throw new Error("Password should contains at least 8 characters with one uppercase letter, one lowercase letter and one number.");
+			throw new Error(err.employee_password_format);
 
 	}
 
@@ -150,7 +153,7 @@ export class Employee {
 		if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
 			this.email = email;
 		else
-			throw new Error("Email is incorrect.");
+			throw new Error(err.employee_email_format);
 	}
 
 	/**
@@ -169,7 +172,7 @@ export class Employee {
 		if (/^[a-zA-Z0-9]{7}$/.test(personnalNumber))
 			this.personnalNumber = personnalNumber;
 		else
-			throw new Error("Personnal number is not alphanumeric or 7 characters long. : " + personnalNumber);
+			throw new Error(err.employee_PersoNb_format + personnalNumber);
 	}
 
 	/**

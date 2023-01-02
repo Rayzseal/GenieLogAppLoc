@@ -1,6 +1,9 @@
 import {Employee} from "./Employee";
 import {Material} from "./Material";
 import {Rental} from "./Rental";
+import frMsg from "../errorMessagesTranslations/fr.json";
+import * as enMsg from "../errorMessagesTranslations/en.json";
+const err = frMsg;
 
 import {dateInInterval} from "./utils"
 
@@ -59,13 +62,13 @@ export class Company {
 	 */
 	addEmployee(employee: Employee) {
 		if (this.employees.find((emp: Employee) => emp.getId() === employee.getId()))
-			throw new Error("This employee is already in the company.");
+			throw new Error(err.company_employee_twice);
 
 		if (this.employees.find((emp: Employee) => emp.getEmail() === employee.getEmail()))
-			throw new Error("This employee has not a unique email : another employee in the company already has this email.");
+			throw new Error(err.company_unique_email);
 
 		if (this.employees.find((emp: Employee) => emp.getPersonnalNumber() === employee.getPersonnalNumber()))
-			throw new Error("This employee has not a unique personnal number : another employee in the company already has this personnal number (matricule).");
+			throw new Error(err.company_unique_persoNb);
 
 		this.employees.push(employee);
 	}
@@ -86,7 +89,7 @@ export class Company {
 	removeEmployee(employee: Employee, force: boolean = false) {
 		// Can't remove employee with an active rental.
 		if (!force && this.hasActiveRental(employee)) {
-			throw new Error("Can't delete the employe while a rental is active");
+			throw new Error(err.company_delete_employee);
 		}
 
 		this.removeEmployeeCascade(employee);
@@ -128,10 +131,10 @@ export class Company {
 			return;
 
 		if (this.materials.find((mat: Material) => mat.getId() === material.getId()))
-			throw new Error("This material is already in the company.");
+			throw new Error(err.company_material_twice);
 
 		if (this.materials.find((mat: Material) => mat.getReference() === material.getReference()))
-			throw new Error("This material has not a unique reference : another material in the company already has this reference.");
+			throw new Error(err.company_material_reference);
 
 		this.materials.push(material);
 	}
@@ -155,7 +158,7 @@ export class Company {
 	 */
 	removeMaterial(material: Material, force: boolean = false) {
 		if (this.hasActiveRental(material) && !force)
-			throw new Error("Can't remove material with an active location.");
+			throw new Error(err.company_delete_material);
 
 		this.removeMaterialCascade(material);
 	}
@@ -205,10 +208,10 @@ export class Company {
 	 */
 	addRental(rental: Rental) {
 		if (!this.employees.find(e => rental.getEmployee() == e))
-			throw new Error("Employee doesn't exist in database");
+			throw new Error(err.company_rental_employee);
 
 		if (!this.materials.find(m => rental.getMaterial() == m))
-			throw new Error("Material doesn't exist in database");
+			throw new Error(err.company_rental_material);
 
 		/**
 		 * - The given starting date of rent in argument is not already during the period of rent for the same material of another rent.
@@ -222,7 +225,7 @@ export class Company {
 					|| (dateInInterval(rental.getEndingDate(), r.getStartingDate(), r.getEndingDate()))
 					|| (dateInInterval(r.getStartingDate(), rental.getStartingDate(), rental.getEndingDate()))
 					|| (dateInInterval(r.getEndingDate(), rental.getStartingDate(), rental.getEndingDate())))
-					throw new Error(`This material is already rented from ${r.getStartingDate().toLocaleDateString()} to ${r.getEndingDate().toLocaleDateString()} (#${r.getId()})`);
+					throw new Error(err.company_rental_rented+` ${r.getStartingDate().toLocaleDateString()}`+"to"+`${r.getEndingDate().toLocaleDateString()} (#${r.getId()})`);
 			}
 		});
 
@@ -240,7 +243,7 @@ export class Company {
 			return ;
 
 		if (rental.isActive() && !force)
-			throw new Error("This rental cannot be removed because it is still ongoing");
+			throw new Error(err.company_delete_rental);
 
 		this.rentals = this.rentals.filter(r => r.getId() !== rental.getId());
 	}
@@ -273,7 +276,7 @@ export class Company {
 			) != undefined;
 
 		} else {
-			throw new Error("Invalid type used for referee");
+			throw new Error(err.company_type);
 		}
 	}
 
