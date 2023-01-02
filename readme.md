@@ -14,7 +14,7 @@ Pour mettre en place ce projet, nous avons fait plusieurs choix techniques list�
 
 ##### Langage
 Nous nous sommes tournés vers le langage de développement "Javascript" car l'utilsiation de ce dernier est majoritairement orientée web.
-##### Server / Back-end
+##### Serveur / Back-end
 Afin de construire une architecture client/serveur en Javascript, nous nous sommes tournés vers "Node.js" et son estionnaire de paquets "npm".
 Ainsi, nous avons contruit notre serveur grâce à la librairie "Express.js".
 Les données sont sauvegardées dans un fichier "JSON" qui sont ensuites lues et instanciées dans des classes écrites en "Typescript" qui est compilé pour fomrer des fichiers "Javascript".
