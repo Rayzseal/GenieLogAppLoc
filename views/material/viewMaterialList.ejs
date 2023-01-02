@@ -17,7 +17,7 @@
                         <!-- TODO: Filtrage -->
                         <label>
                             Filtrer
-                            <input type="text" placeholder="Dell">
+                            <input id="filter_input" type="text" placeholder="Dell">
                         </label>
                     </li>
                     <li>
@@ -40,7 +40,7 @@
                                 <img src="<%= material.getPicture() ?? "/public/icons/no_image.png" %>" alt="Image de l'appareil"/>
                             </div>
                             <div>
-                                <p><%= material.getTitle() %></p>
+                                <p class="material_title"><%= material.getTitle() %></p>
                                 <p><%= material.getVersion() %></p>
                                 <button title="Voir les détails de ce matériel" onclick="window.location.href=`/material/<%= material.getId() %>/`">Consulter</button>
                             </div>
@@ -50,4 +50,5 @@
             </section>
         </main>
     </body>
+    <script type="text/javascript" src="/public/scripts/material/filterMaterial.js"></script>
 </html>
